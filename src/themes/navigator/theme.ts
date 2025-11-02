@@ -2,6 +2,7 @@ import { DarkTheme, DefaultTheme } from "@react-navigation/native";
 import { colors } from "../colors/colors";
 import { fonts } from "../fonts/fonts";
 import { CustomNavigationTypes } from "./nav-types";
+import { darkTheme, lightTheme } from "../elements/theme";
 
 export const DarkNavigatorTheme: CustomNavigationTypes = {
   ...DarkTheme,
@@ -9,7 +10,10 @@ export const DarkNavigatorTheme: CustomNavigationTypes = {
     ...DarkTheme.colors,
     // El color principal de la aplicación se usa para dar color a varios elementos.
     // Normalmente, querrás usar el color de tu marca para esto.
-    primary: colors.dark.highlight, // (Color de ícono y texto del Tab activo)
+    primary: darkTheme.darkColors?.secondary
+      ? darkTheme.darkColors.secondary
+      : colors.dark.highlight,
+    // primary: colors.dark.highlight, // (Color de ícono y texto del Tab activo)
     // El color de diversos fondos, como el color de fondo de las pantallas.
     background: colors.dark.background, // (Color del background no configurado en la screen)
     // El color de fondo de los elementos tipo tarjeta, como encabezados, barras de pestañas, etc.
@@ -34,7 +38,10 @@ export const LightNavigatorTheme: CustomNavigationTypes = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: colors.light.highlight,
+    primary: lightTheme.lightColors?.secondary
+      ? lightTheme.lightColors.secondary
+      : colors.dark.highlight,
+    // primary: colors.light.highlight,
     background: colors.light.background,
     card: colors.light.background,
     text: colors.light.text,

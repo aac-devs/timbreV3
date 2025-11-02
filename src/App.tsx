@@ -8,6 +8,8 @@ import {
   LightNavigatorTheme,
 } from "./themes/navigator/theme";
 import { lightTheme, darkTheme } from "./themes/elements/theme";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
   const scheme = useColorScheme();
@@ -19,13 +21,16 @@ export default function App() {
   }, [scheme]);
 
   return (
-    <ThemeProvider theme={tema}>
-      <NavigationContainer
-        theme={scheme === "dark" ? DarkNavigatorTheme : LightNavigatorTheme}
-      >
-        <Root />
-      </NavigationContainer>
-    </ThemeProvider>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ThemeProvider theme={tema}>
+        <NavigationContainer
+          theme={scheme === "dark" ? DarkNavigatorTheme : LightNavigatorTheme}
+        >
+          <Root />
+          <StatusBar style={scheme === "dark" ? "light" : "dark"} />
+        </NavigationContainer>
+      </ThemeProvider>
+    </SafeAreaView>
   );
 }
 

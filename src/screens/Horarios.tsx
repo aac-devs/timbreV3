@@ -1,78 +1,209 @@
 import {
+  Badge,
   Button,
   CheckBox,
   Icon,
   ListItem,
   makeStyles,
+  Tab,
+  TabView,
   Text,
   useTheme,
-  useThemeMode,
 } from "@rneui/themed";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { Background } from "../components/Background";
+import { WeekDays } from "../components/WeekDays";
+import { Divider } from "@rneui/themed";
+import { AddHorarioDial } from "../components/AddHorarioDial";
+import DateTimePicker, {
+  DateTimePickerEvent,
+} from "@react-native-community/datetimepicker";
+import { fontWeights } from "../themes/fonts/fonts";
+
+//! ORGANIZAR CÓDIGO, SEPARAR EN COMPONENTES.
+//! BADGES EN TABS DE HORARIOS.
+//! FUNCIONALIDAD A BOTONES DE AGREGAR HORAS (DATETIMEPICKER).
+//! TARJETA DE HORA SWIPEABLE CON BOTÓN DE ELIMINAR.
+//! COMPLETAR (DEFINIR) LISTA DE BOTTOMSHEET, A LO MEJOR PONER 'GUARDAR EN TELÉFONO'
+//! DIVIDIR EN CARPETAS LOS ARCHIVOS RELACIONADOS A UN COMPONENTE**
 
 export const Horarios = () => {
-  const styles = useStyles();
   const { theme } = useTheme();
-  const { mode } = useThemeMode();
+  const [index, setIndex] = useState(0);
 
-  useEffect(() => {
-    console.log("En Horarios:");
-    console.log(theme.mode);
-    console.log(mode);
-    // if (theme.mode === "dark") {
-    //   setMode("dark");
-    // } else {
-    //   setMode("light");
-    // }
-  }, [mode]);
+  // Estado para la hora con tipo Date (solo usamos la parte de la hora)
+  const [selectedTime, setSelectedTime] = useState<Date>(
+    new Date(1598051730000)
+  );
 
+  // Estado para mostrar/ocultar el time picker
+  const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
+
+  const styles = useStyles();
+
+  // Función cuando se cambia la hora
+  const onTimeChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
+    // Cerramos el picker siempre
+    setShowTimePicker(false);
+
+    // Si hay una fecha/hora seleccionada, actualizamos el estado
+    if (selectedDate) {
+      setSelectedTime(selectedDate);
+    }
+  };
+
+  // Función para mostrar el selector de hora
+  const showTimepicker = () => {
+    setShowTimePicker(true);
+  };
+
+  // Función para formatear la hora como string
+  const formatTime = (date: Date): string => {
+    return date.toLocaleTimeString("es-Ar", {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
+  };
+
+  console.log("hola");
   return (
-    <Background>
-      <ScrollView>
-        <ListItem.Swipeable
-          leftContent={(reset) => (
-            <Button
-              title="Editar"
-              onPress={() => reset()}
-              icon={{ name: "edit", color: "white", type: "font-awesome" }}
-              buttonStyle={{ minHeight: "100%" }}
-            />
-          )}
-          rightContent={(reset) => (
-            <Button
-              title="Borrar"
-              onPress={() => reset()}
-              icon={{ name: "delete-outline", color: "white" }}
-              buttonStyle={{
-                minHeight: "100%",
-                backgroundColor: theme.colors.error,
-              }}
-            />
-          )}
-          bottomDivider
+    <>
+      <Tab
+        value={index}
+        onChange={(e) => setIndex(e)}
+        indicatorStyle={{
+          backgroundColor: theme.colors.secondary,
+          height: 4,
+        }}
+        variant="primary"
+      >
+        <Tab.Item
+          // titleStyle={{ fontSize: 12, color: theme.colors.grey2 }}
+          icon={{
+            name: "calendar-range-outline",
+            type: "material-community",
+            color: theme.colors.grey2,
+          }}
         >
-          <Icon name="chevron-left" />
-          <CheckBox
-            checked
-            // disabled
-            // checked={isChecked}
-            // onPress={() => setIsChecked(!isChecked)}
-            textStyle={{ backgroundColor: "pink" }}
+          <Badge
+            status="success"
+            containerStyle={{ position: "absolute", top: 10, left: 70 }}
           />
-          <ListItem.Content>
-            <ListItem.Title style={{ color: theme.colors.black }}>
-              PRINCIPAL
-            </ListItem.Title>
-            <ListItem.Subtitle style={{ color: theme.colors.grey3 }}>
-              No guardado en dispositivo
-            </ListItem.Subtitle>
-          </ListItem.Content>
-          <Icon name="chevron-right" />
-        </ListItem.Swipeable>
-      </ScrollView>
-    </Background>
+          <Text
+            style={{
+              fontSize: 12,
+              color: theme.colors.grey2,
+              fontWeight: fontWeights.heavy,
+            }}
+          >
+            Regular
+          </Text>
+        </Tab.Item>
+        <Tab.Item
+          // title="Académico"
+          // titleStyle={{ fontSize: 12, color: theme.colors.grey2 }}
+          icon={{
+            name: "bullseye-arrow",
+            type: "material-community",
+            color: theme.colors.grey2,
+          }}
+        >
+          <Badge
+            status="success"
+            containerStyle={{ position: "absolute", top: 10, left: 70 }}
+          />
+          <Text
+            style={{
+              fontSize: 12,
+              color: theme.colors.grey2,
+              fontWeight: fontWeights.heavy,
+            }}
+          >
+            Académico
+          </Text>
+        </Tab.Item>
+        <Tab.Item
+          // title="Eventual"
+          // titleStyle={{ fontSize: 12, color: theme.colors.grey2 }}
+          icon={{
+            name: "exclamation-triangle",
+            type: "font-awesome",
+            color: theme.colors.grey2,
+          }}
+        >
+          <Badge
+            status="success"
+            containerStyle={{ position: "absolute", top: 10, left: 70 }}
+          />
+          <Text
+            style={{
+              fontSize: 12,
+              color: theme.colors.grey2,
+              fontWeight: fontWeights.heavy,
+            }}
+          >
+            Eventual
+          </Text>
+        </Tab.Item>
+      </Tab>
+
+      <TabView value={index} onChange={setIndex} animationType="spring">
+        <TabView.Item style={{ width: "100%" }}>
+          <Background>
+            {/* <CheckBox
+              checked
+              checkedColor={theme.colors.secondary}
+              title="Horario activo"
+              containerStyle={{ backgroundColor: "transparent" }}
+            /> */}
+            <WeekDays />
+            <Divider />
+            <Button onPress={showTimepicker} title="Seleccionar Hora" />
+
+            <Text style={styles.selectedTime}>
+              Hora seleccionada: {formatTime(selectedTime)}
+            </Text>
+          </Background>
+        </TabView.Item>
+        <TabView.Item style={{ width: "100%" }}>
+          <Background>
+            <CheckBox
+              checked={false}
+              checkedColor={theme.colors.secondary}
+              title="Horario no activo"
+              containerStyle={{ backgroundColor: "transparent" }}
+            />
+            <WeekDays />
+            <Divider />
+          </Background>
+        </TabView.Item>
+        <TabView.Item style={{ width: "100%" }}>
+          <Background>
+            <CheckBox
+              checked={false}
+              checkedColor={theme.colors.secondary}
+              title="Horario no activo"
+              containerStyle={{ backgroundColor: "transparent" }}
+            />
+            <WeekDays />
+            <Divider />
+          </Background>
+        </TabView.Item>
+      </TabView>
+      <AddHorarioDial />
+      {showTimePicker && (
+        <DateTimePicker
+          testID="timePicker"
+          value={selectedTime}
+          mode="time"
+          is24Hour={true}
+          onChange={onTimeChange}
+          display="spinner" // Puedes cambiar a "default" o "clock"
+        />
+      )}
+    </>
   );
 };
 
@@ -85,5 +216,14 @@ const useStyles = makeStyles((theme) => ({
   },
   text: {
     color: theme.colors.primary,
+  },
+  content: {
+    alignItems: "center",
+    padding: 20,
+  },
+  selectedTime: {
+    marginTop: 20,
+    fontSize: 18,
+    fontWeight: "bold",
   },
 }));

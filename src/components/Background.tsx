@@ -21,7 +21,7 @@ export const Background = ({ children }: Props) => {
         gradientColors?.medium ? gradientColors.medium : "#1a161aff",
         gradientColors?.low ? gradientColors.low : "#231c22ff",
       ]}
-      style={{ flex: 1 }}
+      style={{ flex: 1, alignItems: "stretch", padding: 10 }}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
     >

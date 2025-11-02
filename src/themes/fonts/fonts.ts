@@ -1,6 +1,6 @@
 import { Platform } from "react-native";
 
-const fontWeights = {
+export const fontWeights = {
   regular: "400" as const,
   medium: "500" as const,
   bold: "600" as const,
