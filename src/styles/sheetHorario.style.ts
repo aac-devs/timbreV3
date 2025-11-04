@@ -1,11 +1,5 @@
 export const containerSheetStyle = {
-  guardar: {
-    backgroundColor: "#fff",
-  },
-  registrar: {
-    backgroundColor: "#fff",
-  },
-  conectar: {
+  accion: {
     backgroundColor: "#fff",
   },
   cancelar: {
@@ -14,13 +8,7 @@ export const containerSheetStyle = {
 };
 
 export const titleSheetStyle = {
-  guardar: {
-    color: "#222",
-  },
-  registrar: {
-    color: "#222",
-  },
-  conectar: {
+  accion: {
     color: "#222",
   },
   cancelar: {

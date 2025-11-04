@@ -18,18 +18,21 @@ export const BottomSheetHorarios = ({ isVisible, onOptionSelected }: Props) => {
     <BottomSheet isVisible={isVisible} modalProps={{}}>
       {list &&
         list.map((item: HorarioSheetProps) => {
-          return (
-            <HorarioSheetItem
-              key={item.title}
-              containerStyle={item.containerStyle}
-              title={item.title}
-              titleStyle={item.titleStyle}
-              iconName={item.iconName}
-              iconType={item.iconType}
-              iconColor={item.iconColor}
-              onPress={() => onOptionSelected(item.title)}
-            />
-          );
+          if (item.visible) {
+            return (
+              <HorarioSheetItem
+                enabled={true}
+                key={item.title}
+                containerStyle={item.containerStyle}
+                title={item.title}
+                titleStyle={item.titleStyle}
+                iconName={item.iconName}
+                iconType={item.iconType}
+                iconColor={item.iconColor}
+                onPress={() => onOptionSelected(item.title)}
+              />
+            );
+          }
         })}
     </BottomSheet>
   );

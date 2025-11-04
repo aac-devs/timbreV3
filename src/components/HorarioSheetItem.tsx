@@ -4,6 +4,7 @@ import { HexColor } from "../themes/navigator/nav-types";
 
 export type SheetProps = {
   title: string;
+  enabled: boolean;
   onPress: () => void;
   titleStyle: {};
   containerStyle: {};
@@ -14,6 +15,7 @@ export type SheetProps = {
 
 export const HorarioSheetItem = ({
   title,
+  enabled,
   onPress,
   titleStyle,
   containerStyle,

@@ -13,6 +13,7 @@ export const WeekDays = () => {
         justifyContent: "center",
         alignSelf: "center",
         gap: 5,
+        paddingTop: 10,
         // marginBottom: 10,
         // backgroundColor: "pink",
       }}

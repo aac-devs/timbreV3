@@ -21,16 +21,16 @@ export default function App() {
   }, [scheme]);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <ThemeProvider theme={tema}>
-        <NavigationContainer
-          theme={scheme === "dark" ? DarkNavigatorTheme : LightNavigatorTheme}
-        >
-          <Root />
-          <StatusBar style={scheme === "dark" ? "light" : "dark"} />
-        </NavigationContainer>
-      </ThemeProvider>
-    </SafeAreaView>
+    // <SafeAreaView style={{ flex: 1 }}>
+    <ThemeProvider theme={tema}>
+      <NavigationContainer
+        theme={scheme === "dark" ? DarkNavigatorTheme : LightNavigatorTheme}
+      >
+        <Root />
+        <StatusBar style={scheme === "dark" ? "light" : "dark"} />
+      </NavigationContainer>
+    </ThemeProvider>
+    // </SafeAreaView>
   );
 }
 

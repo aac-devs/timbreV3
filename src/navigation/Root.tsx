@@ -14,6 +14,7 @@ import { Button, Icon, useTheme } from "@rneui/themed";
 import { BottomSheetHorarios } from "../components/BottomSheetHorarios";
 import { useState } from "react";
 import { View } from "react-native";
+import { Badge, Text } from "@react-navigation/elements";
 
 const RootTabs = createBottomTabNavigator();
 
@@ -36,7 +37,7 @@ export const Root = () => {
               return (
                 <MaterialCommunityIcons
                   name="list-box-outline"
-                  size={26}
+                  size={28}
                   color={color}
                 />
               );
@@ -44,25 +45,22 @@ export const Root = () => {
               return (
                 <MaterialCommunityIcons
                   name="bell-ring-outline"
-                  size={26}
+                  size={28}
                   color={color}
                 />
               );
             } else if (route.name === "Reloj") {
-              return <FontAwesome6 name="clock" size={24} color={color} />;
+              return <FontAwesome6 name="clock" size={26} color={color} />;
             } else if (route.name === "Bateria") {
               return (
-                <Ionicons name="battery-charging" size={26} color={color} />
+                <Ionicons name="battery-charging" size={28} color={color} />
               );
             }
           },
           headerTitleStyle: {
             fontSize: 22,
           },
-          tabBarIconStyle: {
-            marginBottom: 10,
-          },
-          tabBarShowLabel: false,
+          tabBarShowLabel: true,
           headerShown: true,
         })}
       >
@@ -70,6 +68,25 @@ export const Root = () => {
           name="Horarios"
           component={Horarios}
           options={{
+            headerBackground: () => (
+              <View
+                style={{
+                  // backgroundColor: "pink",
+                  height: "100%",
+                  width: "60%",
+                  justifyContent: "flex-end",
+                  alignItems: "flex-end",
+                  alignSelf: "center",
+                  flexDirection: "row",
+                  gap: 20,
+                  paddingBottom: 10,
+                }}
+              >
+                {/* //! themificar estos íconos, estados también */}
+                <Icon name="app-registration" size={30} color="orangered" />
+                <Icon name="bluetooth" size={30} color="#555" />
+              </View>
+            ),
             headerRight: () => (
               <Button
                 onPress={() =>
