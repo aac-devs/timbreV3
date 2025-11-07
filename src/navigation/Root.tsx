@@ -14,13 +14,13 @@ import { Button, Icon, useTheme } from "@rneui/themed";
 import { BottomSheetHorarios } from "../components/BottomSheetHorarios";
 import { useState } from "react";
 import { View } from "react-native";
-import { Badge, Text } from "@react-navigation/elements";
 
 const RootTabs = createBottomTabNavigator();
 
 export const Root = () => {
   const { theme } = useTheme();
   const [showBottomSheetHorarios, setShowBottomSheetHorarios] = useState(false);
+  const aacTitle: string = "Estoy enviando algo... AAC";
 
   const handleBottomSheetOptionSelected = (opt: string) => {
     setShowBottomSheetHorarios(false);

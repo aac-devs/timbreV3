@@ -13,7 +13,7 @@ import {
 import { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 import { Background } from "../components/Background";
-import { WeekDays } from "../components/WeekDays";
+import { BGDiasSemana } from "../components/BGDiasSemana/BGDiasSemana";
 import { Divider } from "@rneui/themed";
 import { AddHorarioDial } from "../components/AddHorarioDial";
 import DateTimePicker, {
@@ -158,7 +158,7 @@ export const Horarios = () => {
               title="Horario activo"
               containerStyle={{ backgroundColor: "transparent" }}
             /> */}
-            <WeekDays />
+            <BGDiasSemana />
             <Divider />
             <Button onPress={showTimepicker} title="Seleccionar Hora" />
 
@@ -175,7 +175,7 @@ export const Horarios = () => {
               title="Horario no activo"
               containerStyle={{ backgroundColor: "transparent" }}
             />
-            <WeekDays />
+            <BGDiasSemana />
             <Divider />
           </Background>
         </TabView.Item>
@@ -187,7 +187,7 @@ export const Horarios = () => {
               title="Horario no activo"
               containerStyle={{ backgroundColor: "transparent" }}
             />
-            <WeekDays />
+            <BGDiasSemana />
             <Divider />
           </Background>
         </TabView.Item>
