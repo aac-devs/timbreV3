@@ -20,6 +20,9 @@ import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import { fontWeights } from "../themes/fonts/fonts";
+import { useNavigation } from "@react-navigation/native";
+import { useDynamicData } from "../store/dynamic.state";
+import { DiasSemana, TipoHorario } from "../store/dynamic.interface";
 
 //! ORGANIZAR CÓDIGO, SEPARAR EN COMPONENTES.
 //! BADGES EN TABS DE HORARIOS.
@@ -29,8 +32,15 @@ import { fontWeights } from "../themes/fonts/fonts";
 //! DIVIDIR EN CARPETAS LOS ARCHIVOS RELACIONADOS A UN COMPONENTE**
 
 export const Horarios = () => {
+  const navigation = useNavigation();
   const { theme } = useTheme();
   const [index, setIndex] = useState(0);
+  const { leerDiasSemana, state } = useDynamicData();
+
+  useEffect(() => {
+    const dias: DiasSemana = leerDiasSemana("regular");
+    console.log({ dias });
+  }, []);
 
   // Estado para la hora con tipo Date (solo usamos la parte de la hora)
   const [selectedTime, setSelectedTime] = useState<Date>(
@@ -67,14 +77,24 @@ export const Horarios = () => {
     });
   };
 
+  const handleDiasSemana = (
+    horario: TipoHorario,
+    dia: string,
+    newState: boolean
+  ) => {
+    console.log({ horario, dia, newState });
+  };
+
   console.log("hola");
   return (
     <>
       <Tab
         value={index}
         onChange={(e) => setIndex(e)}
+        // style={{ backgroundColor: "pink" }}
         indicatorStyle={{
           backgroundColor: theme.colors.secondary,
+          // backgroundColor: "cyan",
           height: 4,
         }}
         variant="primary"
@@ -104,6 +124,7 @@ export const Horarios = () => {
         <Tab.Item
           // title="Académico"
           // titleStyle={{ fontSize: 12, color: theme.colors.grey2 }}
+          // style={{ backgroundColor: "yellow" }}
           icon={{
             name: "bullseye-arrow",
             type: "material-community",
@@ -121,7 +142,7 @@ export const Horarios = () => {
               fontWeight: fontWeights.heavy,
             }}
           >
-            Académico
+            Auxiliar
           </Text>
         </Tab.Item>
         <Tab.Item
@@ -158,7 +179,11 @@ export const Horarios = () => {
               title="Horario activo"
               containerStyle={{ backgroundColor: "transparent" }}
             /> */}
-            <BGDiasSemana />
+            <BGDiasSemana
+              horario="regular"
+              state={state.datos.horarios.regular.dias}
+              onChange={handleDiasSemana}
+            />
             <Divider />
             <Button onPress={showTimepicker} title="Seleccionar Hora" />
 
@@ -175,7 +200,7 @@ export const Horarios = () => {
               title="Horario no activo"
               containerStyle={{ backgroundColor: "transparent" }}
             />
-            <BGDiasSemana />
+            {/* <BGDiasSemana /> */}
             <Divider />
           </Background>
         </TabView.Item>
@@ -187,7 +212,7 @@ export const Horarios = () => {
               title="Horario no activo"
               containerStyle={{ backgroundColor: "transparent" }}
             />
-            <BGDiasSemana />
+            {/* <BGDiasSemana /> */}
             <Divider />
           </Background>
         </TabView.Item>

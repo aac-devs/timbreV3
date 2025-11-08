@@ -1,14 +1,10 @@
+import { DiasSemana, TipoHorario } from "../../store/dynamic.interface";
+
 export interface BGDiasSemanaProps {
-  title: string;
-  onChange: (day: string, newState: boolean) => void;
-  daysState: {
-    sunday: boolean;
-    monday: boolean;
-    tuesday: boolean;
-    wednesday: boolean;
-    thursday: boolean;
-    friday: boolean;
-    saturday: boolean;
-  };
-  daysLabels: string[];
+  // title: string;
+  state: DiasSemana;
+  horario: TipoHorario;
+  onChange: (horario: TipoHorario, dia: string, newState: boolean) => void;
+  // daysState: DiasSemana;
+  // daysLabels: string[];
 }

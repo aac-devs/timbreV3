@@ -9,7 +9,8 @@ import {
 } from "./themes/navigator/theme";
 import { lightTheme, darkTheme } from "./themes/elements/theme";
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { NativeRoot } from "./navigation/NativeRoot";
 
 export default function App() {
   const scheme = useColorScheme();
@@ -21,16 +22,17 @@ export default function App() {
   }, [scheme]);
 
   return (
-    // <SafeAreaView style={{ flex: 1 }}>
-    <ThemeProvider theme={tema}>
-      <NavigationContainer
-        theme={scheme === "dark" ? DarkNavigatorTheme : LightNavigatorTheme}
-      >
-        <Root />
-        <StatusBar style={scheme === "dark" ? "light" : "dark"} />
-      </NavigationContainer>
-    </ThemeProvider>
-    // </SafeAreaView>
+    <SafeAreaProvider style={{ flex: 1 }}>
+      <ThemeProvider theme={tema}>
+        <NavigationContainer
+          theme={scheme === "dark" ? DarkNavigatorTheme : LightNavigatorTheme}
+        >
+          {/* <Root /> */}
+          <NativeRoot />
+        </NavigationContainer>
+      </ThemeProvider>
+      <StatusBar style={scheme === "dark" ? "light" : "dark"} />
+    </SafeAreaProvider>
   );
 }
 

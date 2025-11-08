@@ -16,6 +16,7 @@ export const AddHorarioDial = () => {
       onClose={() => setOpen(!open)}
       overlayColor="rgba(0,0,0,0.5)"
       color={theme.colors.secondary}
+      style={{ bottom: "8%" }}
     >
       <SpeedDial.Action
         title="Entrada"
