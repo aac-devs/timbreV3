@@ -12,7 +12,6 @@ export const Background = ({ children }: Props) => {
     colors: { gradientColors },
   }: CustomNavigationTypes = useTheme();
 
-  console.log(gradientColors);
   return (
     <LinearGradient
       // colors={["#14191cff", "#242e33ff", "#445862ff"]}

@@ -1,15 +1,12 @@
-import { useTheme } from "@rneui/themed";
 import { StyleProp, TextStyle, ViewStyle } from "react-native";
+
+import { useTheme } from "@rneui/themed";
+
 import { fontWeights } from "../../themes/fonts/fonts";
-// import { diasSemanaInitialState } from "./BGDiasSemana.state";
 import { BGDiasSemanaStyles } from "./BGDiasSemana.styles.phone";
 
-export const useBGDiasSemana = () => {
+export const useColorFontBGDiasSemana = () => {
   const { theme } = useTheme();
-
-  // * Valores iniciales
-  // const title = diasSemanaInitialState.title;
-  // const buttonLabels: string[] = diasSemanaInitialState.daysLabels;
 
   // * Estilos del Componente General
   const mainContainerStyles = BGDiasSemanaStyles.container;
@@ -28,9 +25,7 @@ export const useBGDiasSemana = () => {
   };
 
   return {
-    // title,
     mainContainerStyles,
-    // buttonLabels,
     selectedButtonStyle,
     buttonStyle,
     selectedTextStyle,

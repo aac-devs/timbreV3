@@ -1,3 +1,5 @@
+import { DiaSemanaProps } from "./functions/diasSemana";
+
 export enum DiaSemanaNumero {
   domingo = 0,
   lunes = 1,
@@ -7,16 +9,6 @@ export enum DiaSemanaNumero {
   viernes = 5,
   sabado = 6,
 }
-
-export type DiasSemana = {
-  domingo: boolean;
-  lunes: boolean;
-  martes: boolean;
-  miercoles: boolean;
-  jueves: boolean;
-  viernes: boolean;
-  sabado: boolean;
-};
 
 type TipoTimbre = "entrada" | "clase" | "descanso" | "salida";
 export type TipoHorario = "regular" | "especial" | "eventual";
@@ -37,7 +29,7 @@ type EventoTimbre = { tipo: TipoTimbre; hora: TipoHora };
 type HorarioProps = {
   guardado: boolean;
   enviado: boolean;
-  dias: DiasSemana;
+  dias: number[];
   horaTimbre: EventoTimbre[];
 };
 
@@ -68,7 +60,19 @@ interface DeviceStatus {
   registered: boolean;
 }
 
-export interface DynamicData {
-  datos: DatosTimbre;
-  device: DeviceStatus;
+// * Tipo de estado:
+export interface GlobalAppState {
+  globalState: {
+    datos: DatosTimbre;
+    device: DeviceStatus;
+  };
 }
+
+// * Tipo de acciones:
+interface GlobalAppActions extends GlobalAppState {
+  // getGlobalState: () => GlobalAppState;
+  leerDiasSemana: (horario: TipoHorario) => number[];
+  actualizarDiaSemana: ({ horario, newValue }: DiaSemanaProps) => void;
+}
+
+export type GlobalAppStore = GlobalAppState & GlobalAppActions;

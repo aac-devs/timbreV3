@@ -1,16 +1,13 @@
 import {
   Badge,
   Button,
-  CheckBox,
-  Icon,
-  ListItem,
   makeStyles,
   Tab,
   TabView,
   Text,
   useTheme,
 } from "@rneui/themed";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ScrollView, View } from "react-native";
 import { Background } from "../components/Background";
 import { BGDiasSemana } from "../components/BGDiasSemana/BGDiasSemana";
@@ -20,9 +17,6 @@ import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import { fontWeights } from "../themes/fonts/fonts";
-import { useNavigation } from "@react-navigation/native";
-import { useDynamicData } from "../store/dynamic.state";
-import { DiasSemana, TipoHorario } from "../store/dynamic.interface";
 
 //! ORGANIZAR CÓDIGO, SEPARAR EN COMPONENTES.
 //! BADGES EN TABS DE HORARIOS.
@@ -32,15 +26,8 @@ import { DiasSemana, TipoHorario } from "../store/dynamic.interface";
 //! DIVIDIR EN CARPETAS LOS ARCHIVOS RELACIONADOS A UN COMPONENTE**
 
 export const Horarios = () => {
-  const navigation = useNavigation();
   const { theme } = useTheme();
   const [index, setIndex] = useState(0);
-  const { leerDiasSemana, state } = useDynamicData();
-
-  useEffect(() => {
-    const dias: DiasSemana = leerDiasSemana("regular");
-    console.log({ dias });
-  }, []);
 
   // Estado para la hora con tipo Date (solo usamos la parte de la hora)
   const [selectedTime, setSelectedTime] = useState<Date>(
@@ -77,15 +64,7 @@ export const Horarios = () => {
     });
   };
 
-  const handleDiasSemana = (
-    horario: TipoHorario,
-    dia: string,
-    newState: boolean
-  ) => {
-    console.log({ horario, dia, newState });
-  };
-
-  console.log("hola");
+  console.log("holaaaaa");
   return (
     <>
       <Tab
@@ -100,7 +79,6 @@ export const Horarios = () => {
         variant="primary"
       >
         <Tab.Item
-          // titleStyle={{ fontSize: 12, color: theme.colors.grey2 }}
           icon={{
             name: "calendar-range-outline",
             type: "material-community",
@@ -122,9 +100,6 @@ export const Horarios = () => {
           </Text>
         </Tab.Item>
         <Tab.Item
-          // title="Académico"
-          // titleStyle={{ fontSize: 12, color: theme.colors.grey2 }}
-          // style={{ backgroundColor: "yellow" }}
           icon={{
             name: "bullseye-arrow",
             type: "material-community",
@@ -146,8 +121,6 @@ export const Horarios = () => {
           </Text>
         </Tab.Item>
         <Tab.Item
-          // title="Eventual"
-          // titleStyle={{ fontSize: 12, color: theme.colors.grey2 }}
           icon={{
             name: "exclamation-triangle",
             type: "font-awesome",
@@ -173,20 +146,9 @@ export const Horarios = () => {
       <TabView value={index} onChange={setIndex} animationType="spring">
         <TabView.Item style={{ width: "100%" }}>
           <Background>
-            {/* <CheckBox
-              checked
-              checkedColor={theme.colors.secondary}
-              title="Horario activo"
-              containerStyle={{ backgroundColor: "transparent" }}
-            /> */}
-            <BGDiasSemana
-              horario="regular"
-              state={state.datos.horarios.regular.dias}
-              onChange={handleDiasSemana}
-            />
+            <BGDiasSemana horario="regular" />
             <Divider />
             <Button onPress={showTimepicker} title="Seleccionar Hora" />
-
             <Text style={styles.selectedTime}>
               Hora seleccionada: {formatTime(selectedTime)}
             </Text>
@@ -194,25 +156,13 @@ export const Horarios = () => {
         </TabView.Item>
         <TabView.Item style={{ width: "100%" }}>
           <Background>
-            <CheckBox
-              checked={false}
-              checkedColor={theme.colors.secondary}
-              title="Horario no activo"
-              containerStyle={{ backgroundColor: "transparent" }}
-            />
-            {/* <BGDiasSemana /> */}
+            <BGDiasSemana horario="especial" />
             <Divider />
           </Background>
         </TabView.Item>
         <TabView.Item style={{ width: "100%" }}>
           <Background>
-            <CheckBox
-              checked={false}
-              checkedColor={theme.colors.secondary}
-              title="Horario no activo"
-              containerStyle={{ backgroundColor: "transparent" }}
-            />
-            {/* <BGDiasSemana /> */}
+            <BGDiasSemana horario="eventual" />
             <Divider />
           </Background>
         </TabView.Item>

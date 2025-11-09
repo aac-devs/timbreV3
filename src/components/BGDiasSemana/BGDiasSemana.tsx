@@ -1,53 +1,50 @@
-import { useEffect, useState } from "react";
 import { View } from "react-native";
 
 import { ButtonGroup, Text } from "@rneui/themed";
 
-import { useBGDiasSemana } from "./useBGDiasSemana";
-import { BGDiasSemanaProps } from "./BGDiasSemana.props";
-import { DiaSemanaNumero } from "../../store/dynamic.interface";
+import { useColorFontBGDiasSemana } from "./useColorFontBGDiasSemana";
 
-export const BGDiasSemana = ({
-  horario,
-  state,
-  onChange,
-}: BGDiasSemanaProps) => {
-  const p = useBGDiasSemana();
-  const [selectedIndexes, setSelectedIndexes] = useState([]);
+import { TipoHorario } from "../../store/dynamic.interface";
+import { useStaticData } from "../../store/static.data";
+import { useDynamicData } from "../../store/dynamic.store";
 
-  useEffect(() => {
-    console.log("useEffect Días Semana");
-    let sel: number[] = [];
-    Object.entries(state).forEach((item, index) => {
-      const [dia, state] = item;
-      if (state) {
-        console.log("----");
-        sel.push(index);
-      }
-      console.log(dia, "..", state, "...", index);
-    });
-    console.log("final::");
-    console.log({ sel });
-    setSelectedIndexes(sel as never);
-  }, [state]);
+interface Props {
+  // * 'regular' | 'especial' | 'eventual'
+  horario: TipoHorario;
+}
+
+/**
+ * * Vista que incorpora un texto como título y grupo de botones que sirven para activar y desactivar los días de la
+ * * semana en los que se ejecutarán los timbres.
+ * *
+ * * @ejemplo de uso:
+ * * <BGDiasSemana horario='regular' />
+ * * @Componente Padre:
+ * * <Horarios /> (Por el momento, antes de refactorizar el componente Horarios)
+ *  */
+
+export const BGDiasSemana = ({ horario }: Props) => {
+  // * Definición de estilos para el componente:
+  const st = useColorFontBGDiasSemana();
+  // * Textos estáticos según el lenguaje:
+  const { diasSemanaTitulo, diasSemanaLabels } = useStaticData("spanish");
+  // * Estado del componente en el gestor global para leer y actualizar valores según el horario:
+  const { leerDiasSemana, actualizarDiaSemana } = useDynamicData();
 
   return (
-    <View style={p.mainContainerStyles}>
-      <Text>Días de activación del horario</Text>
+    <View style={st.mainContainerStyles}>
+      <Text>{diasSemanaTitulo}</Text>
       <ButtonGroup
-        buttons={["D", "L", "M", "X", "J", "V", "S"]}
-        selectMultiple
-        selectedIndexes={selectedIndexes}
-        onPress={(value) => {
-          console.log("Día presionado");
-          console.log(value);
-          console.log(typeof value);
-          onChange(horario, value[0], true);
+        selectedIndexes={leerDiasSemana(horario)}
+        onPress={(newValue) => {
+          actualizarDiaSemana({ horario, newValue });
         }}
-        containerStyle={p.containerStyle}
-        selectedButtonStyle={p.selectedButtonStyle}
-        buttonStyle={p.buttonStyle}
-        selectedTextStyle={p.selectedTextStyle}
+        buttons={diasSemanaLabels}
+        selectMultiple
+        containerStyle={st.containerStyle}
+        selectedButtonStyle={st.selectedButtonStyle}
+        buttonStyle={st.buttonStyle}
+        selectedTextStyle={st.selectedTextStyle}
       />
     </View>
   );

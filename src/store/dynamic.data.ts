@@ -1,80 +1,60 @@
-import { DynamicData } from "./dynamic.interface";
+// import { DynamicData } from "./dynamic.interface";
 
-export const dynamicInitialState: DynamicData = {
-  datos: {
-    horarios: {
-      regular: {
+import { GlobalAppState } from "./dynamic.interface";
+
+export const dynamicGlobalState: GlobalAppState = {
+  globalState: {
+    datos: {
+      horarios: {
+        regular: {
+          guardado: false,
+          enviado: false,
+          dias: [],
+          horaTimbre: [],
+        },
+        especial: {
+          guardado: false,
+          enviado: false,
+          dias: [],
+          horaTimbre: [],
+        },
+        eventual: {
+          guardado: false,
+          enviado: false,
+          dias: [],
+          horaTimbre: [],
+        },
+      },
+      rings: {
         guardado: false,
         enviado: false,
-        dias: {
-          domingo: false,
-          lunes: false,
-          martes: false,
-          miercoles: false,
-          jueves: false,
-          viernes: false,
-          sabado: false,
+        entrada: {
+          repeticiones: 1,
+          alto: 1,
+          bajo: 0,
         },
-        horaTimbre: [],
-      },
-      especial: {
-        guardado: false,
-        enviado: false,
-        dias: {
-          domingo: false,
-          lunes: false,
-          martes: false,
-          miercoles: false,
-          jueves: false,
-          viernes: false,
-          sabado: false,
+        clase: {
+          repeticiones: 1,
+          alto: 1,
+          bajo: 0,
         },
-        horaTimbre: [],
-      },
-      eventual: {
-        guardado: false,
-        enviado: false,
-        dias: {
-          domingo: false,
-          lunes: false,
-          martes: false,
-          miercoles: false,
-          jueves: false,
-          viernes: false,
-          sabado: false,
+        descanso: {
+          repeticiones: 1,
+          alto: 1,
+          bajo: 0,
         },
-        horaTimbre: [],
+        salida: {
+          repeticiones: 1,
+          alto: 1,
+          bajo: 0,
+        },
       },
+      reloj: {},
+      bateria: {},
     },
-    rings: {
-      guardado: false,
-      enviado: false,
-      entrada: {
-        repeticiones: 1,
-        alto: 1,
-        bajo: 0,
-      },
-      clase: {
-        repeticiones: 1,
-        alto: 1,
-        bajo: 0,
-      },
-      descanso: {
-        repeticiones: 1,
-        alto: 1,
-        bajo: 0,
-      },
-      salida: {
-        repeticiones: 1,
-        alto: 1,
-        bajo: 0,
-      },
+    device: {
+      registered: false,
+      conected: false,
     },
-    reloj: {},
-    bateria: {},
   },
-  device: {
-    registered: false,
-    conected: false,
-  },
-};
+} as const;
