@@ -1,21 +1,40 @@
 import { TipoHorario } from "./dynamic.interface";
-import { englishData, spanishData } from "./es.static.data";
+import { englishData as en, spanishData as es } from "./es.static.data";
 
 type LanguageSel = "spanish" | "english";
 
-export const useStaticData = (lang: LanguageSel) => {
+type StaticDataProps = {
+  lang: LanguageSel;
+  horario?: TipoHorario;
+};
+
+export const useStaticData = ({ lang, horario }: StaticDataProps) => {
   const diasSemanaTitulo =
     lang === "spanish"
-      ? spanishData.horarios.diasSemana.titulo
-      : englishData.horarios.diasSemana.titulo;
+      ? es.horarios.diasSemana.titulo
+      : en.horarios.diasSemana.titulo;
 
   const diasSemanaLabels =
     lang === "spanish"
-      ? spanishData.horarios.diasSemana.labels
-      : englishData.horarios.diasSemana.labels;
+      ? es.horarios.diasSemana.labels
+      : en.horarios.diasSemana.labels;
+
+  const tabItemIconProps =
+    lang === "spanish"
+      ? horario === "regular"
+        ? es.horarios.regular.tabItem.icon
+        : horario === "especial"
+        ? es.horarios.especial.tabItem.icon
+        : es.horarios.eventual.tabItem.icon
+      : horario === "regular"
+      ? en.horarios.regular.tabItem.icon
+      : horario === "especial"
+      ? en.horarios.especial.tabItem.icon
+      : en.horarios.eventual.tabItem.icon;
 
   return {
     diasSemanaTitulo,
     diasSemanaLabels,
+    tabItemIconProps,
   };
 };

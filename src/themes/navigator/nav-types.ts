@@ -27,6 +27,8 @@ declare module "@rneui/themed" {
     textClase: string;
     textDescanso: string;
     textSalida: string;
+    enviado: string;
+    noEnviado: string;
   }
 }
 

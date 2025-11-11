@@ -1,5 +1,4 @@
 import {
-  Badge,
   Button,
   makeStyles,
   Tab,
@@ -8,7 +7,6 @@ import {
   useTheme,
 } from "@rneui/themed";
 import { useState } from "react";
-import { ScrollView, View } from "react-native";
 import { Background } from "../components/Background";
 import { BGDiasSemana } from "../components/BGDiasSemana/BGDiasSemana";
 import { Divider } from "@rneui/themed";
@@ -16,7 +14,7 @@ import { AddHorarioDial } from "../components/AddHorarioDial";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
-import { fontWeights } from "../themes/fonts/fonts";
+import { TabItemHorario } from "../components/TabItemHorario/TabItemHorario";
 
 //! ORGANIZAR CÓDIGO, SEPARAR EN COMPONENTES.
 //! BADGES EN TABS DE HORARIOS.
@@ -65,6 +63,7 @@ export const Horarios = () => {
   };
 
   console.log("holaaaaa");
+  // ! REVISAR QUE NO FUNCIONA EL CLICK (TOUCH) EN LOS TabIcons
   return (
     <>
       <Tab
@@ -78,72 +77,13 @@ export const Horarios = () => {
         }}
         variant="primary"
       >
-        <Tab.Item
-          icon={{
-            name: "calendar-range-outline",
-            type: "material-community",
-            color: theme.colors.grey2,
-          }}
-        >
-          <Badge
-            status="success"
-            containerStyle={{ position: "absolute", top: 10, left: 70 }}
-          />
-          <Text
-            style={{
-              fontSize: 12,
-              color: theme.colors.grey2,
-              fontWeight: fontWeights.heavy,
-            }}
-          >
-            Regular
-          </Text>
-        </Tab.Item>
-        <Tab.Item
-          icon={{
-            name: "bullseye-arrow",
-            type: "material-community",
-            color: theme.colors.grey2,
-          }}
-        >
-          <Badge
-            status="success"
-            containerStyle={{ position: "absolute", top: 10, left: 70 }}
-          />
-          <Text
-            style={{
-              fontSize: 12,
-              color: theme.colors.grey2,
-              fontWeight: fontWeights.heavy,
-            }}
-          >
-            Auxiliar
-          </Text>
-        </Tab.Item>
-        <Tab.Item
-          icon={{
-            name: "exclamation-triangle",
-            type: "font-awesome",
-            color: theme.colors.grey2,
-          }}
-        >
-          <Badge
-            status="success"
-            containerStyle={{ position: "absolute", top: 10, left: 70 }}
-          />
-          <Text
-            style={{
-              fontSize: 12,
-              color: theme.colors.grey2,
-              fontWeight: fontWeights.heavy,
-            }}
-          >
-            Eventual
-          </Text>
-        </Tab.Item>
+        <TabItemHorario horario="regular" enviado={true} />
+        <TabItemHorario horario="especial" enviado={false} />
+        <TabItemHorario horario="eventual" enviado={true} />
       </Tab>
 
       <TabView value={index} onChange={setIndex} animationType="spring">
+        {/*  */}
         <TabView.Item style={{ width: "100%" }}>
           <Background>
             <BGDiasSemana horario="regular" />
@@ -154,12 +94,14 @@ export const Horarios = () => {
             </Text>
           </Background>
         </TabView.Item>
+        {/*  */}
         <TabView.Item style={{ width: "100%" }}>
           <Background>
             <BGDiasSemana horario="especial" />
             <Divider />
           </Background>
         </TabView.Item>
+        {/*  */}
         <TabView.Item style={{ width: "100%" }}>
           <Background>
             <BGDiasSemana horario="eventual" />
@@ -167,6 +109,7 @@ export const Horarios = () => {
           </Background>
         </TabView.Item>
       </TabView>
+      {/* --------------------- */}
       <AddHorarioDial />
       {showTimePicker && (
         <DateTimePicker

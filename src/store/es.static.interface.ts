@@ -1,5 +1,12 @@
 // Archivo que define la estructura de los textos de la aplicación en español:
 
+type TabItemType = {
+  icon: {
+    name: string;
+    type: string;
+  };
+};
+
 export interface StaticSpanishData {
   home: {};
   horarios: {
@@ -7,9 +14,15 @@ export interface StaticSpanishData {
       titulo: string;
       labels: string[];
     };
-    regular: {};
-    especial: {};
-    eventual: {};
+    regular: {
+      tabItem: TabItemType;
+    };
+    especial: {
+      tabItem: TabItemType;
+    };
+    eventual: {
+      tabItem: TabItemType;
+    };
   };
   rings: {};
   reloj: {};

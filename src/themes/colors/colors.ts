@@ -17,6 +17,8 @@ interface AppColors {
     textClase: HexColor;
     textDescanso: HexColor;
     textSalida: HexColor;
+    enviado: HexColor | string;
+    noEnviado: HexColor | string;
   };
   light: {
     background: HexColor;
@@ -34,6 +36,8 @@ interface AppColors {
     textClase: HexColor;
     textDescanso: HexColor;
     textSalida: HexColor;
+    enviado: HexColor | string;
+    noEnviado: HexColor | string;
   };
 }
 
@@ -54,6 +58,8 @@ export const colors: AppColors = {
     textClase: "#eee",
     textDescanso: "#222",
     textSalida: "#fff",
+    enviado: "#00FF7F",
+    noEnviado: "#DC143C",
   },
   light: {
     background: "#eee",
@@ -71,5 +77,7 @@ export const colors: AppColors = {
     textClase: "#fff",
     textDescanso: "#eee",
     textSalida: "#555",
+    enviado: "#32CD32",
+    noEnviado: "#F08080",
   },
 };

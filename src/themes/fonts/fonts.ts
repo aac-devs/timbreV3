@@ -7,6 +7,11 @@ export const fontWeights = {
   heavy: "700" as const,
 };
 
+export const tabTextHorarioSize = {
+  phone: 12,
+  tablet: 12,
+};
+
 export const fonts = Platform.select({
   ios: {
     regular: {

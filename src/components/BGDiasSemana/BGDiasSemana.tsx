@@ -2,11 +2,10 @@ import { View } from "react-native";
 
 import { ButtonGroup, Text } from "@rneui/themed";
 
-import { useColorFontBGDiasSemana } from "./useColorFontBGDiasSemana";
-
 import { TipoHorario } from "../../store/dynamic.interface";
 import { useStaticData } from "../../store/static.data";
 import { useDynamicData } from "../../store/dynamic.store";
+import { globalStyles } from "../../styles/global.phone.styles";
 
 interface Props {
   // * 'regular' | 'especial' | 'eventual'
@@ -24,16 +23,19 @@ interface Props {
  *  */
 
 export const BGDiasSemana = ({ horario }: Props) => {
-  // * Definición de estilos para el componente:
-  const st = useColorFontBGDiasSemana();
   // * Textos estáticos según el lenguaje:
-  const { diasSemanaTitulo, diasSemanaLabels } = useStaticData("spanish");
+  const { diasSemanaTitulo, diasSemanaLabels } = useStaticData({
+    lang: "spanish",
+  });
   // * Estado del componente en el gestor global para leer y actualizar valores según el horario:
   const { leerDiasSemana, actualizarDiaSemana } = useDynamicData();
 
+  // * (1) Estilos
+  const st = globalStyles().DiasSemana;
+
   return (
-    <View style={st.mainContainerStyles}>
-      <Text>{diasSemanaTitulo}</Text>
+    <View style={st.mainContainer}>
+      <Text style={st.title}>{diasSemanaTitulo}</Text>
       <ButtonGroup
         selectedIndexes={leerDiasSemana(horario)}
         onPress={(newValue) => {
@@ -41,10 +43,10 @@ export const BGDiasSemana = ({ horario }: Props) => {
         }}
         buttons={diasSemanaLabels}
         selectMultiple
-        containerStyle={st.containerStyle}
-        selectedButtonStyle={st.selectedButtonStyle}
-        buttonStyle={st.buttonStyle}
-        selectedTextStyle={st.selectedTextStyle}
+        containerStyle={st.bgContainer}
+        selectedButtonStyle={st.bgSelectedButton}
+        buttonStyle={st.bgButton}
+        selectedTextStyle={st.bgSelectedText}
       />
     </View>
   );
