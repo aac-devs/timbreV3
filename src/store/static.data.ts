@@ -1,3 +1,4 @@
+import { useTheme } from "@rneui/themed";
 import { TipoHorario } from "./dynamic.interface";
 import { englishData as en, spanishData as es } from "./es.static.data";
 
@@ -9,6 +10,8 @@ type StaticDataProps = {
 };
 
 export const useStaticData = ({ lang, horario }: StaticDataProps) => {
+  const { theme } = useTheme();
+
   const diasSemanaTitulo =
     lang === "spanish"
       ? es.horarios.diasSemana.titulo
@@ -22,19 +25,59 @@ export const useStaticData = ({ lang, horario }: StaticDataProps) => {
   const tabItemIconProps =
     lang === "spanish"
       ? horario === "regular"
-        ? es.horarios.regular.tabItem.icon
+        ? {
+            iconProps: {
+              ...es.horarios.regular.tabItem.icon,
+              color: theme.colors.black,
+            },
+            title: es.horarios.titulos.regular,
+          }
         : horario === "especial"
-        ? es.horarios.especial.tabItem.icon
-        : es.horarios.eventual.tabItem.icon
+        ? {
+            iconProps: {
+              ...es.horarios.especial.tabItem.icon,
+              color: theme.colors.black,
+            },
+            title: es.horarios.titulos.especial,
+          }
+        : {
+            iconProps: {
+              ...es.horarios.eventual.tabItem.icon,
+              color: theme.colors.black,
+            },
+            title: es.horarios.titulos.eventual,
+          }
       : horario === "regular"
-      ? en.horarios.regular.tabItem.icon
+      ? {
+          iconProps: {
+            ...en.horarios.regular.tabItem.icon,
+            color: theme.colors.black,
+          },
+          title: en.horarios.titulos.regular,
+        }
       : horario === "especial"
-      ? en.horarios.especial.tabItem.icon
-      : en.horarios.eventual.tabItem.icon;
+      ? {
+          iconProps: {
+            ...en.horarios.especial.tabItem.icon,
+            color: theme.colors.black,
+          },
+          title: en.horarios.titulos.especial,
+        }
+      : {
+          iconProps: {
+            ...en.horarios.eventual.tabItem.icon,
+            color: theme.colors.black,
+          },
+          title: en.horarios.titulos.eventual,
+        };
+
+  const homePressParams =
+    lang === "spanish" ? es.home.pressable : en.home.pressable;
 
   return {
     diasSemanaTitulo,
     diasSemanaLabels,
     tabItemIconProps,
+    homePressParams,
   };
 };

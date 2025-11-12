@@ -3,6 +3,7 @@ import { Badge, Tab, Text } from "@rneui/themed";
 import { TipoHorario } from "../../store/dynamic.interface";
 import { globalStyles } from "../../styles/global.phone.styles";
 import { useStaticData } from "../../store/static.data";
+import { View } from "react-native";
 
 interface Props {
   // * 'regular' | 'especial' | 'eventual'
@@ -30,12 +31,27 @@ export const TabItemHorario = ({ horario, enviado }: Props) => {
   const title = horario.replace(/^./, (letra) => letra.toUpperCase());
 
   return (
-    <Tab.Item icon={{ ...sta.tabItemIconProps, color: st.tabIcon.color }}>
-      <Badge
+    <View
+      style={{ backgroundColor: "yellow" }}
+      // icon={{ ...sta.tabItemIconProps, color: st.tabIcon.color }}
+      // title={horario}
+    >
+      {/* <Badge
         status={enviado ? "success" : "error"}
         containerStyle={st.tabBadgeContainer}
-      />
-      <Text style={st.tabTitle}>{title}</Text>
-    </Tab.Item>
+      /> */}
+      {/* <Text style={st.tabTitle}>{title}</Text> */}
+    </View>
+
+    // <Tab.Item
+    //   icon={{ ...sta.tabItemIconProps, color: st.tabIcon.color }}
+    //   title={horario}
+    // >
+    //   {/* <Badge
+    //     status={enviado ? "success" : "error"}
+    //     containerStyle={st.tabBadgeContainer}
+    //   /> */}
+    //   {/* <Text style={st.tabTitle}>{title}</Text> */}
+    // </Tab.Item>
   );
 };

@@ -1,8 +1,36 @@
 import { StaticSpanishData } from "./es.static.interface";
 
 export const spanishData: StaticSpanishData = {
-  home: {},
+  home: {
+    pressable: {
+      horarios: {
+        title: "Horarios",
+        imageAsset: require("../../assets/schedule.png"),
+        goTo: "horarios",
+      },
+      rings: {
+        title: "Rings",
+        imageAsset: require("../../assets/bell.png"),
+        goTo: "rings",
+      },
+      reloj: {
+        title: "Reloj",
+        imageAsset: require("../../assets/clock.png"),
+        goTo: "reloj",
+      },
+      bateria: {
+        title: "Batería",
+        imageAsset: require("../../assets/battery.png"),
+        goTo: "bateria",
+      },
+    },
+  },
   horarios: {
+    titulos: {
+      regular: "Regular",
+      especial: "Especial",
+      eventual: "Eventual",
+    },
     diasSemana: {
       titulo: "Días de activación de horario",
       labels: ["D", "L", "M", "X", "J", "V", "S"],
@@ -41,6 +69,11 @@ export const spanishData: StaticSpanishData = {
 export const englishData: StaticSpanishData = {
   ...spanishData,
   horarios: {
+    titulos: {
+      regular: "Regular",
+      especial: "Especial",
+      eventual: "Eventual",
+    },
     diasSemana: {
       titulo: "Schedule activation days",
       labels: ["S", "M", "T", "W", "T", "F", "S"],

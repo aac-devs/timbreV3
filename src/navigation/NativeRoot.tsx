@@ -18,11 +18,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeScreen } from "../screens/HomeScreen";
 
 export type RootStackParamList = {
-  Home: undefined;
-  Horarios: undefined;
-  Rings: undefined;
-  Reloj: undefined;
-  Bateria: undefined;
+  home: undefined;
+  horarios: undefined;
+  rings: undefined;
+  reloj: undefined;
+  bateria: undefined;
   Comp: undefined;
 };
 
@@ -41,7 +41,7 @@ export const NativeRoot = () => {
   return (
     <View style={{ flex: 1 }}>
       <RootTabs.Navigator
-        initialRouteName="Home"
+        initialRouteName="home"
         screenOptions={{
           headerStyle: {
             // backgroundColor: "#ccc",
@@ -85,7 +85,7 @@ export const NativeRoot = () => {
         // })}
       >
         <RootTabs.Screen
-          name="Horarios"
+          name="horarios"
           component={Horarios}
           options={{
             // headerBackground: () => (
@@ -121,18 +121,21 @@ export const NativeRoot = () => {
                 />
               </Button>
             ),
+            headerTitleStyle: {
+              color: "green",
+            },
           }}
         />
         <RootTabs.Screen
-          name="Home"
+          name="home"
           component={HomeScreen}
           options={{
             headerShown: false,
           }}
         />
-        <RootTabs.Screen name="Rings" component={Rings} />
-        <RootTabs.Screen name="Reloj" component={Reloj} />
-        <RootTabs.Screen name="Bateria" component={Bateria} />
+        <RootTabs.Screen name="rings" component={Rings} />
+        <RootTabs.Screen name="reloj" component={Reloj} />
+        <RootTabs.Screen name="bateria" component={Bateria} />
         <RootTabs.Screen name="Comp" component={AppTest} />
       </RootTabs.Navigator>
       <BottomSheetHorarios

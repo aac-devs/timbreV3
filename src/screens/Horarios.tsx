@@ -14,13 +14,13 @@ import { AddHorarioDial } from "../components/AddHorarioDial";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
-import { TabItemHorario } from "../components/TabItemHorario/TabItemHorario";
+import { useStaticData } from "../store/static.data";
 
 //! ORGANIZAR CÓDIGO, SEPARAR EN COMPONENTES.
-//! BADGES EN TABS DE HORARIOS.
+//! BADGES EN TABS DE HORARIOS. (YA NO)
 //! FUNCIONALIDAD A BOTONES DE AGREGAR HORAS (DATETIMEPICKER).
 //! TARJETA DE HORA SWIPEABLE CON BOTÓN DE ELIMINAR.
-//! COMPLETAR (DEFINIR) LISTA DE BOTTOMSHEET, A LO MEJOR PONER 'GUARDAR EN TELÉFONO'
+//! COMPLETAR (DEFINIR) LISTA DE BOTTOMSHEET, A LO MEJOR PONER 'GUARDAR EN TELÉFONO' (YA NO, GUARDADO AUTOMÁTICO)
 //! DIVIDIR EN CARPETAS LOS ARCHIVOS RELACIONADOS A UN COMPONENTE**
 
 export const Horarios = () => {
@@ -62,8 +62,23 @@ export const Horarios = () => {
     });
   };
 
-  console.log("holaaaaa");
+  const regularIconProps = useStaticData({
+    lang: "spanish",
+    horario: "regular",
+  }).tabItemIconProps;
+  const especialIconProps = useStaticData({
+    lang: "spanish",
+    horario: "especial",
+  }).tabItemIconProps;
+  const eventualIconProps = useStaticData({
+    lang: "spanish",
+    horario: "eventual",
+  }).tabItemIconProps;
+
+  // console.log("holaaaaa", st.tabIcon, st.tabTitle, st.tabBadgeContainer);
   // ! REVISAR QUE NO FUNCIONA EL CLICK (TOUCH) EN LOS TabIcons
+  // TODO: Hay que modificar los TabItem. Colocarlos dentro de este componente ya que no funciona separando el componente. Se puede usar el color del texto y el ícono para mostrar si se guardó o no el horario. Aunque el ícono estaría por ver ya que es probable que se cambie por íconos con colores***
+  // TODO: Poner las titleStyle dentro del archivo static.
   return (
     <>
       <Tab
@@ -77,9 +92,26 @@ export const Horarios = () => {
         }}
         variant="primary"
       >
-        <TabItemHorario horario="regular" enviado={true} />
+        <Tab.Item
+          title={regularIconProps.title}
+          titleStyle={{ fontSize: 12, color: "red" }}
+          // style={{ backgroundColor: "pink", height: "100%", width: "100%" }}
+          icon={regularIconProps.iconProps}
+        />
+        <Tab.Item
+          title={especialIconProps.title}
+          titleStyle={{ fontSize: 12 }}
+          icon={especialIconProps.iconProps}
+        />
+        <Tab.Item
+          title={eventualIconProps.title}
+          titleStyle={{ fontSize: 12 }}
+          icon={eventualIconProps.iconProps}
+        />
+
+        {/* <TabItemHorario horario="regular" enviado={true} />
         <TabItemHorario horario="especial" enviado={false} />
-        <TabItemHorario horario="eventual" enviado={true} />
+        <TabItemHorario horario="eventual" enviado={true} /> */}
       </Tab>
 
       <TabView value={index} onChange={setIndex} animationType="spring">
