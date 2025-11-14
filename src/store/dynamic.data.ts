@@ -7,26 +7,22 @@ export const dynamicGlobalState: GlobalAppState = {
     datos: {
       horarios: {
         regular: {
-          guardado: false,
           enviado: false,
           dias: [],
           horaTimbre: [],
         },
         especial: {
-          guardado: false,
           enviado: false,
           dias: [],
           horaTimbre: [],
         },
         eventual: {
-          guardado: false,
           enviado: false,
           dias: [],
           horaTimbre: [],
         },
       },
       rings: {
-        guardado: false,
         enviado: false,
         entrada: {
           repeticiones: 1,

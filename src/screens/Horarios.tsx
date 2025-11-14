@@ -10,11 +10,12 @@ import { useState } from "react";
 import { Background } from "../components/Background";
 import { BGDiasSemana } from "../components/BGDiasSemana/BGDiasSemana";
 import { Divider } from "@rneui/themed";
-import { AddHorarioDial } from "../components/AddHorarioDial";
+import { AddHorarioDial } from "../components/AddHorario/AddHorarioDial";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import { useStaticData } from "../store/static.data";
+import { globalStyles } from "../styles/global.phone.styles";
 
 //! ORGANIZAR CÓDIGO, SEPARAR EN COMPONENTES.
 //! BADGES EN TABS DE HORARIOS. (YA NO)
@@ -24,8 +25,8 @@ import { useStaticData } from "../store/static.data";
 //! DIVIDIR EN CARPETAS LOS ARCHIVOS RELACIONADOS A UN COMPONENTE**
 
 export const Horarios = () => {
-  const { theme } = useTheme();
   const [index, setIndex] = useState(0);
+  const tabItemsStyle = globalStyles("TabItemHorario")()?.TabItemsStyles;
 
   // Estado para la hora con tipo Date (solo usamos la parte de la hora)
   const [selectedTime, setSelectedTime] = useState<Date>(
@@ -62,21 +63,12 @@ export const Horarios = () => {
     });
   };
 
-  const regularIconProps = useStaticData({
-    lang: "spanish",
-    horario: "regular",
-  }).tabItemIconProps;
-  const especialIconProps = useStaticData({
-    lang: "spanish",
-    horario: "especial",
-  }).tabItemIconProps;
-  const eventualIconProps = useStaticData({
-    lang: "spanish",
-    horario: "eventual",
-  }).tabItemIconProps;
+  const language = useStaticData("spanish");
+  const regularIconProps = language("regular").tabItemIconProps;
+  const especialIconProps = language("especial").tabItemIconProps;
+  const eventualIconProps = language("eventual").tabItemIconProps;
 
   // console.log("holaaaaa", st.tabIcon, st.tabTitle, st.tabBadgeContainer);
-  // ! REVISAR QUE NO FUNCIONA EL CLICK (TOUCH) EN LOS TabIcons
   // TODO: Hay que modificar los TabItem. Colocarlos dentro de este componente ya que no funciona separando el componente. Se puede usar el color del texto y el ícono para mostrar si se guardó o no el horario. Aunque el ícono estaría por ver ya que es probable que se cambie por íconos con colores***
   // TODO: Poner las titleStyle dentro del archivo static.
   return (
@@ -84,34 +76,24 @@ export const Horarios = () => {
       <Tab
         value={index}
         onChange={(e) => setIndex(e)}
-        // style={{ backgroundColor: "pink" }}
-        indicatorStyle={{
-          backgroundColor: theme.colors.secondary,
-          // backgroundColor: "cyan",
-          height: 4,
-        }}
+        indicatorStyle={tabItemsStyle?.indicator}
         variant="primary"
       >
         <Tab.Item
           title={regularIconProps.title}
-          titleStyle={{ fontSize: 12, color: "red" }}
-          // style={{ backgroundColor: "pink", height: "100%", width: "100%" }}
-          icon={regularIconProps.iconProps}
+          titleStyle={[tabItemsStyle?.title, { color: "red" }]} // color que mostrará si se ha enviado el horario
+          icon={{ ...regularIconProps.iconProps, color: "red" }}
         />
         <Tab.Item
           title={especialIconProps.title}
-          titleStyle={{ fontSize: 12 }}
+          titleStyle={tabItemsStyle?.title}
           icon={especialIconProps.iconProps}
         />
         <Tab.Item
           title={eventualIconProps.title}
-          titleStyle={{ fontSize: 12 }}
+          titleStyle={tabItemsStyle?.title}
           icon={eventualIconProps.iconProps}
         />
-
-        {/* <TabItemHorario horario="regular" enviado={true} />
-        <TabItemHorario horario="especial" enviado={false} />
-        <TabItemHorario horario="eventual" enviado={true} /> */}
       </Tab>
 
       <TabView value={index} onChange={setIndex} animationType="spring">

@@ -41,3 +41,4 @@ yarn-error.*
 /android
 /src/comp_test
 /src/notes
+/src/_unused

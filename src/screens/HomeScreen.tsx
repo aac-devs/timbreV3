@@ -1,43 +1,22 @@
-import { Divider, Text, useTheme } from "@rneui/themed";
+import { Divider, Text } from "@rneui/themed";
 import { View } from "react-native";
 import { PressHome } from "../components/PressHomeScreen/PressHome";
 import { useStaticData } from "../store/static.data";
+import { globalStyles } from "../styles/global.phone.styles";
 
 export const HomeScreen = () => {
-  const pressParams = useStaticData({ lang: "spanish" }).homePressParams;
+  const { appTitle, homePressParams: pressParams } = useStaticData("spanish")();
+  const st = globalStyles("HomeScreen")()?.HomeScreenStyles;
 
   return (
-    <View style={{ flex: 1 }}>
-      <View
-        style={{
-          flex: 1,
-          paddingVertical: 30,
-          alignItems: "center",
-          justifyContent: "flex-end",
-        }}
-      >
-        <Text
-          h2
-          style={{
-            textAlign: "center",
-            textShadowColor: "rgba(168, 168, 168, 0.75)", // Color de la sombra
-            textShadowOffset: { width: 2, height: 2 }, // Desplazamiento
-            textShadowRadius: 5, // Difuminado
-          }}
-        >
-          Timbre Programable
+    <View style={st?.mainContainer}>
+      <View style={st?.titleContainer}>
+        <Text h2 style={st?.title}>
+          {appTitle}
         </Text>
       </View>
       <Divider />
-      <View
-        style={{
-          flex: 7,
-          gap: 15,
-          paddingBottom: 40,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
+      <View style={st?.bodyContainer}>
         <PressHome pressableParams={pressParams.horarios} />
         <PressHome pressableParams={pressParams.rings} />
         <PressHome pressableParams={pressParams.reloj} />

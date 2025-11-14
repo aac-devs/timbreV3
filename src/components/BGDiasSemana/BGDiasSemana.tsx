@@ -24,18 +24,19 @@ interface Props {
 
 export const BGDiasSemana = ({ horario }: Props) => {
   // * Textos estáticos según el lenguaje:
-  const { diasSemanaTitulo, diasSemanaLabels } = useStaticData({
-    lang: "spanish",
-  });
+  const { diasSemanaTitulo, diasSemanaLabels } = useStaticData("spanish")();
   // * Estado del componente en el gestor global para leer y actualizar valores según el horario:
   const { leerDiasSemana, actualizarDiaSemana } = useDynamicData();
 
   // * (1) Estilos
-  const st = globalStyles().DiasSemana;
+  // const st = globalStyles().DiasSemanaStyles;
+  const st = globalStyles("DiasSemana")()?.DiasSemanaStyles;
+
+  console.log(st, "xxx");
 
   return (
-    <View style={st.mainContainer}>
-      <Text style={st.title}>{diasSemanaTitulo}</Text>
+    <View style={st?.mainContainer}>
+      <Text style={st?.title}>{diasSemanaTitulo}</Text>
       <ButtonGroup
         selectedIndexes={leerDiasSemana(horario)}
         onPress={(newValue) => {
@@ -43,10 +44,10 @@ export const BGDiasSemana = ({ horario }: Props) => {
         }}
         buttons={diasSemanaLabels}
         selectMultiple
-        containerStyle={st.bgContainer}
-        selectedButtonStyle={st.bgSelectedButton}
-        buttonStyle={st.bgButton}
-        selectedTextStyle={st.bgSelectedText}
+        containerStyle={st?.bgContainer}
+        selectedButtonStyle={st?.bgSelectedButton}
+        buttonStyle={st?.bgButton}
+        selectedTextStyle={st?.bgSelectedText}
       />
     </View>
   );

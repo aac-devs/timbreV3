@@ -27,7 +27,6 @@ type TipoHora = `${Horas}:${Minutos}`;
 type EventoTimbre = { tipo: TipoTimbre; hora: TipoHora };
 
 type HorarioProps = {
-  guardado: boolean;
   enviado: boolean;
   dias: number[];
   horaTimbre: EventoTimbre[];
@@ -44,7 +43,6 @@ interface DatosTimbre {
     eventual: HorarioProps;
   };
   rings: {
-    guardado: boolean;
     enviado: boolean;
     entrada: TipoRing;
     clase: TipoRing;

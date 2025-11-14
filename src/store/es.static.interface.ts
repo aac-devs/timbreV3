@@ -15,7 +15,13 @@ export type PressableHomeParams = {
   goTo: string;
 };
 
+type EnBellTitle = "Arrival" | "Class" | "Recess" | "Dismisal";
+type EsBellTitle = "Entrada" | "Clase" | "Descanso" | "Salida";
+
+export type DialOptions = "entrada" | "clase" | "descanso" | "salida";
+
 export interface StaticSpanishData {
+  appTitle: string;
   home: {
     pressable: {
       horarios: PressableHomeParams;
@@ -42,6 +48,12 @@ export interface StaticSpanishData {
     };
     eventual: {
       tabItem: TabItemType;
+    };
+    dialButtons: {
+      entrada: EnBellTitle | EsBellTitle;
+      clase: EnBellTitle | EsBellTitle;
+      descanso: EnBellTitle | EsBellTitle;
+      salida: EnBellTitle | EsBellTitle;
     };
   };
   rings: {};

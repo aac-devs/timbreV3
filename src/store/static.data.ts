@@ -1,83 +1,40 @@
 import { useTheme } from "@rneui/themed";
 import { TipoHorario } from "./dynamic.interface";
 import { englishData as en, spanishData as es } from "./es.static.data";
+import { DialOptions } from "./es.static.interface";
 
 type LanguageSel = "spanish" | "english";
 
-type StaticDataProps = {
-  lang: LanguageSel;
-  horario?: TipoHorario;
-};
-
-export const useStaticData = ({ lang, horario }: StaticDataProps) => {
+export const useStaticData = (lang: LanguageSel) => {
   const { theme } = useTheme();
 
-  const diasSemanaTitulo =
-    lang === "spanish"
-      ? es.horarios.diasSemana.titulo
-      : en.horarios.diasSemana.titulo;
+  const language = lang === "spanish" ? es : en;
 
-  const diasSemanaLabels =
-    lang === "spanish"
-      ? es.horarios.diasSemana.labels
-      : en.horarios.diasSemana.labels;
+  return function (
+    horario: TipoHorario = "regular",
+    dialOpt: DialOptions = "entrada"
+  ) {
+    const diasSemanaTitulo = language.horarios.diasSemana.titulo;
+    const diasSemanaLabels = language.horarios.diasSemana.labels;
+    const homePressParams = language.home.pressable;
+    const appTitle = language.appTitle;
+    const dialOption = language.horarios.dialButtons[dialOpt];
 
-  const tabItemIconProps =
-    lang === "spanish"
-      ? horario === "regular"
-        ? {
-            iconProps: {
-              ...es.horarios.regular.tabItem.icon,
-              color: theme.colors.black,
-            },
-            title: es.horarios.titulos.regular,
-          }
-        : horario === "especial"
-        ? {
-            iconProps: {
-              ...es.horarios.especial.tabItem.icon,
-              color: theme.colors.black,
-            },
-            title: es.horarios.titulos.especial,
-          }
-        : {
-            iconProps: {
-              ...es.horarios.eventual.tabItem.icon,
-              color: theme.colors.black,
-            },
-            title: es.horarios.titulos.eventual,
-          }
-      : horario === "regular"
-      ? {
-          iconProps: {
-            ...en.horarios.regular.tabItem.icon,
-            color: theme.colors.black,
-          },
-          title: en.horarios.titulos.regular,
-        }
-      : horario === "especial"
-      ? {
-          iconProps: {
-            ...en.horarios.especial.tabItem.icon,
-            color: theme.colors.black,
-          },
-          title: en.horarios.titulos.especial,
-        }
-      : {
-          iconProps: {
-            ...en.horarios.eventual.tabItem.icon,
-            color: theme.colors.black,
-          },
-          title: en.horarios.titulos.eventual,
-        };
+    const tabItemIconProps = {
+      iconProps: {
+        ...language.horarios[horario].tabItem.icon,
+        color: theme.colors.black,
+      },
+      title: language.horarios.titulos[horario],
+    };
 
-  const homePressParams =
-    lang === "spanish" ? es.home.pressable : en.home.pressable;
-
-  return {
-    diasSemanaTitulo,
-    diasSemanaLabels,
-    tabItemIconProps,
-    homePressParams,
+    return {
+      appTitle,
+      diasSemanaTitulo,
+      diasSemanaLabels,
+      tabItemIconProps,
+      homePressParams,
+      dialOption,
+    };
   };
 };

@@ -54,9 +54,5 @@ export interface DiasSemanaProps {
 
 // ? Función que lee el estado (on/off) de los días de la semana del horario dado:
 export const leerDiasSemana = ({ get, horario }: DiasSemanaProps): number[] => {
-  return horario === "regular"
-    ? get().globalState.datos.horarios.regular.dias
-    : horario === "especial"
-    ? get().globalState.datos.horarios.especial.dias
-    : get().globalState.datos.horarios.eventual.dias;
+  return get().globalState.datos.horarios[horario].dias;
 };

@@ -16,6 +16,7 @@ import { useState } from "react";
 import { View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeScreen } from "../screens/HomeScreen";
+import { useStaticData } from "../store/static.data";
 
 export type RootStackParamList = {
   home: undefined;
@@ -31,12 +32,26 @@ const RootTabs = createNativeStackNavigator<RootStackParamList>();
 export const NativeRoot = () => {
   const { theme } = useTheme();
   const [showBottomSheetHorarios, setShowBottomSheetHorarios] = useState(false);
-  const aacTitle: string = "Estoy enviando algo... AAC";
+
+  const headerTitles = useStaticData("spanish")().homePressParams;
 
   const handleBottomSheetOptionSelected = (opt: string) => {
     setShowBottomSheetHorarios(false);
     console.log("Opción seleccionada:", opt);
   };
+
+  const buttonRight = () => (
+    <Button
+      style={{ backgroundColor: "lime" }}
+      onPress={() => setShowBottomSheetHorarios(!showBottomSheetHorarios)}
+    >
+      <Icon
+        name="dots-three-vertical"
+        color={theme.colors.grey2}
+        type="entypo"
+      />
+    </Button>
+  );
 
   return (
     <View style={{ flex: 1 }}>
@@ -52,31 +67,6 @@ export const NativeRoot = () => {
           // },
         }}
         // screenOptions={({ route }) => ({
-        //   tabBarIcon: ({ focused, color, size }) => {
-        //     if (route.name === "Horarios") {
-        //       return (
-        //         <MaterialCommunityIcons
-        //           name="list-box-outline"
-        //           size={28}
-        //           color={color}
-        //         />
-        //       );
-        //     } else if (route.name === "Rings") {
-        //       return (
-        //         <MaterialCommunityIcons
-        //           name="bell-ring-outline"
-        //           size={28}
-        //           color={color}
-        //         />
-        //       );
-        //     } else if (route.name === "Reloj") {
-        //       return <FontAwesome6 name="clock" size={26} color={color} />;
-        //     } else if (route.name === "Bateria") {
-        //       return (
-        //         <Ionicons name="battery-charging" size={28} color={color} />
-        //       );
-        //     }
-        //   },
         //   headerTitleStyle: {
         //     fontSize: 22,
         //   },
@@ -88,6 +78,7 @@ export const NativeRoot = () => {
           name="horarios"
           component={Horarios}
           options={{
+            title: `${headerTitles.horarios.title}`,
             // headerBackground: () => (
             //   <View
             //     style={{
@@ -107,23 +98,7 @@ export const NativeRoot = () => {
             //     <Icon name="bluetooth" size={30} color="#555" />
             //   </View>
             // ),
-            headerRight: () => (
-              <Button
-                style={{ backgroundColor: "lime" }}
-                onPress={() =>
-                  setShowBottomSheetHorarios(!showBottomSheetHorarios)
-                }
-              >
-                <Icon
-                  name="dots-three-vertical"
-                  color={theme.colors.grey2}
-                  type="entypo"
-                />
-              </Button>
-            ),
-            headerTitleStyle: {
-              color: "green",
-            },
+            headerRight: buttonRight,
           }}
         />
         <RootTabs.Screen
@@ -133,10 +108,31 @@ export const NativeRoot = () => {
             headerShown: false,
           }}
         />
-        <RootTabs.Screen name="rings" component={Rings} />
-        <RootTabs.Screen name="reloj" component={Reloj} />
-        <RootTabs.Screen name="bateria" component={Bateria} />
-        <RootTabs.Screen name="Comp" component={AppTest} />
+        <RootTabs.Screen
+          name="rings"
+          component={Rings}
+          options={{
+            title: `${headerTitles.rings.title}`,
+            headerRight: buttonRight,
+          }}
+        />
+        <RootTabs.Screen
+          name="reloj"
+          component={Reloj}
+          options={{
+            title: `${headerTitles.reloj.title}`,
+            headerRight: buttonRight,
+          }}
+        />
+        <RootTabs.Screen
+          name="bateria"
+          component={Bateria}
+          options={{
+            title: `${headerTitles.bateria.title}`,
+            headerRight: buttonRight,
+          }}
+        />
+        {/* <RootTabs.Screen name="Comp" component={AppTest} /> */}
       </RootTabs.Navigator>
       <BottomSheetHorarios
         isVisible={showBottomSheetHorarios}

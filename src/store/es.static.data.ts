@@ -1,6 +1,7 @@
 import { StaticSpanishData } from "./es.static.interface";
 
 export const spanishData: StaticSpanishData = {
+  appTitle: "Timbre Programable",
   home: {
     pressable: {
       horarios: {
@@ -59,6 +60,12 @@ export const spanishData: StaticSpanishData = {
         },
       },
     },
+    dialButtons: {
+      entrada: "Entrada",
+      clase: "Clase",
+      descanso: "Descanso",
+      salida: "Salida",
+    },
   },
   rings: {},
   reloj: {},
@@ -101,6 +108,12 @@ export const englishData: StaticSpanishData = {
           type: "font-awesome",
         },
       },
+    },
+    dialButtons: {
+      entrada: "Arrival",
+      clase: "Class",
+      descanso: "Recess",
+      salida: "Dismisal",
     },
   },
 };
