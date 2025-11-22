@@ -1,25 +1,36 @@
+import { Text, TextStyle } from "react-native";
+
 import { SpeedDial } from "@rneui/themed";
-import { Text, View } from "react-native";
+
 import { DialOptions } from "../../store/es.static.interface";
 import { useStaticData } from "../../store/static.data";
-import { globalStyles } from "../../styles/global.phone.styles";
+import { globalStylesComp } from "../../styles/global.phone.styles";
 
-interface Props {
+interface DialActionProps {
   dialOpt: DialOptions;
   onPress: (option: DialOptions) => void;
+  fontColor: string;
+  titleColor: string;
 }
 
-export const DialAction = ({ dialOpt, onPress }: Props) => {
-  const dialTitle = useStaticData("spanish")(undefined, dialOpt).dialOption;
-  const st = globalStyles("DialHorario")(dialOpt)?.DialActionStyles;
+export const DialAction = (props: DialActionProps) => {
+  const dialTitle = useStaticData("spanish")(
+    undefined,
+    props.dialOpt
+  ).dialOption;
+
+  const style: TextStyle = {
+    ...globalStylesComp("DialAct")(),
+    color: props.titleColor,
+  };
 
   return (
     <SpeedDial.Action
       title={dialTitle}
-      onPress={() => onPress(dialOpt)}
-      color={st?.dialColor}
+      onPress={() => props.onPress(props.dialOpt)}
+      color={props.fontColor}
     >
-      <Text style={st?.title}>{dialTitle[0]}</Text>
+      <Text style={style}>{dialTitle[0]}</Text>
     </SpeedDial.Action>
   );
 };

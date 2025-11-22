@@ -14,7 +14,6 @@ export const Background = ({ children }: Props) => {
 
   return (
     <LinearGradient
-      // colors={["#14191cff", "#242e33ff", "#445862ff"]}
       colors={[
         gradientColors?.high ? gradientColors.high : "#0f0d0fff",
         gradientColors?.medium ? gradientColors.medium : "#1a161aff",

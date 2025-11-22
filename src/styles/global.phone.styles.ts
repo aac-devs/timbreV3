@@ -5,143 +5,93 @@ import {
   ViewStyle,
 } from "react-native";
 
-import { useTheme } from "@rneui/themed";
-import { moderateScale } from "react-native-size-matters";
+import { TabItem } from "./horario/tabItem.style";
+import { Dias } from "./horario/dias.style";
+import { DialAction, SpeedDial } from "./horario/dial.style";
 
-import { fontWeights } from "../themes/fonts/fonts";
-import { DialOptions } from "../store/es.static.interface";
+import { Home } from "./home/home.style";
+import { HomeButtons } from "./home/buttons.style";
+import { IconNode } from "@rneui/base";
 
-const HomeScreenStyles = {
-  mainContainer: { flex: 1 } as ViewStyle,
-  titleContainer: {
-    flex: 1,
-    paddingVertical: moderateScale(30),
-    alignItems: "center",
-    justifyContent: "flex-end",
-  } as ViewStyle,
-  title: {
-    textAlign: "center",
-    textShadowColor: "rgba(168, 168, 168, 0.75)", // Color de la sombra
-    textShadowOffset: { width: 2, height: 2 }, // Desplazamiento
-    textShadowRadius: 5, // Difuminado
-  } as TextStyle,
-  bodyContainer: {
-    flex: 7,
-    gap: moderateScale(15),
-    paddingBottom: moderateScale(40),
-    justifyContent: "center",
-    alignItems: "center",
-  } as ViewStyle,
-};
+// ** /////////////////////////////////////////////////////////////////////////////////////////////
+// ** /////////////////////////////////////////////////////////////////////////////////////////////
 
-const DiasSemanaStyles = () => {
-  const { secondary, background, white } = useTheme().theme.colors;
-  return {
-    mainContainer: {
-      width: "80%",
-      justifyContent: "center",
-      alignSelf: "center",
-      gap: moderateScale(10),
-      paddingTop: moderateScale(10),
-    } as ViewStyle,
-    title: {
-      fontSize: moderateScale(14),
-    } as TextStyle,
-    bgContainer: { marginBottom: moderateScale(20) } as ViewStyle,
-    bgSelectedButton: { backgroundColor: secondary } as ViewStyle,
-    bgButton: { backgroundColor: background } as ViewStyle,
-    bgSelectedText: {
-      fontSize: moderateScale(12),
-      fontWeight: fontWeights.heavy,
-      color: white,
-    } as TextStyle,
-  };
-};
+type ElemStyle =
+  | "Home"
+  | "Dias"
+  | "TabItem"
+  | "DialAct"
+  | "HomeBtns"
+  | "SpeedDial";
+type Common = "mainCont" | "titleText";
 
-const TabItemsStyles = () => {
-  const { black, secondary } = useTheme().theme.colors;
-  return {
-    title: {
-      color: black,
-      fontSize: moderateScale(12),
-    } as TextStyle,
-    indicator: {
-      backgroundColor: secondary,
-      height: moderateScale(4),
-    } as ViewStyle,
-  };
-};
+export type HomeComps = Common | "titleCont" | "bodyCont";
+export type DiasComps = Common | "bgCont" | "bgSelBtn" | "bgBtn" | "bgSelText";
+export type TabItemComps = "indicator" | "titleText";
+export type HomeBtnComp = "pressable" | "image";
+export type SpeedDialComp =
+  | "icon"
+  | "openIcon"
+  | "color"
+  | "overlayColor"
+  | "compStyle";
 
-const PressHomeStyles = () => {
-  const { grey3 } = useTheme().theme.colors;
-  return {
-    pressable: {
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      paddingVertical: moderateScale(10),
-      width: "40%",
-      alignSelf: "center",
-      borderWidth: 1,
-      borderRadius: moderateScale(10),
-      borderColor: grey3,
-      elevation: 10,
-    } as ViewStyle,
-    pressablePressed: {} as ViewStyle,
-    image: {
-      width: moderateScale(70),
-      height: moderateScale(70),
-    } as ImageStyle,
-  };
-};
+type StyleReturn<T extends ElemStyle> = T extends "Home"
+  ? (comp: HomeComps) => ViewStyle | TextStyle
+  : T extends "Dias"
+  ? (comp: DiasComps) => ViewStyle | TextStyle
+  : T extends "TabItem"
+  ? (comp: TabItemComps) => ViewStyle | TextStyle
+  : T extends "DialAct"
+  ? () => TextStyle
+  : T extends "HomeBtns"
+  ? (comp: HomeBtnComp, state?: PressableStateCallbackType) => ImageStyle | []
+  : T extends "SpeedDial"
+  ? <C extends SpeedDialComp>(
+      comp: C
+    ) => C extends "icon" | "openIcon"
+      ? IconNode
+      : C extends "color" | "overlayColor"
+      ? string
+      : C extends "compStyle"
+      ? ViewStyle
+      : never
+  : never;
 
-export const fnPressHomeStyles = (state: PressableStateCallbackType) => {
-  const { grey4, background } = useTheme().theme.colors;
-  return [
-    { backgroundColor: state.pressed ? grey4 : background },
-    PressHomeStyles().pressable,
-  ];
-};
+export const globalStylesComp = <T extends ElemStyle>(
+  element: T
+): StyleReturn<T> => {
+  switch (element) {
+    // ! HomeScreen Elements
+    case "Home":
+      return ((comp: HomeComps) => Home(comp)) as StyleReturn<T>;
+    case "HomeBtns":
+      return ((comp: HomeBtnComp, state?: PressableStateCallbackType) =>
+        HomeButtons(comp, state)) as StyleReturn<T>;
 
-const DialActionStyles = (option: DialOptions) => {
-  const colors = useTheme().theme.colors;
-  const titleColor =
-    option === "entrada"
-      ? colors.textEntrada
-      : option === "clase"
-      ? colors.textClase
-      : option === "descanso"
-      ? colors.textDescanso
-      : colors.textSalida;
-  return {
-    dialColor: colors[option],
-    title: {
-      color: titleColor,
-      fontSize: moderateScale(18),
-      fontWeight: fontWeights.bold,
-    },
-  };
-};
+    // ! HorariosScreen Elements
+    // ? -------> Dias Semana
+    case "Dias":
+      return ((comp: DiasComps) => Dias(comp)) as StyleReturn<T>;
 
-type ElementStyles =
-  | "HomeScreen"
-  | "DiasSemana"
-  | "TabItemHorario"
-  | "PressHome"
-  | "PressHomeFunc"
-  | "DialHorario"
-  | undefined;
+    // ? -------> Tabs
+    case "TabItem":
+      return ((comp: TabItemComps) => TabItem(comp)) as StyleReturn<T>;
 
-export const globalStyles = (element: ElementStyles) => {
-  return (dialOption: DialOptions = "entrada") => {
-    if (element === "HomeScreen") return { HomeScreenStyles };
-    if (element === "DiasSemana")
-      return { DiasSemanaStyles: DiasSemanaStyles() };
-    if (element === "TabItemHorario")
-      return { TabItemsStyles: TabItemsStyles() };
-    if (element === "PressHome") return { PressHomeStyles: PressHomeStyles() };
-    if (element === "DialHorario") {
-      return { DialActionStyles: DialActionStyles(dialOption) };
-    }
-  };
+    // ? -------> Dials
+    case "SpeedDial":
+      return ((comp: SpeedDialComp) => SpeedDial(comp)) as StyleReturn<T>;
+    case "DialAct":
+      return (() => DialAction()) as StyleReturn<T>;
+
+    // ! RingsScreen Elements
+
+    // ! RelojScreen Elements
+
+    // ! BateriaScreen Elements
+
+    default:
+      const unreachable: never = element;
+      throw new Error(`Elemento no implementado: ${unreachable}`);
+  }
 };

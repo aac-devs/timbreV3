@@ -5,7 +5,7 @@ import { ButtonGroup, Text } from "@rneui/themed";
 import { TipoHorario } from "../../store/dynamic.interface";
 import { useStaticData } from "../../store/static.data";
 import { useDynamicData } from "../../store/dynamic.store";
-import { globalStyles } from "../../styles/global.phone.styles";
+import { globalStylesComp } from "../../styles/global.phone.styles";
 
 interface Props {
   // * 'regular' | 'especial' | 'eventual'
@@ -29,14 +29,11 @@ export const BGDiasSemana = ({ horario }: Props) => {
   const { leerDiasSemana, actualizarDiaSemana } = useDynamicData();
 
   // * (1) Estilos
-  // const st = globalStyles().DiasSemanaStyles;
-  const st = globalStyles("DiasSemana")()?.DiasSemanaStyles;
-
-  console.log(st, "xxx");
+  const style = globalStylesComp("Dias");
 
   return (
-    <View style={st?.mainContainer}>
-      <Text style={st?.title}>{diasSemanaTitulo}</Text>
+    <View style={style("mainCont")}>
+      <Text style={style("titleText")}>{diasSemanaTitulo}</Text>
       <ButtonGroup
         selectedIndexes={leerDiasSemana(horario)}
         onPress={(newValue) => {
@@ -44,10 +41,10 @@ export const BGDiasSemana = ({ horario }: Props) => {
         }}
         buttons={diasSemanaLabels}
         selectMultiple
-        containerStyle={st?.bgContainer}
-        selectedButtonStyle={st?.bgSelectedButton}
-        buttonStyle={st?.bgButton}
-        selectedTextStyle={st?.bgSelectedText}
+        containerStyle={style("bgCont")}
+        selectedButtonStyle={style("bgSelBtn")}
+        buttonStyle={style("bgBtn")}
+        selectedTextStyle={style("bgSelText")}
       />
     </View>
   );

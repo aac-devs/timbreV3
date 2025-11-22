@@ -1,34 +1,61 @@
-import { Divider, SpeedDial, Text, useTheme } from "@rneui/themed";
 import { useState } from "react";
-import { View } from "react-native";
-import { fontWeights } from "../../themes/fonts/fonts";
+
+import { SpeedDial, useTheme } from "@rneui/themed";
+
 import { DialAction } from "./DialAction";
 import { DialOptions } from "../../store/es.static.interface";
+import { globalStylesComp } from "../../styles/global.phone.styles";
 
-export const AddHorarioDial = () => {
-  const { theme } = useTheme();
+interface Props {
+  onOptionSelected: (option: DialOptions) => void;
+}
+
+export const AddHorarioDial = ({ onOptionSelected }: Props) => {
   const [open, setOpen] = useState(false);
-  console.log("hola aacxxx");
+
+  const colors = useTheme().theme.colors;
+  const style = globalStylesComp("SpeedDial");
 
   const handleDialOption = (option: DialOptions) => {
-    console.log("Opción dial:", option);
+    setOpen(false);
+    onOptionSelected(option);
   };
 
   return (
     <SpeedDial
       isOpen={open}
-      icon={{ name: "edit", color: theme.colors.white }}
-      openIcon={{ name: "close", color: theme.colors.white }}
+      icon={style("icon")}
+      openIcon={style("openIcon")}
       onOpen={() => setOpen(!open)}
       onClose={() => setOpen(!open)}
-      overlayColor="rgba(0,0,0,0.5)"
-      color={theme.colors.secondary}
-      style={{ bottom: "8%" }}
+      overlayColor={style("overlayColor")}
+      color={style("color")}
+      style={style("compStyle")}
     >
-      <DialAction dialOpt="entrada" onPress={handleDialOption} />
-      <DialAction dialOpt="clase" onPress={handleDialOption} />
-      <DialAction dialOpt="descanso" onPress={handleDialOption} />
-      <DialAction dialOpt="salida" onPress={handleDialOption} />
+      <DialAction
+        dialOpt="entrada"
+        onPress={handleDialOption}
+        fontColor={colors.entrada}
+        titleColor={colors.textEntrada}
+      />
+      <DialAction
+        dialOpt="clase"
+        onPress={handleDialOption}
+        fontColor={colors.clase}
+        titleColor={colors.textClase}
+      />
+      <DialAction
+        dialOpt="descanso"
+        onPress={handleDialOption}
+        fontColor={colors.descanso}
+        titleColor={colors.textDescanso}
+      />
+      <DialAction
+        dialOpt="salida"
+        onPress={handleDialOption}
+        fontColor={colors.salida}
+        titleColor={colors.textSalida}
+      />
     </SpeedDial>
   );
 };

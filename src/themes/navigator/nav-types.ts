@@ -2,6 +2,7 @@ import { Theme as NavigationTheme } from "@react-navigation/native";
 import { Theme as RNETheme } from "@rneui/themed";
 
 export type HexColor = `#${string}`;
+export type RGBAColor = `rgba(${number},${number},${number},${number},)`;
 
 type GradientColorLevels = {
   high: HexColor;

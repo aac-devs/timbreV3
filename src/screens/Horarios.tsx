@@ -1,11 +1,4 @@
-import {
-  Button,
-  makeStyles,
-  Tab,
-  TabView,
-  Text,
-  useTheme,
-} from "@rneui/themed";
+import { Button, makeStyles, Tab, TabView, Text } from "@rneui/themed";
 import { useState } from "react";
 import { Background } from "../components/Background";
 import { BGDiasSemana } from "../components/BGDiasSemana/BGDiasSemana";
@@ -15,7 +8,8 @@ import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
 import { useStaticData } from "../store/static.data";
-import { globalStyles } from "../styles/global.phone.styles";
+import { globalStylesComp } from "../styles/global.phone.styles";
+import { DialOptions } from "../store/es.static.interface";
 
 //! ORGANIZAR CÓDIGO, SEPARAR EN COMPONENTES.
 //! BADGES EN TABS DE HORARIOS. (YA NO)
@@ -26,7 +20,8 @@ import { globalStyles } from "../styles/global.phone.styles";
 
 export const Horarios = () => {
   const [index, setIndex] = useState(0);
-  const tabItemsStyle = globalStyles("TabItemHorario")()?.TabItemsStyles;
+  // const tabItemsStyle = globalStyles("TabItemHorario")()?.TabItemsStyles;
+  const tabItemStyle = globalStylesComp("TabItem");
 
   // Estado para la hora con tipo Date (solo usamos la parte de la hora)
   const [selectedTime, setSelectedTime] = useState<Date>(
@@ -63,6 +58,14 @@ export const Horarios = () => {
     });
   };
 
+  // ? Acá se inicial la adición de una nueva hora para el horario seleccionado
+  const handleSpeedDialOptionSelected = (option: DialOptions) => {
+    console.log("Opción de Speed Dial seleccionada (Horarios):", option);
+    const horarioActivo =
+      index === 0 ? "Regular" : index === 1 ? "Especial" : "Eventual";
+    console.log("Horario Activo:", horarioActivo);
+  };
+
   const language = useStaticData("spanish");
   const regularIconProps = language("regular").tabItemIconProps;
   const especialIconProps = language("especial").tabItemIconProps;
@@ -76,22 +79,22 @@ export const Horarios = () => {
       <Tab
         value={index}
         onChange={(e) => setIndex(e)}
-        indicatorStyle={tabItemsStyle?.indicator}
+        indicatorStyle={tabItemStyle("indicator")}
         variant="primary"
       >
         <Tab.Item
           title={regularIconProps.title}
-          titleStyle={[tabItemsStyle?.title, { color: "red" }]} // color que mostrará si se ha enviado el horario
+          titleStyle={[tabItemStyle("titleText"), { color: "red" }]} // color que mostrará si se ha enviado el horario
           icon={{ ...regularIconProps.iconProps, color: "red" }}
         />
         <Tab.Item
           title={especialIconProps.title}
-          titleStyle={tabItemsStyle?.title}
+          titleStyle={tabItemStyle("titleText")}
           icon={especialIconProps.iconProps}
         />
         <Tab.Item
           title={eventualIconProps.title}
-          titleStyle={tabItemsStyle?.title}
+          titleStyle={tabItemStyle("titleText")}
           icon={eventualIconProps.iconProps}
         />
       </Tab>
@@ -124,7 +127,7 @@ export const Horarios = () => {
         </TabView.Item>
       </TabView>
       {/* --------------------- */}
-      <AddHorarioDial />
+      <AddHorarioDial onOptionSelected={handleSpeedDialOptionSelected} />
       {showTimePicker && (
         <DateTimePicker
           testID="timePicker"
