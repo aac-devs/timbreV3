@@ -12,6 +12,7 @@ import { DialAction, SpeedDial } from "./horario/dial.style";
 import { Home } from "./home/home.style";
 import { HomeButtons } from "./home/buttons.style";
 import { IconNode } from "@rneui/base";
+import { Fondo } from "./global/background.style";
 
 // ** /////////////////////////////////////////////////////////////////////////////////////////////
 // ** /////////////////////////////////////////////////////////////////////////////////////////////
@@ -22,7 +23,8 @@ type ElemStyle =
   | "TabItem"
   | "DialAct"
   | "HomeBtns"
-  | "SpeedDial";
+  | "SpeedDial"
+  | "Fondo";
 type Common = "mainCont" | "titleText";
 
 export type HomeComps = Common | "titleCont" | "bodyCont";
@@ -35,6 +37,7 @@ export type SpeedDialComp =
   | "color"
   | "overlayColor"
   | "compStyle";
+export type FondoProps = "colors" | "compStyle" | "start" | "end";
 
 type StyleReturn<T extends ElemStyle> = T extends "Home"
   ? (comp: HomeComps) => ViewStyle | TextStyle
@@ -56,12 +59,26 @@ type StyleReturn<T extends ElemStyle> = T extends "Home"
       : C extends "compStyle"
       ? ViewStyle
       : never
+  : T extends "Fondo"
+  ? <C extends FondoProps>(
+      comp: C
+    ) => C extends "colors"
+      ? []
+      : C extends "compStyle"
+      ? ViewStyle
+      : C extends "start" | "end"
+      ? { x: number; y: number }
+      : never
   : never;
 
 export const globalStylesComp = <T extends ElemStyle>(
   element: T
 ): StyleReturn<T> => {
   switch (element) {
+    // ! Global Elements
+    case "Fondo":
+      return ((comp: FondoProps) => Fondo(comp)) as StyleReturn<T>;
+
     // ! HomeScreen Elements
     case "Home":
       return ((comp: HomeComps) => Home(comp)) as StyleReturn<T>;
