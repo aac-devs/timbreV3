@@ -10,6 +10,7 @@ import DateTimePicker, {
 import { useStaticData } from "../store/static.data";
 import { globalStylesComp } from "../styles/global.phone.styles";
 import { DialOptions } from "../store/es.static.interface";
+import { useStaticText } from "../static/global.static";
 
 //! ORGANIZAR CÓDIGO, SEPARAR EN COMPONENTES.
 //! BADGES EN TABS DE HORARIOS. (YA NO)
@@ -22,6 +23,7 @@ export const Horarios = () => {
   const [index, setIndex] = useState(0);
   // const tabItemsStyle = globalStyles("TabItemHorario")()?.TabItemsStyles;
   const tabItemStyle = globalStylesComp("TabItem");
+  const staticText = useStaticText()("scrHorarios");
 
   // Estado para la hora con tipo Date (solo usamos la parte de la hora)
   const [selectedTime, setSelectedTime] = useState<Date>(
@@ -83,17 +85,17 @@ export const Horarios = () => {
         variant="primary"
       >
         <Tab.Item
-          title={regularIconProps.title}
+          title={staticText("tabRegularTitle")}
           titleStyle={[tabItemStyle("titleText"), { color: "red" }]} // color que mostrará si se ha enviado el horario
           icon={{ ...regularIconProps.iconProps, color: "red" }}
         />
         <Tab.Item
-          title={especialIconProps.title}
+          title={staticText("tabEspecialTitle")}
           titleStyle={tabItemStyle("titleText")}
           icon={especialIconProps.iconProps}
         />
         <Tab.Item
-          title={eventualIconProps.title}
+          title={staticText("tabEventualTitle")}
           titleStyle={tabItemStyle("titleText")}
           icon={eventualIconProps.iconProps}
         />

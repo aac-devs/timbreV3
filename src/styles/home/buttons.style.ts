@@ -1,29 +1,29 @@
 import {
   ImageStyle,
-  PressableStateCallbackType,
+  PressableStateCallbackType as PSCB,
   ViewStyle,
 } from "react-native";
 
 import { moderateScale } from "react-native-size-matters";
-import { useTheme } from "@rneui/themed";
+import { Colors } from "@rneui/themed";
 
-import { HomeBtnComp } from "../global.phone.styles";
+import { HomeBtnComp as HBC } from "../global.phone.styles";
 
-export const HomeButtons = (
-  component: HomeBtnComp,
-  state?: PressableStateCallbackType
-): ViewStyle | ImageStyle => {
-  const { grey3, grey4, background } = useTheme().theme.colors;
+type HBReturn = ViewStyle | ImageStyle;
 
-  switch (component) {
+export const HomeButtons = (comp: HBC, colors: Colors, st?: PSCB): HBReturn => {
+  const { grey3, grey4, background } = colors;
+
+  console.log("home buttons");
+  switch (comp) {
     case "pressable":
       return {
-        backgroundColor: state && state.pressed ? grey4 : background,
+        backgroundColor: st && st.pressed ? grey4 : background,
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
         paddingVertical: moderateScale(10),
-        width: "40%",
+        width: moderateScale(140),
         alignSelf: "center",
         borderWidth: 1,
         borderRadius: moderateScale(10),
@@ -36,7 +36,7 @@ export const HomeButtons = (
         height: moderateScale(70),
       } as ImageStyle;
     default:
-      const unreachable: never = component;
+      const unreachable: never = comp;
       throw new Error(`Componente HomeButtons no manejado: ${unreachable}`);
   }
 };

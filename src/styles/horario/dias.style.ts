@@ -1,15 +1,17 @@
 import { TextStyle, ViewStyle } from "react-native";
 
-import { useTheme } from "@rneui/themed";
+import { Colors } from "@rneui/themed";
 import { moderateScale } from "react-native-size-matters";
 
 import { DiasComps } from "../global.phone.styles";
 import { fontWeights } from "../../themes/fonts/fonts";
 
-export const Dias = (component: DiasComps): ViewStyle | TextStyle => {
-  const { secondary, background, white } = useTheme().theme.colors;
+type DiasReturn = ViewStyle | TextStyle;
 
-  switch (component) {
+export const Dias = (comp: DiasComps, colors: Colors): DiasReturn => {
+  const { secondary, background, white } = colors;
+
+  switch (comp) {
     case "bgCont":
       return { marginBottom: moderateScale(20) } as ViewStyle;
     case "bgSelBtn":
@@ -35,7 +37,7 @@ export const Dias = (component: DiasComps): ViewStyle | TextStyle => {
         color: white,
       } as TextStyle;
     default:
-      const unreachable: never = component;
+      const unreachable: never = comp;
       throw new Error(`Componente Dias no manejado: ${unreachable}`);
   }
 };

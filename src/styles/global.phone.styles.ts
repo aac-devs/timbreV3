@@ -1,6 +1,6 @@
 import {
   ImageStyle,
-  PressableStateCallbackType,
+  PressableStateCallbackType as PSCB,
   TextStyle,
   ViewStyle,
 } from "react-native";
@@ -13,6 +13,9 @@ import { Home } from "./home/home.style";
 import { HomeButtons } from "./home/buttons.style";
 import { IconNode } from "@rneui/base";
 import { Fondo } from "./global/background.style";
+import { useTheme } from "@rneui/themed";
+import { useTheme as navUseTheme } from "@react-navigation/native";
+import { CustomNavigationTypes as CNT } from "../themes/navigator/nav-types";
 
 // ** /////////////////////////////////////////////////////////////////////////////////////////////
 // ** /////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,7 +51,7 @@ type StyleReturn<T extends ElemStyle> = T extends "Home"
   : T extends "DialAct"
   ? () => TextStyle
   : T extends "HomeBtns"
-  ? (comp: HomeBtnComp, state?: PressableStateCallbackType) => ImageStyle | []
+  ? (comp: HomeBtnComp, state?: PSCB) => ImageStyle | []
   : T extends "SpeedDial"
   ? <C extends SpeedDialComp>(
       comp: C
@@ -61,7 +64,8 @@ type StyleReturn<T extends ElemStyle> = T extends "Home"
       : never
   : T extends "Fondo"
   ? <C extends FondoProps>(
-      comp: C
+      comp: C,
+      theme: CNT
     ) => C extends "colors"
       ? []
       : C extends "compStyle"
@@ -72,32 +76,38 @@ type StyleReturn<T extends ElemStyle> = T extends "Home"
   : never;
 
 export const globalStylesComp = <T extends ElemStyle>(
-  element: T
+  el: T
 ): StyleReturn<T> => {
-  switch (element) {
+  const RNEColors = useTheme().theme.colors;
+  const colors = navUseTheme();
+
+  // console.log("global styles comppp"); // ? Usado para refrescar HomeButtons
+  switch (el) {
     // ! Global Elements
-    case "Fondo":
-      return ((comp: FondoProps) => Fondo(comp)) as StyleReturn<T>;
+    case "Fondo": // ?? theme ok
+      return ((comp: FondoProps) => Fondo(comp, colors)) as StyleReturn<T>;
 
     // ! HomeScreen Elements
-    case "Home":
+    case "Home": // ?? ok (no usa theme)
       return ((comp: HomeComps) => Home(comp)) as StyleReturn<T>;
-    case "HomeBtns":
-      return ((comp: HomeBtnComp, state?: PressableStateCallbackType) =>
-        HomeButtons(comp, state)) as StyleReturn<T>;
+    case "HomeBtns": // ?? theme ok ------------
+      return ((comp: HomeBtnComp, state?: PSCB) =>
+        HomeButtons(comp, RNEColors, state)) as StyleReturn<T>;
 
     // ! HorariosScreen Elements
     // ? -------> Dias Semana
-    case "Dias":
-      return ((comp: DiasComps) => Dias(comp)) as StyleReturn<T>;
+    case "Dias": // ?? theme ok ---------------
+      return ((comp: DiasComps) => Dias(comp, RNEColors)) as StyleReturn<T>;
 
     // ? -------> Tabs
-    case "TabItem":
-      return ((comp: TabItemComps) => TabItem(comp)) as StyleReturn<T>;
+    case "TabItem": // ?? theme ok -------------
+      return ((comp: TabItemComps) =>
+        TabItem(comp, RNEColors)) as StyleReturn<T>;
 
     // ? -------> Dials
-    case "SpeedDial":
-      return ((comp: SpeedDialComp) => SpeedDial(comp)) as StyleReturn<T>;
+    case "SpeedDial": // ?? theme ok -------------
+      return ((comp: SpeedDialComp) =>
+        SpeedDial(comp, RNEColors)) as StyleReturn<T>;
     case "DialAct":
       return (() => DialAction()) as StyleReturn<T>;
 
@@ -108,7 +118,7 @@ export const globalStylesComp = <T extends ElemStyle>(
     // ! BateriaScreen Elements
 
     default:
-      const unreachable: never = element;
+      const unreachable: never = el;
       throw new Error(`Elemento no implementado: ${unreachable}`);
   }
 };

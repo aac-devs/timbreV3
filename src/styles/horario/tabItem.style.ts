@@ -1,14 +1,16 @@
 import { TextStyle, ViewStyle } from "react-native";
 
-import { useTheme } from "@rneui/themed";
+import { Colors } from "@rneui/themed";
 import { moderateScale } from "react-native-size-matters";
 
 import { TabItemComps } from "../global.phone.styles";
 
-export const TabItem = (component: TabItemComps): ViewStyle | TextStyle => {
-  const { black, secondary } = useTheme().theme.colors;
+type TabItemReturn = ViewStyle | TextStyle;
 
-  switch (component) {
+export const TabItem = (comp: TabItemComps, colors: Colors): TabItemReturn => {
+  const { black, secondary } = colors;
+
+  switch (comp) {
     case "titleText":
       return {
         color: black,
@@ -20,7 +22,7 @@ export const TabItem = (component: TabItemComps): ViewStyle | TextStyle => {
         height: moderateScale(4),
       } as ViewStyle;
     default:
-      const unreachable: never = component;
+      const unreachable: never = comp;
       throw new Error(`Componente TabItem no manejado: ${unreachable}`);
   }
 };

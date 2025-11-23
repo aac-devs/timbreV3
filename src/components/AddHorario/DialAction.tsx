@@ -3,22 +3,17 @@ import { Text, TextStyle } from "react-native";
 import { SpeedDial } from "@rneui/themed";
 
 import { DialOptions } from "../../store/es.static.interface";
-import { useStaticData } from "../../store/static.data";
 import { globalStylesComp } from "../../styles/global.phone.styles";
 
-interface DialActionProps {
-  dialOpt: DialOptions;
-  onPress: (option: DialOptions) => void;
+interface Props {
+  title: string;
   fontColor: string;
   titleColor: string;
+  dialOpt: DialOptions;
+  onPress: (option: DialOptions) => void;
 }
 
-export const DialAction = (props: DialActionProps) => {
-  const dialTitle = useStaticData("spanish")(
-    undefined,
-    props.dialOpt
-  ).dialOption;
-
+export const DialAction = (props: Props) => {
   const style: TextStyle = {
     ...globalStylesComp("DialAct")(),
     color: props.titleColor,
@@ -26,11 +21,11 @@ export const DialAction = (props: DialActionProps) => {
 
   return (
     <SpeedDial.Action
-      title={dialTitle}
+      title={props.title}
       onPress={() => props.onPress(props.dialOpt)}
       color={props.fontColor}
     >
-      <Text style={style}>{dialTitle[0]}</Text>
+      <Text style={style}>{props.title[0]}</Text>
     </SpeedDial.Action>
   );
 };

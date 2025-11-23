@@ -5,6 +5,7 @@ import { SpeedDial, useTheme } from "@rneui/themed";
 import { DialAction } from "./DialAction";
 import { DialOptions } from "../../store/es.static.interface";
 import { globalStylesComp } from "../../styles/global.phone.styles";
+import { useStaticText } from "../../static/global.static";
 
 interface Props {
   onOptionSelected: (option: DialOptions) => void;
@@ -15,6 +16,7 @@ export const AddHorarioDial = ({ onOptionSelected }: Props) => {
 
   const colors = useTheme().theme.colors;
   const style = globalStylesComp("SpeedDial");
+  const staticText = useStaticText()("scrHorarios");
 
   const handleDialOption = (option: DialOptions) => {
     setOpen(false);
@@ -37,24 +39,28 @@ export const AddHorarioDial = ({ onOptionSelected }: Props) => {
         onPress={handleDialOption}
         fontColor={colors.entrada}
         titleColor={colors.textEntrada}
+        title={staticText("dialEntrada")}
       />
       <DialAction
         dialOpt="clase"
         onPress={handleDialOption}
         fontColor={colors.clase}
         titleColor={colors.textClase}
+        title={staticText("dialClase")}
       />
       <DialAction
         dialOpt="descanso"
         onPress={handleDialOption}
         fontColor={colors.descanso}
         titleColor={colors.textDescanso}
+        title={staticText("dialDescanso")}
       />
       <DialAction
         dialOpt="salida"
         onPress={handleDialOption}
         fontColor={colors.salida}
         titleColor={colors.textSalida}
+        title={staticText("dialSalida")}
       />
     </SpeedDial>
   );

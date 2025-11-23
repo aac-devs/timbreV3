@@ -1,22 +1,19 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useState } from "react";
+import { View } from "react-native";
+
+import { Button, Icon, useTheme } from "@rneui/themed";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import { HomeScreen } from "../screens/HomeScreen";
 import { Horarios } from "../screens/Horarios";
 import { Rings } from "../screens/Rings";
 import { Reloj } from "../screens/Reloj";
 import { Bateria } from "../screens/Bateria";
-import {
-  FontAwesome6,
-  Ionicons,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
-import AppTest from "../comp_test/AppTest";
-import { TabsComp } from "../comp_test/TabsComp";
-import { Button, Icon, useTheme } from "@rneui/themed";
+
 import { BottomSheetHorarios } from "../components/BottomSheetHorarios";
-import { useState } from "react";
-import { View } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { HomeScreen } from "../screens/HomeScreen";
 import { useStaticData } from "../store/static.data";
+import { useStaticText } from "../static/global.static";
+// import AppTest from "../comp_test/AppTest";
 
 export type RootStackParamList = {
   home: undefined;
@@ -34,6 +31,7 @@ export const NativeRoot = () => {
   const [showBottomSheetHorarios, setShowBottomSheetHorarios] = useState(false);
 
   const headerTitles = useStaticData("spanish")().homePressParams;
+  const staticHorariosText = useStaticText()("scrHorarios");
 
   const handleBottomSheetOptionSelected = (opt: string) => {
     setShowBottomSheetHorarios(false);
@@ -78,7 +76,7 @@ export const NativeRoot = () => {
           name="horarios"
           component={Horarios}
           options={{
-            title: `${headerTitles.horarios.title}`,
+            title: `${staticHorariosText("navTitle")}`,
             // headerBackground: () => (
             //   <View
             //     style={{

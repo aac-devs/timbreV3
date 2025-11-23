@@ -1,6 +1,6 @@
 import { TextStyle, ViewStyle } from "react-native";
 
-import { useTheme } from "@rneui/themed";
+import { Colors } from "@rneui/themed";
 import { moderateScale } from "react-native-size-matters";
 
 import { fontWeights } from "../../themes/fonts/fonts";
@@ -14,12 +14,10 @@ export const DialAction = (): TextStyle => {
   };
 };
 
-export const SpeedDial = (
-  component: SpeedDialComp
-): IconNode | string | ViewStyle => {
-  const colors = useTheme().theme.colors;
+type SDReturn = IconNode | string | ViewStyle;
 
-  switch (component) {
+export const SpeedDial = (comp: SpeedDialComp, colors: Colors): SDReturn => {
+  switch (comp) {
     case "icon":
       return { name: "edit", color: colors.white } as IconNode;
     case "openIcon":
@@ -31,7 +29,7 @@ export const SpeedDial = (
     case "compStyle":
       return { bottom: "8%" } as ViewStyle;
     default:
-      const unreachable: never = component;
+      const unreachable: never = comp;
       throw new Error(`Componente SpeedDial no manejado: ${unreachable}`);
   }
 };

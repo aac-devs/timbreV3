@@ -6,6 +6,7 @@ import { TipoHorario } from "../../store/dynamic.interface";
 import { useStaticData } from "../../store/static.data";
 import { useDynamicData } from "../../store/dynamic.store";
 import { globalStylesComp } from "../../styles/global.phone.styles";
+import { useStaticText } from "../../static/global.static";
 
 interface Props {
   // * 'regular' | 'especial' | 'eventual'
@@ -27,19 +28,20 @@ export const BGDiasSemana = ({ horario }: Props) => {
   const { diasSemanaTitulo, diasSemanaLabels } = useStaticData("spanish")();
   // * Estado del componente en el gestor global para leer y actualizar valores según el horario:
   const { leerDiasSemana, actualizarDiaSemana } = useDynamicData();
+  const staticText = useStaticText()("scrHorarios");
 
   // * (1) Estilos
   const style = globalStylesComp("Dias");
 
   return (
     <View style={style("mainCont")}>
-      <Text style={style("titleText")}>{diasSemanaTitulo}</Text>
+      <Text style={style("titleText")}>{staticText("diasParagraph")}</Text>
       <ButtonGroup
         selectedIndexes={leerDiasSemana(horario)}
         onPress={(newValue) => {
           actualizarDiaSemana({ horario, newValue });
         }}
-        buttons={diasSemanaLabels}
+        buttons={staticText("diasSemanaLabels")}
         selectMultiple
         containerStyle={style("bgCont")}
         selectedButtonStyle={style("bgSelBtn")}

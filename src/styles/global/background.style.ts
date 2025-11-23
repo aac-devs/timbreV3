@@ -1,15 +1,11 @@
 import { ViewStyle } from "react-native";
 
-import { useTheme } from "@react-navigation/native";
-
 import { FondoProps } from "../global.phone.styles";
-import { CustomNavigationTypes } from "../../themes/navigator/nav-types";
+import { CustomNavigationTypes as CNT } from "../../themes/navigator/nav-types";
 import { moderateScale } from "react-native-size-matters";
 
-export const Fondo = (component: FondoProps) => {
-  const { colors }: CustomNavigationTypes = useTheme();
-
-  const g = colors.gradientColors;
+export const Fondo = (component: FondoProps, colors: CNT) => {
+  const g = colors.colors.gradientColors;
   if (!g) return;
 
   switch (component) {

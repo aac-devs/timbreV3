@@ -3,40 +3,47 @@ import { View } from "react-native";
 import { Divider, Text } from "@rneui/themed";
 
 import { PressHome } from "../components/PressHomeScreen/PressHome";
-import { useStaticData } from "../store/static.data";
 import { globalStylesComp } from "../styles/global.phone.styles";
 import { useStaticText } from "../static/global.static";
+import { Background } from "../components/Background";
 
 export const HomeScreen = () => {
-  const { appTitle, homePressParams: pressParams } = useStaticData("spanish")();
   const style = globalStylesComp("Home");
-
-  // const staticD = staticText();
-  // console.log("----------", staticD("screenTitle"));
-  const staticText = useStaticText();
-
-  // staticText()('scrHome')('btnBateria')
-  console.log(
-    "&&&&&&",
-    staticText("scrHome")("btnReloj"),
-    "------------ en la pantalla HomeScreen"
-  );
+  const staticText = useStaticText()("scrHome");
 
   console.log("hola aacxxxx");
   return (
     <View style={style("mainCont")}>
-      <View style={style("titleCont")}>
-        <Text h2 style={style("titleText")}>
-          {appTitle}
-        </Text>
-      </View>
-      <Divider />
-      <View style={style("bodyCont")}>
-        <PressHome pressableParams={pressParams.horarios} />
-        <PressHome pressableParams={pressParams.rings} />
-        <PressHome pressableParams={pressParams.reloj} />
-        <PressHome pressableParams={pressParams.bateria} />
-      </View>
+      <Background>
+        <View style={style("titleCont")}>
+          <Text h2 style={style("titleText")}>
+            {staticText("screenTitle")}
+          </Text>
+        </View>
+        <Divider />
+        <View style={style("bodyCont")}>
+          <PressHome
+            iconUrl={require("../../assets/schedule.png")}
+            navTo={staticText("gotoHorarios")}
+            title={staticText("btnHorarios")}
+          />
+          <PressHome
+            iconUrl={require("../../assets/bell.png")}
+            navTo={staticText("gotoRings")}
+            title={staticText("btnRings")}
+          />
+          <PressHome
+            iconUrl={require("../../assets/clock.png")}
+            navTo={staticText("gotoReloj")}
+            title={staticText("btnReloj")}
+          />
+          <PressHome
+            iconUrl={require("../../assets/battery.png")}
+            navTo={staticText("gotoBateria")}
+            title={staticText("btnBateria")}
+          />
+        </View>
+      </Background>
     </View>
   );
 };

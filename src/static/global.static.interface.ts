@@ -8,9 +8,20 @@ export type HomeScreen =
   | "btnHorarios"
   | "btnRings"
   | "btnReloj"
-  | "btnBateria";
+  | "btnBateria"
+  | "gotoHorarios"
+  | "gotoRings"
+  | "gotoReloj"
+  | "gotoBateria";
 
 export type HorariosScreen =
+  | "navTitle"
   | "tabRegularTitle"
   | "tabEspecialTitle"
-  | "tabEventualTitle";
+  | "tabEventualTitle"
+  | "diasParagraph"
+  | "diasSemanaLabels"
+  | "dialEntrada"
+  | "dialClase"
+  | "dialDescanso"
+  | "dialSalida";

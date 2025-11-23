@@ -1,26 +1,32 @@
-import { Pressable, PressableStateCallbackType } from "react-native";
+import {
+  ImageSourcePropType,
+  Pressable,
+  PressableStateCallbackType,
+} from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { Image, Text } from "@rneui/themed";
 
 import { globalStylesComp } from "../../styles/global.phone.styles";
-import { PressableHomeParams } from "../../store/es.static.interface";
 
 interface Props {
-  pressableParams: PressableHomeParams;
+  title: string;
+  navTo: string;
+  iconUrl: ImageSourcePropType;
 }
 
-export const PressHome = ({ pressableParams }: Props) => {
+export const PressHome = ({ title, navTo, iconUrl }: Props) => {
   const navigation = useNavigation();
   const style = globalStylesComp("HomeBtns");
 
+  console.log("press home");
   return (
     <Pressable
-      onPress={() => navigation.navigate(pressableParams.goTo as never)}
+      onPress={() => navigation.navigate(navTo as never)}
       style={(state: PressableStateCallbackType) => style("pressable", state)}
     >
-      <Image source={pressableParams.imageAsset} style={style("image")} />
-      <Text h4>{pressableParams.title}</Text>
+      <Image source={iconUrl} style={style("image")} />
+      <Text h4>{title}</Text>
     </Pressable>
   );
 };
