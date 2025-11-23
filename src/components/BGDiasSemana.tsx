@@ -2,11 +2,10 @@ import { View } from "react-native";
 
 import { ButtonGroup, Text } from "@rneui/themed";
 
-import { TipoHorario } from "../../store/dynamic.interface";
-import { useStaticData } from "../../store/static.data";
-import { useDynamicData } from "../../store/dynamic.store";
-import { globalStylesComp } from "../../styles/global.phone.styles";
-import { useStaticText } from "../../static/global.static";
+import { TipoHorario } from "../store/dynamic.interface";
+import { useDynamicData } from "../store/dynamic.store";
+import { globalStylesComp } from "../styles/global.phone.styles";
+import { useStaticText } from "../static/global.static";
 
 interface Props {
   // * 'regular' | 'especial' | 'eventual'
@@ -24,13 +23,12 @@ interface Props {
  *  */
 
 export const BGDiasSemana = ({ horario }: Props) => {
-  // * Textos estáticos según el lenguaje:
-  const { diasSemanaTitulo, diasSemanaLabels } = useStaticData("spanish")();
   // * Estado del componente en el gestor global para leer y actualizar valores según el horario:
   const { leerDiasSemana, actualizarDiaSemana } = useDynamicData();
-  const staticText = useStaticText()("scrHorarios");
 
-  // * (1) Estilos
+  // ! Texto estático:
+  const staticText = useStaticText()("scrHorarios");
+  // ? Estilos:
   const style = globalStylesComp("Dias");
 
   return (

@@ -1,6 +1,5 @@
 import { Icon, ListItem } from "@rneui/themed";
-import { Text, View } from "react-native";
-import { HexColor } from "../themes/navigator/nav-types";
+import { HexColor } from "../themes/nav-types";
 
 export type SheetProps = {
   title: string;

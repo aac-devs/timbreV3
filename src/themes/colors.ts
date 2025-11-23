@@ -1,4 +1,4 @@
-import { HexColor } from "../navigator/nav-types";
+import { HexColor } from "./nav-types";
 
 interface AppColors {
   dark: {

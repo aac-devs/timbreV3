@@ -1,5 +1,5 @@
 import { createTheme, darkColors, lightColors } from "@rneui/themed";
-import { colors } from "../colors/colors";
+import { colors } from "./colors";
 
 export const darkTheme = createTheme({
   darkColors: {

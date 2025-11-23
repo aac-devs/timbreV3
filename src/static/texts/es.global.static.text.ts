@@ -2,10 +2,28 @@ import {
   HomeScreen,
   Screens,
   HorariosScreen,
+  RingsScreen,
+  RelojScreen,
+  BateriaScreen,
 } from "../global.static.interface";
+
+// ?? ////////////////////////////////////////////////////////////////////////////////////
+// ?? ////////////////////////////////////////////////////////////////////////////////////
+// ??                                                                                ?? //
+// ??   #########   #######   ########     #####    ##     ##   #######   ##         ?? //
+// ??   ##         ##     ##  ##     ##   ##   ##   ###    ##  ##     ##  ##         ?? //
+// ??   ##         ##         ##     ##  ##     ##  ####   ##  ##     ##  ##         ?? //
+// ??   #####       #######   ########   #########  ## ##  ##  ##     ##  ##         ?? //
+// ??   ##                ##  ##         ##     ##  ##  ## ##  ##     ##  ##         ?? //
+// ??   ##         ##     ##  ##         ##     ##  ##   ####  ##     ##  ##         ?? //
+// ??   #########   #######   ##         ##     ##  ##    ###   #######   #########  ?? //
+// ??                                                                                ?? //
+// ?? ////////////////////////////////////////////////////////////////////////////////////
+// ?? ////////////////////////////////////////////////////////////////////////////////////
 
 export const spanishStrings = (screen: Screens) => {
   switch (screen) {
+    // ?? ////////////////////////////////////////////////////////////////////////////////
     case "scrHome":
       return (homeScreen: HomeScreen): string => {
         switch (homeScreen) {
@@ -34,6 +52,7 @@ export const spanishStrings = (screen: Screens) => {
             );
         }
       };
+    // ?? ////////////////////////////////////////////////////////////////////////////////
     case "scrHorarios":
       return (horariosScreen: HorariosScreen): string | string[] => {
         switch (horariosScreen) {
@@ -65,5 +84,57 @@ export const spanishStrings = (screen: Screens) => {
             );
         }
       };
+    // ?? ////////////////////////////////////////////////////////////////////////////////
+    case "scrRings":
+      return (ringsScreen: RingsScreen): string => {
+        switch (ringsScreen) {
+          case "navTitle":
+            return "Rings";
+          default:
+            const unreachable: never = ringsScreen;
+            throw new Error(
+              `Texto RingsScreen español no manejado: ${unreachable}`
+            );
+        }
+      };
+    // ?? ////////////////////////////////////////////////////////////////////////////////
+    case "scrReloj":
+      return (relojScreen: RelojScreen): string => {
+        switch (relojScreen) {
+          case "navTitle":
+            return "Reloj";
+          default:
+            const unreachable: never = relojScreen;
+            throw new Error(
+              `Texto RelojScreen español no manejado: ${unreachable}`
+            );
+        }
+      };
+    // ?? ////////////////////////////////////////////////////////////////////////////////
+    case "scrBateria":
+      return (bateriaScreen: BateriaScreen): string => {
+        switch (bateriaScreen) {
+          case "navTitle":
+            return "Batería";
+          default:
+            const unreachable: never = bateriaScreen;
+            throw new Error(
+              `Texto BateríaScreen español no manejado: ${unreachable}`
+            );
+        }
+      };
+    // ?? ////////////////////////////////////////////////////////////////////////////////
+    case "global":
+      return {};
+    // ?? ////////////////////////////////////////////////////////////////////////////////
+    default:
+      const unreachable: never = screen;
+      throw new Error(`Componente Screen Español no manejado: ${unreachable}`);
   }
 };
+
+// ?? ////////////////////////////////////////////////////////////////////////////////////
+// ?? ////////////////////////////////////////////////////////////////////////////////////
+// ?? ////////////////////////////////////////////////////////////////////////////////////
+// ?? ////////////////////////////////////////////////////////////////////////////////////
+// ?? ////////////////////////////////////////////////////////////////////////////////////

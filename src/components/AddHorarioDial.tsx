@@ -1,11 +1,12 @@
 import { useState } from "react";
 
-import { SpeedDial, useTheme } from "@rneui/themed";
+import { SpeedDial } from "@rneui/themed";
 
 import { DialAction } from "./DialAction";
-import { DialOptions } from "../../store/es.static.interface";
-import { globalStylesComp } from "../../styles/global.phone.styles";
-import { useStaticText } from "../../static/global.static";
+import { globalStylesComp } from "../styles/global.phone.styles";
+import { useStaticText } from "../static/global.static";
+
+type DialOptions = "entrada" | "clase" | "descanso" | "salida";
 
 interface Props {
   onOptionSelected: (option: DialOptions) => void;
@@ -14,9 +15,10 @@ interface Props {
 export const AddHorarioDial = ({ onOptionSelected }: Props) => {
   const [open, setOpen] = useState(false);
 
-  const colors = useTheme().theme.colors;
-  const style = globalStylesComp("SpeedDial");
+  // ! Texto estático:
   const staticText = useStaticText()("scrHorarios");
+  // ? Estilos:
+  const style = globalStylesComp("SpeedDial");
 
   const handleDialOption = (option: DialOptions) => {
     setOpen(false);
@@ -37,29 +39,29 @@ export const AddHorarioDial = ({ onOptionSelected }: Props) => {
       <DialAction
         dialOpt="entrada"
         onPress={handleDialOption}
-        fontColor={colors.entrada}
-        titleColor={colors.textEntrada}
+        fontColor={style("fontColorEntrada")}
+        titleColor={style("titleColorEntrada")}
         title={staticText("dialEntrada")}
       />
       <DialAction
         dialOpt="clase"
         onPress={handleDialOption}
-        fontColor={colors.clase}
-        titleColor={colors.textClase}
+        fontColor={style("fontColorClase")}
+        titleColor={style("titleColorClase")}
         title={staticText("dialClase")}
       />
       <DialAction
         dialOpt="descanso"
         onPress={handleDialOption}
-        fontColor={colors.descanso}
-        titleColor={colors.textDescanso}
+        fontColor={style("fontColorDescanso")}
+        titleColor={style("titleColorDescanso")}
         title={staticText("dialDescanso")}
       />
       <DialAction
         dialOpt="salida"
         onPress={handleDialOption}
-        fontColor={colors.salida}
-        titleColor={colors.textSalida}
+        fontColor={style("fontColorSalida")}
+        titleColor={style("titleColorSalida")}
         title={staticText("dialSalida")}
       />
     </SpeedDial>

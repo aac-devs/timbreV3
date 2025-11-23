@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import {
   DarkNavigatorTheme as DNT,
   LightNavigatorTheme as LNT,
-} from "./themes/navigator/theme";
-import { lightTheme, darkTheme } from "./themes/elements/theme";
+} from "./themes/nav.theme";
+import { lightTheme, darkTheme } from "./themes/rne.theme";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NativeRoot } from "./navigation/NativeRoot";

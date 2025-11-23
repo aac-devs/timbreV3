@@ -15,10 +15,10 @@ import { IconNode } from "@rneui/base";
 import { Fondo } from "./global/background.style";
 import { useTheme } from "@rneui/themed";
 import { useTheme as navUseTheme } from "@react-navigation/native";
-import { CustomNavigationTypes as CNT } from "../themes/navigator/nav-types";
+import { CustomNavigationTypes as CNT } from "../themes/nav-types";
 
-// ** /////////////////////////////////////////////////////////////////////////////////////////////
-// ** /////////////////////////////////////////////////////////////////////////////////////////////
+// ** /////////////////////////////////////////////////////////////////////////////////
+// ** /////////////////////////////////////////////////////////////////////////////////
 
 type ElemStyle =
   | "Home"
@@ -39,7 +39,16 @@ export type SpeedDialComp =
   | "openIcon"
   | "color"
   | "overlayColor"
-  | "compStyle";
+  | "compStyle"
+  | "fontColorEntrada"
+  | "titleColorEntrada"
+  | "fontColorClase"
+  | "titleColorClase"
+  | "fontColorDescanso"
+  | "titleColorDescanso"
+  | "fontColorSalida"
+  | "titleColorSalida";
+
 export type FondoProps = "colors" | "compStyle" | "start" | "end";
 
 type StyleReturn<T extends ElemStyle> = T extends "Home"
@@ -57,15 +66,24 @@ type StyleReturn<T extends ElemStyle> = T extends "Home"
       comp: C
     ) => C extends "icon" | "openIcon"
       ? IconNode
-      : C extends "color" | "overlayColor"
-      ? string
       : C extends "compStyle"
       ? ViewStyle
+      : C extends
+          | "color"
+          | "overlayColor"
+          | "fontColorEntrada"
+          | "titleColorEntrada"
+          | "fontColorClase"
+          | "titleColorClase"
+          | "fontColorDescanso"
+          | "titleColorDescanso"
+          | "fontColorSalida"
+          | "titleColorSalida"
+      ? string
       : never
   : T extends "Fondo"
   ? <C extends FondoProps>(
-      comp: C,
-      theme: CNT
+      comp: C
     ) => C extends "colors"
       ? []
       : C extends "compStyle"

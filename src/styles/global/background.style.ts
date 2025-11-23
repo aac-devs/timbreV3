@@ -1,7 +1,7 @@
 import { ViewStyle } from "react-native";
 
 import { FondoProps } from "../global.phone.styles";
-import { CustomNavigationTypes as CNT } from "../../themes/navigator/nav-types";
+import { CustomNavigationTypes as CNT } from "../../themes/nav-types";
 import { moderateScale } from "react-native-size-matters";
 
 export const Fondo = (component: FondoProps, colors: CNT) => {

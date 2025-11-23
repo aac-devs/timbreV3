@@ -4,12 +4,11 @@ import {
   Icon,
   ListItem,
   makeStyles,
-  Text,
   useTheme,
   useThemeMode,
 } from "@rneui/themed";
 import { useEffect } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView } from "react-native";
 import { Background } from "../components/Background";
 
 export const Horarios = () => {

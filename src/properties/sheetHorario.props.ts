@@ -2,7 +2,7 @@ import {
   containerSheetStyle,
   titleSheetStyle,
 } from "../styles/sheetHorario.style";
-import { HexColor } from "../themes/navigator/nav-types";
+import { HexColor } from "../themes/nav-types";
 
 export type HorarioSheetProps = {
   title: string;

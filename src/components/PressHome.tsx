@@ -7,7 +7,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { Image, Text } from "@rneui/themed";
 
-import { globalStylesComp } from "../../styles/global.phone.styles";
+import { globalStylesComp } from "../styles/global.phone.styles";
 
 interface Props {
   title: string;
@@ -17,9 +17,9 @@ interface Props {
 
 export const PressHome = ({ title, navTo, iconUrl }: Props) => {
   const navigation = useNavigation();
+  // ? Estilos:
   const style = globalStylesComp("HomeBtns");
 
-  console.log("press home");
   return (
     <Pressable
       onPress={() => navigation.navigate(navTo as never)}

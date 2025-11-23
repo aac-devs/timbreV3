@@ -39,6 +39,6 @@ yarn-error.*
 # generated native folders
 /ios
 /android
-/src/comp_test
-/src/notes
+/src/_comp_test
+/src/_notes
 /src/_unused

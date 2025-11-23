@@ -2,8 +2,9 @@ import { Text, TextStyle } from "react-native";
 
 import { SpeedDial } from "@rneui/themed";
 
-import { DialOptions } from "../../store/es.static.interface";
-import { globalStylesComp } from "../../styles/global.phone.styles";
+import { globalStylesComp } from "../styles/global.phone.styles";
+
+type DialOptions = "entrada" | "clase" | "descanso" | "salida";
 
 interface Props {
   title: string;

@@ -1,8 +1,8 @@
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
-import { colors } from "../colors/colors";
-import { fonts } from "../fonts/fonts";
+import { colors } from "./colors";
+import { fonts } from "./fonts";
 import { CustomNavigationTypes } from "./nav-types";
-import { darkTheme, lightTheme } from "../elements/theme";
+import { darkTheme, lightTheme } from "./rne.theme";
 
 export const DarkNavigatorTheme: CustomNavigationTypes = {
   ...DarkTheme,

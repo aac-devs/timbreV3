@@ -1,6 +1,13 @@
 import { useLocales } from "expo-localization";
 
-import { HomeScreen, HorariosScreen, Screens } from "./global.static.interface";
+import {
+  BateriaScreen,
+  HomeScreen,
+  HorariosScreen,
+  RelojScreen,
+  RingsScreen,
+  Screens,
+} from "./global.static.interface";
 import { englishStrings as en } from "./texts/en.global.static.text";
 import { spanishStrings as es } from "./texts/es.global.static.text";
 
@@ -10,6 +17,12 @@ export type StaticReturn<T extends Screens> = T extends "scrHome"
   ? <C extends HorariosScreen>(
       text: C
     ) => C extends "diasSemanaLabels" ? string[] : string
+  : T extends "scrRings"
+  ? (text: RingsScreen) => string
+  : T extends "scrReloj"
+  ? (text: RelojScreen) => string
+  : T extends "scrBateria"
+  ? (text: BateriaScreen) => string
   : never;
 
 const getStaticLang = (lang: "es" | "en") => {

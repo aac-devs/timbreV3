@@ -11,7 +11,6 @@ import { Reloj } from "../screens/Reloj";
 import { Bateria } from "../screens/Bateria";
 
 import { BottomSheetHorarios } from "../components/BottomSheetHorarios";
-import { useStaticData } from "../store/static.data";
 import { useStaticText } from "../static/global.static";
 // import AppTest from "../comp_test/AppTest";
 
@@ -30,8 +29,11 @@ export const NativeRoot = () => {
   const { theme } = useTheme();
   const [showBottomSheetHorarios, setShowBottomSheetHorarios] = useState(false);
 
-  const headerTitles = useStaticData("spanish")().homePressParams;
-  const staticHorariosText = useStaticText()("scrHorarios");
+  // ! Texto estático:
+  const titleHorarios = useStaticText()("scrHorarios")("navTitle");
+  const titleRings = useStaticText()("scrRings")("navTitle");
+  const titleReloj = useStaticText()("scrReloj")("navTitle");
+  const titleBateria = useStaticText()("scrBateria")("navTitle");
 
   const handleBottomSheetOptionSelected = (opt: string) => {
     setShowBottomSheetHorarios(false);
@@ -76,7 +78,7 @@ export const NativeRoot = () => {
           name="horarios"
           component={Horarios}
           options={{
-            title: `${staticHorariosText("navTitle")}`,
+            title: `${titleHorarios}`,
             // headerBackground: () => (
             //   <View
             //     style={{
@@ -109,26 +111,17 @@ export const NativeRoot = () => {
         <RootTabs.Screen
           name="rings"
           component={Rings}
-          options={{
-            title: `${headerTitles.rings.title}`,
-            headerRight: buttonRight,
-          }}
+          options={{ title: `${titleRings}`, headerRight: buttonRight }}
         />
         <RootTabs.Screen
           name="reloj"
           component={Reloj}
-          options={{
-            title: `${headerTitles.reloj.title}`,
-            headerRight: buttonRight,
-          }}
+          options={{ title: `${titleReloj}`, headerRight: buttonRight }}
         />
         <RootTabs.Screen
           name="bateria"
           component={Bateria}
-          options={{
-            title: `${headerTitles.bateria.title}`,
-            headerRight: buttonRight,
-          }}
+          options={{ title: `${titleBateria}`, headerRight: buttonRight }}
         />
         {/* <RootTabs.Screen name="Comp" component={AppTest} /> */}
       </RootTabs.Navigator>

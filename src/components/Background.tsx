@@ -1,7 +1,7 @@
-import { useTheme } from "@react-navigation/native";
 import React from "react";
+
 import LinearGradient from "react-native-linear-gradient";
-import { CustomNavigationTypes } from "../themes/navigator/nav-types";
+
 import { globalStylesComp } from "../styles/global.phone.styles";
 
 interface Props {
@@ -9,7 +9,9 @@ interface Props {
 }
 
 export const Background = ({ children }: Props) => {
+  // ? Estilos:
   const style = globalStylesComp("Fondo");
+
   return (
     <LinearGradient
       colors={style("colors")}

@@ -4,7 +4,7 @@ import { Colors } from "@rneui/themed";
 import { moderateScale } from "react-native-size-matters";
 
 import { DiasComps } from "../global.phone.styles";
-import { fontWeights } from "../../themes/fonts/fonts";
+import { fontWeights } from "../../themes/fonts";
 
 type DiasReturn = ViewStyle | TextStyle;
 

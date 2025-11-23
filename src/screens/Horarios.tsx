@@ -1,16 +1,16 @@
 import { Button, makeStyles, Tab, TabView, Text } from "@rneui/themed";
 import { useState } from "react";
 import { Background } from "../components/Background";
-import { BGDiasSemana } from "../components/BGDiasSemana/BGDiasSemana";
+import { BGDiasSemana } from "../components/BGDiasSemana";
 import { Divider } from "@rneui/themed";
-import { AddHorarioDial } from "../components/AddHorario/AddHorarioDial";
+import { AddHorarioDial } from "../components/AddHorarioDial";
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
-import { useStaticData } from "../store/static.data";
 import { globalStylesComp } from "../styles/global.phone.styles";
-import { DialOptions } from "../store/es.static.interface";
 import { useStaticText } from "../static/global.static";
+
+type DialOptions = "entrada" | "clase" | "descanso" | "salida";
 
 //! ORGANIZAR CÓDIGO, SEPARAR EN COMPONENTES.
 //! BADGES EN TABS DE HORARIOS. (YA NO)
@@ -68,11 +68,6 @@ export const Horarios = () => {
     console.log("Horario Activo:", horarioActivo);
   };
 
-  const language = useStaticData("spanish");
-  const regularIconProps = language("regular").tabItemIconProps;
-  const especialIconProps = language("especial").tabItemIconProps;
-  const eventualIconProps = language("eventual").tabItemIconProps;
-
   // console.log("holaaaaa", st.tabIcon, st.tabTitle, st.tabBadgeContainer);
   // TODO: Hay que modificar los TabItem. Colocarlos dentro de este componente ya que no funciona separando el componente. Se puede usar el color del texto y el ícono para mostrar si se guardó o no el horario. Aunque el ícono estaría por ver ya que es probable que se cambie por íconos con colores***
   // TODO: Poner las titleStyle dentro del archivo static.
@@ -87,17 +82,29 @@ export const Horarios = () => {
         <Tab.Item
           title={staticText("tabRegularTitle")}
           titleStyle={[tabItemStyle("titleText"), { color: "red" }]} // color que mostrará si se ha enviado el horario
-          icon={{ ...regularIconProps.iconProps, color: "red" }}
+          icon={{
+            name: "calendar-range-outline",
+            type: "material-community",
+            color: "white",
+          }}
         />
         <Tab.Item
           title={staticText("tabEspecialTitle")}
           titleStyle={tabItemStyle("titleText")}
-          icon={especialIconProps.iconProps}
+          icon={{
+            name: "bullseye-arrow",
+            type: "material-community",
+            color: "white",
+          }}
         />
         <Tab.Item
           title={staticText("tabEventualTitle")}
           titleStyle={tabItemStyle("titleText")}
-          icon={eventualIconProps.iconProps}
+          icon={{
+            name: "exclamation-triangle",
+            type: "font-awesome",
+            color: "white",
+          }}
         />
       </Tab>
 
