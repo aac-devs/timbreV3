@@ -5,6 +5,7 @@ import {
   RingsScreen,
   RelojScreen,
   BateriaScreen,
+  TestsScreen,
 } from "../global.static.interface";
 
 // ?? ////////////////////////////////////////////////////////////////////////////////////
@@ -37,6 +38,8 @@ export const spanishStrings = (screen: Screens) => {
             return "Reloj";
           case "btnBateria":
             return "Batería";
+          case "btnTests":
+            return "Tests";
           case "gotoHorarios":
             return "horarios";
           case "gotoRings":
@@ -45,6 +48,8 @@ export const spanishStrings = (screen: Screens) => {
             return "reloj";
           case "gotoBateria":
             return "bateria";
+          case "gotoTests":
+            return "tests";
           default:
             const unreachable: never = homeScreen;
             throw new Error(
@@ -126,6 +131,19 @@ export const spanishStrings = (screen: Screens) => {
     // ?? ////////////////////////////////////////////////////////////////////////////////
     case "global":
       return {};
+    // ?? ////////////////////////////////////////////////////////////////////////////////
+    case "scrTests":
+      return (testsScreen: TestsScreen): string => {
+        switch (testsScreen) {
+          case "navTitle":
+            return "Tests";
+          default:
+            const unreachable: never = testsScreen;
+            throw new Error(
+              `Texto TestsScreen español no manejado: ${unreachable}`
+            );
+        }
+      };
     // ?? ////////////////////////////////////////////////////////////////////////////////
     default:
       const unreachable: never = screen;

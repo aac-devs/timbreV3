@@ -16,6 +16,7 @@ import { Fondo } from "./global/background.style";
 import { useTheme } from "@rneui/themed";
 import { useTheme as navUseTheme } from "@react-navigation/native";
 import { CustomNavigationTypes as CNT } from "../themes/nav-types";
+import { HorarioCard } from "./horario/horarioCard.style";
 
 // ** /////////////////////////////////////////////////////////////////////////////////
 // ** /////////////////////////////////////////////////////////////////////////////////
@@ -27,7 +28,8 @@ type ElemStyle =
   | "DialAct"
   | "HomeBtns"
   | "SpeedDial"
-  | "Fondo";
+  | "Fondo"
+  | "HorarioCard";
 type Common = "mainCont" | "titleText";
 
 export type HomeComps = Common | "titleCont" | "bodyCont";
@@ -48,6 +50,19 @@ export type SpeedDialComp =
   | "titleColorDescanso"
   | "fontColorSalida"
   | "titleColorSalida";
+export type HorarioCardComp =
+  | "listItemCont"
+  | "avatarTitle"
+  | "avatarSize"
+  | "avatarContStyle"
+  | "liContent"
+  | "text"
+  | "buttonsCont"
+  | "btnEditIcon"
+  | "btnDeleteIcon"
+  | "btnStyle"
+  | "btnIconContStyle"
+  | "btnContStyle";
 
 export type FondoProps = "colors" | "compStyle" | "start" | "end";
 
@@ -57,6 +72,25 @@ type StyleReturn<T extends ElemStyle> = T extends "Home"
   ? (comp: DiasComps) => ViewStyle | TextStyle
   : T extends "TabItem"
   ? (comp: TabItemComps) => ViewStyle | TextStyle
+  : T extends "HorarioCard"
+  ? <C extends HorarioCardComp>(
+      comp: C
+    ) => C extends "btnEditIcon" | "btnDeleteIcon"
+      ? IconNode
+      : C extends
+          | "avatarContStyle"
+          | "listItemCont"
+          | "liContent"
+          | "buttonsCont"
+          | "btnContStyle"
+          | "btnStyle"
+          | "btnIconContStyle"
+      ? ViewStyle
+      : C extends "avatarTitle" | "text"
+      ? TextStyle
+      : C extends "avatarSize"
+      ? number
+      : never
   : T extends "DialAct"
   ? () => TextStyle
   : T extends "HomeBtns"
@@ -128,6 +162,11 @@ export const globalStylesComp = <T extends ElemStyle>(
         SpeedDial(comp, RNEColors)) as StyleReturn<T>;
     case "DialAct":
       return (() => DialAction()) as StyleReturn<T>;
+
+    // ? -------> HorarioCard
+    case "HorarioCard":
+      return ((comp: HorarioCardComp) =>
+        HorarioCard(comp, RNEColors)) as StyleReturn<T>;
 
     // ! RingsScreen Elements
 

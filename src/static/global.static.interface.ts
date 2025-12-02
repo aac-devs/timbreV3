@@ -4,6 +4,7 @@ export type Screens =
   | "scrRings"
   | "scrReloj"
   | "scrBateria"
+  | "scrTests"
   | "global";
 
 export type HomeScreen =
@@ -12,10 +13,12 @@ export type HomeScreen =
   | "btnRings"
   | "btnReloj"
   | "btnBateria"
+  | "btnTests"
   | "gotoHorarios"
   | "gotoRings"
   | "gotoReloj"
-  | "gotoBateria";
+  | "gotoBateria"
+  | "gotoTests";
 
 export type HorariosScreen =
   | "navTitle"
@@ -34,5 +37,7 @@ export type RingsScreen = "navTitle";
 export type RelojScreen = "navTitle";
 
 export type BateriaScreen = "navTitle";
+
+export type TestsScreen = "navTitle";
 
 export type GlobalScreen = "bottomTitle" | "bottomIconName" | "bottomIconType";

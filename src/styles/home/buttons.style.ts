@@ -14,7 +14,6 @@ type HBReturn = ViewStyle | ImageStyle;
 export const HomeButtons = (comp: HBC, colors: Colors, st?: PSCB): HBReturn => {
   const { grey3, grey4, background } = colors;
 
-  console.log("home buttons");
   switch (comp) {
     case "pressable":
       return {

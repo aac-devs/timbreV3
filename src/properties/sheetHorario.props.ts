@@ -2,7 +2,7 @@ import {
   containerSheetStyle,
   titleSheetStyle,
 } from "../styles/sheetHorario.style";
-import { HexColor } from "../themes/nav-types";
+import { AppTypeColor } from "../themes/nav-types";
 
 export type HorarioSheetProps = {
   title: string;
@@ -12,7 +12,7 @@ export type HorarioSheetProps = {
   titleStyle: {};
   iconName: string;
   iconType: string;
-  iconColor: HexColor | string;
+  iconColor: AppTypeColor;
   onPress: (opt: string) => void;
 };
 

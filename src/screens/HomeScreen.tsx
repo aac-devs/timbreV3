@@ -9,7 +9,8 @@ import { Background } from "../components/Background";
 
 // todo |     Implementar una variable 'whereAmI' que guarda un valor que representa la screen en la que se
 // todo |      encuentra la aplicación, debe ser dinámica, servirá para seleccionar las opciones que el bottomSheet
-// todo |      mostrará: [Horarios (Regular, Especial, Eventual), Rings, Reloj, Batería]
+// todo |      mostrará: [Horarios (Regular, Especial, Eventual), Rings, Reloj, Batería] (verificar con lo escrito
+// todo |      en 'dynamic.store.ts' y definir la forma)
 
 export const HomeScreen = () => {
   // ! Texto estático:
@@ -48,6 +49,11 @@ export const HomeScreen = () => {
             navTo={staticText("gotoBateria")}
             title={staticText("btnBateria")}
           />
+          {/* <PressHome
+            iconUrl={require("../../assets/search.png")}
+            navTo={staticText("gotoTests")}
+            title={staticText("btnTests")}
+          /> */}
         </View>
       </Background>
     </View>

@@ -1,13 +1,14 @@
 import { Theme as NavigationTheme } from "@react-navigation/native";
 import { Theme as RNETheme } from "@rneui/themed";
 
-export type HexColor = `#${string}`;
-export type RGBAColor = `rgba(${number},${number},${number},${number},)`;
+type HexColor = `#${string}`;
+type RGBAColor = `rgba(${number},${number},${number},${number})`;
+export type AppTypeColor = HexColor | RGBAColor | string;
 
 type GradientColorLevels = {
-  high: HexColor;
-  medium: HexColor;
-  low: HexColor;
+  high: AppTypeColor;
+  medium: AppTypeColor;
+  low: AppTypeColor;
 };
 
 export interface CustomNavigationTypes extends NavigationTheme {
@@ -30,6 +31,8 @@ declare module "@rneui/themed" {
     textSalida: string;
     enviado: string;
     noEnviado: string;
+    iconEdit: string;
+    iconDelete: string;
   }
 }
 

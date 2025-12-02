@@ -18,6 +18,8 @@ export const darkTheme = createTheme({
     textSalida: colors.dark.textSalida,
     success: colors.dark.enviado,
     error: colors.dark.noEnviado,
+    iconEdit: colors.dark.iconEdit,
+    iconDelete: colors.dark.iconDelete,
   },
   mode: "dark",
 });
@@ -25,10 +27,8 @@ export const darkTheme = createTheme({
 export const lightTheme = createTheme({
   lightColors: {
     ...lightColors,
-    // background: "yellow",
     background: colors.light.background,
     black: colors.light.text,
-    // white: "pink",
     primary: colors.light.background,
     secondary: colors.light.secondary,
     entrada: colors.light.entrada,
@@ -41,7 +41,8 @@ export const lightTheme = createTheme({
     textSalida: colors.light.textSalida,
     success: colors.light.enviado,
     error: colors.light.noEnviado,
-    // primary: "yellow",
+    iconEdit: colors.light.iconEdit,
+    iconDelete: colors.light.iconDelete,
   },
   mode: "light",
 });

@@ -12,6 +12,8 @@ import { Bateria } from "../screens/Bateria";
 
 import { BottomSheetHorarios } from "../components/BottomSheetHorarios";
 import { useStaticText } from "../static/global.static";
+import AppTest from "../_unused/_comp_test/AppTest";
+import { Tests } from "../screens/Tests";
 // import AppTest from "../comp_test/AppTest";
 
 export type RootStackParamList = {
@@ -20,7 +22,7 @@ export type RootStackParamList = {
   rings: undefined;
   reloj: undefined;
   bateria: undefined;
-  Comp: undefined;
+  tests: undefined;
 };
 
 const RootTabs = createNativeStackNavigator<RootStackParamList>();
@@ -34,6 +36,7 @@ export const NativeRoot = () => {
   const titleRings = useStaticText()("scrRings")("navTitle");
   const titleReloj = useStaticText()("scrReloj")("navTitle");
   const titleBateria = useStaticText()("scrBateria")("navTitle");
+  const titleTests = useStaticText()("scrTests")("navTitle");
 
   const handleBottomSheetOptionSelected = (opt: string) => {
     setShowBottomSheetHorarios(false);
@@ -123,7 +126,11 @@ export const NativeRoot = () => {
           component={Bateria}
           options={{ title: `${titleBateria}`, headerRight: buttonRight }}
         />
-        {/* <RootTabs.Screen name="Comp" component={AppTest} /> */}
+        <RootTabs.Screen
+          name="tests"
+          component={Tests}
+          options={{ title: `${titleTests}` }}
+        />
       </RootTabs.Navigator>
       <BottomSheetHorarios
         isVisible={showBottomSheetHorarios}

@@ -1,4 +1,13 @@
-import { Button, makeStyles, Tab, TabView, Text } from "@rneui/themed";
+import {
+  Avatar,
+  Button,
+  Icon,
+  ListItem,
+  makeStyles,
+  Tab,
+  TabView,
+  Text,
+} from "@rneui/themed";
 import { useState } from "react";
 import { Background } from "../components/Background";
 import { BGDiasSemana } from "../components/BGDiasSemana";
@@ -9,21 +18,29 @@ import DateTimePicker, {
 } from "@react-native-community/datetimepicker";
 import { globalStylesComp } from "../styles/global.phone.styles";
 import { useStaticText } from "../static/global.static";
+import { ScrollView, View } from "react-native";
+import { HorarioCard } from "../components/HorarioCard";
+import { TipoHorario } from "../store/dynamic.interface";
 
 type DialOptions = "entrada" | "clase" | "descanso" | "salida";
 
 //! ORGANIZAR CÓDIGO, SEPARAR EN COMPONENTES.
-//! BADGES EN TABS DE HORARIOS. (YA NO)
 //! FUNCIONALIDAD A BOTONES DE AGREGAR HORAS (DATETIMEPICKER).
-//! TARJETA DE HORA SWIPEABLE CON BOTÓN DE ELIMINAR.
+//! TARJETA DE HORA SWIPEABLE CON BOTÓN DE ELIMINAR. (NO FUNCIONA)
 //! COMPLETAR (DEFINIR) LISTA DE BOTTOMSHEET, A LO MEJOR PONER 'GUARDAR EN TELÉFONO' (YA NO, GUARDADO AUTOMÁTICO)
-//! DIVIDIR EN CARPETAS LOS ARCHIVOS RELACIONADOS A UN COMPONENTE**
+//! DIVIDIR EN CARPETAS LOS ARCHIVOS RELACIONADOS A UN COMPONENTE (YA NO)**
 
 export const Horarios = () => {
   const [index, setIndex] = useState(0);
+  const [tabIconColor, setTabIconColor] = useState({
+    regular: "gray",
+    especial: "grey",
+    eventual: "grey",
+  });
   // const tabItemsStyle = globalStyles("TabItemHorario")()?.TabItemsStyles;
   const tabItemStyle = globalStylesComp("TabItem");
   const staticText = useStaticText()("scrHorarios");
+  const dialStyles = globalStylesComp("SpeedDial");
 
   // Estado para la hora con tipo Date (solo usamos la parte de la hora)
   const [selectedTime, setSelectedTime] = useState<Date>(
@@ -68,6 +85,14 @@ export const Horarios = () => {
     console.log("Horario Activo:", horarioActivo);
   };
 
+  const handleEditHorarioCard = (tipo: TipoHorario, index: string) => {
+    console.log(`eee -> Editar índice "${index}" del horario "${tipo}"`);
+  };
+
+  const handleDeleteHorarioCard = (tipo: TipoHorario, index: string) => {
+    console.log(`XXX -> Borrar índice "${index}" del horario "${tipo}"`);
+  };
+
   // console.log("holaaaaa", st.tabIcon, st.tabTitle, st.tabBadgeContainer);
   // TODO: Hay que modificar los TabItem. Colocarlos dentro de este componente ya que no funciona separando el componente. Se puede usar el color del texto y el ícono para mostrar si se guardó o no el horario. Aunque el ícono estaría por ver ya que es probable que se cambie por íconos con colores***
   // TODO: Poner las titleStyle dentro del archivo static.
@@ -81,35 +106,48 @@ export const Horarios = () => {
       >
         <Tab.Item
           title={staticText("tabRegularTitle")}
-          titleStyle={[tabItemStyle("titleText"), { color: "red" }]} // color que mostrará si se ha enviado el horario
+          titleStyle={[
+            tabItemStyle("titleText"),
+            { color: tabIconColor.regular },
+          ]} // color que mostrará si se ha enviado el horario
           icon={{
             name: "calendar-range-outline",
             type: "material-community",
-            color: "white",
+            color: tabIconColor.regular,
           }}
         />
         <Tab.Item
           title={staticText("tabEspecialTitle")}
-          titleStyle={tabItemStyle("titleText")}
+          titleStyle={[
+            tabItemStyle("titleText"),
+            { color: tabIconColor.regular },
+          ]} // color que mostrará si se ha enviado el horario
           icon={{
             name: "bullseye-arrow",
             type: "material-community",
-            color: "white",
+            color: tabIconColor.especial,
           }}
         />
         <Tab.Item
           title={staticText("tabEventualTitle")}
-          titleStyle={tabItemStyle("titleText")}
+          titleStyle={[
+            tabItemStyle("titleText"),
+            { color: tabIconColor.regular },
+          ]} // color que mostrará si se ha enviado el horario
           icon={{
             name: "exclamation-triangle",
             type: "font-awesome",
-            color: "white",
+            color: tabIconColor.eventual,
           }}
         />
       </Tab>
 
+      {/* -------------------------------------------------------------------------------- */}
+      {/* -------------------------------------------------------------------------------- */}
       <TabView value={index} onChange={setIndex} animationType="spring">
-        {/*  */}
+        {/* //////////////////////////////////////////////////////////////////////////// ! */}
+        {/* // HORARIO REGULAR  //////////////////////////////////////////////////////// ! */}
+        {/* //////////////////////////////////////////////////////////////////////////// ! */}
         <TabView.Item style={{ width: "100%" }}>
           <Background>
             <BGDiasSemana horario="regular" />
@@ -120,14 +158,36 @@ export const Horarios = () => {
             </Text>
           </Background>
         </TabView.Item>
-        {/*  */}
+        {/* //////////////////////////////////////////////////////////////////////////// * */}
+        {/* // HORARIO ESPECIAL //////////////////////////////////////////////////////// * */}
+        {/* //////////////////////////////////////////////////////////////////////////// * */}
         <TabView.Item style={{ width: "100%" }}>
           <Background>
             <BGDiasSemana horario="especial" />
             <Divider />
+            <ScrollView
+              style={{
+                marginBottom: 50,
+                width: "100%",
+              }}
+            >
+              <HorarioCard
+                index="aa"
+                hora="06:15"
+                tipoHorario="especial"
+                tipoEvento="entrada"
+                avatarFontColor={dialStyles("titleColorEntrada")}
+                avatarBackgroundColor={dialStyles("fontColorEntrada")}
+                onEdit={handleEditHorarioCard}
+                onDelete={handleDeleteHorarioCard}
+              />
+            </ScrollView>
           </Background>
         </TabView.Item>
         {/*  */}
+        {/* //////////////////////////////////////////////////////////////////////////// ? */}
+        {/* // HORARIO EVENTUAL //////////////////////////////////////////////////////// ? */}
+        {/* //////////////////////////////////////////////////////////////////////////// ? */}
         <TabView.Item style={{ width: "100%" }}>
           <Background>
             <BGDiasSemana horario="eventual" />
@@ -135,7 +195,8 @@ export const Horarios = () => {
           </Background>
         </TabView.Item>
       </TabView>
-      {/* --------------------- */}
+      {/* -------------------------------------------------------------------------------- */}
+      {/* -------------------------------------------------------------------------------- */}
       <AddHorarioDial onOptionSelected={handleSpeedDialOptionSelected} />
       {showTimePicker && (
         <DateTimePicker

@@ -7,6 +7,7 @@ import {
   RelojScreen,
   RingsScreen,
   Screens,
+  TestsScreen,
 } from "./global.static.interface";
 import { englishStrings as en } from "./texts/en.global.static.text";
 import { spanishStrings as es } from "./texts/es.global.static.text";
@@ -23,6 +24,8 @@ export type StaticReturn<T extends Screens> = T extends "scrHome"
   ? (text: RelojScreen) => string
   : T extends "scrBateria"
   ? (text: BateriaScreen) => string
+  : T extends "scrTests"
+  ? (text: TestsScreen) => string
   : never;
 
 const getStaticLang = (lang: "es" | "en") => {

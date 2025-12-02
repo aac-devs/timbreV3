@@ -1,55 +1,41 @@
-import { HexColor } from "./nav-types";
+import { AppTypeColor } from "./nav-types";
+
+interface NamedColors {
+  background: AppTypeColor;
+  text: AppTypeColor;
+  highlight: AppTypeColor;
+  secondary: AppTypeColor;
+  bgHigh: AppTypeColor;
+  bgMed: AppTypeColor;
+  bgLow: AppTypeColor;
+  entrada: AppTypeColor;
+  clase: AppTypeColor;
+  descanso: AppTypeColor;
+  salida: AppTypeColor;
+  textEntrada: AppTypeColor;
+  textClase: AppTypeColor;
+  textDescanso: AppTypeColor;
+  textSalida: AppTypeColor;
+  enviado: AppTypeColor;
+  noEnviado: AppTypeColor;
+  iconEdit: AppTypeColor;
+  iconDelete: AppTypeColor;
+}
 
 interface AppColors {
-  dark: {
-    background: HexColor | string;
-    text: HexColor | string;
-    highlight: HexColor | string;
-    secondary: HexColor | string;
-    bgHigh: HexColor;
-    bgMed: HexColor;
-    bgLow: HexColor;
-    entrada: HexColor;
-    clase: HexColor;
-    descanso: HexColor;
-    salida: HexColor;
-    textEntrada: HexColor;
-    textClase: HexColor;
-    textDescanso: HexColor;
-    textSalida: HexColor;
-    enviado: HexColor | string;
-    noEnviado: HexColor | string;
-  };
-  light: {
-    background: HexColor;
-    text: HexColor;
-    highlight: HexColor;
-    secondary: HexColor | string;
-    bgHigh: HexColor;
-    bgMed: HexColor;
-    bgLow: HexColor;
-    entrada: HexColor;
-    clase: HexColor;
-    descanso: HexColor;
-    salida: HexColor;
-    textEntrada: HexColor;
-    textClase: HexColor;
-    textDescanso: HexColor;
-    textSalida: HexColor;
-    enviado: HexColor | string;
-    noEnviado: HexColor | string;
-  };
+  dark: NamedColors;
+  light: NamedColors;
 }
 
 export const colors: AppColors = {
   dark: {
-    background: "#222",
+    background: "rgba(18, 18, 18, 1)",
     text: "#ccc",
     highlight: "orange",
     secondary: "#ADFF2F",
-    bgHigh: "#111f",
-    bgMed: "#333f",
-    bgLow: "#111f",
+    bgHigh: "rgba(18, 18, 18, 1)",
+    bgMed: "rgba(38, 38, 38, 1)",
+    bgLow: "rgba(18, 18, 18, 1)",
     entrada: "#00FA9A",
     clase: "#1E90FF",
     descanso: "#FFFF00",
@@ -60,15 +46,17 @@ export const colors: AppColors = {
     textSalida: "#fff",
     enviado: "#00FF7F",
     noEnviado: "#DC143C",
+    iconEdit: "#439ce0",
+    iconDelete: "#ff190c",
   },
   light: {
-    background: "#eee",
+    background: "rgba(255, 255, 255, 1)",
     text: "#222",
     highlight: "#00f",
     secondary: "#FF4500",
-    bgHigh: "#ffff",
-    bgMed: "#dddf",
-    bgLow: "#ffff",
+    bgHigh: "rgba(255, 255, 255, 1)",
+    bgMed: "rgba(240, 240, 240, 1)",
+    bgLow: "rgba(255, 255, 255, 1)",
     entrada: "#32CD32",
     clase: "#0000CD",
     descanso: "#FF00FF",
@@ -79,5 +67,7 @@ export const colors: AppColors = {
     textSalida: "#555",
     enviado: "#32CD32",
     noEnviado: "#F08080",
+    iconEdit: "#2089dc",
+    iconDelete: "#bf2c24",
   },
 };

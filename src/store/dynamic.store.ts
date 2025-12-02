@@ -30,3 +30,10 @@ export const useDynamicData = create<GlobalAppStore>()(
     }
   )
 );
+
+/**
+ * TODO:
+ * Las opciones del bottomSheetHorario también deben ir guardadas en el store y se habilitan con un true o false. Para cada horario (regular, especial, eventual)
+ * TODO:
+ * Hacer el store más simple, en vez de estilo árbol usar un estilo plano.
+ */
