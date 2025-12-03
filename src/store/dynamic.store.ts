@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { GlobalAppStore, TipoHorario } from "./dynamic.interface";
+import { GlobalAppStore } from "./dynamic.interface";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { dynamicGlobalState } from "./dynamic.data";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -8,6 +8,15 @@ import {
   DiaSemanaProps,
   leerDiasSemana,
 } from "./functions/diasSemana";
+import { Evento, GlobalStore, TipoHorario } from "./dyn.interface";
+import { dynGlobalStore } from "./dyn.data";
+import {
+  EraseEventProps,
+  fnAgregarEvento,
+  fnBorrarEventos,
+  fnLeerEventos,
+  AddEventProps,
+} from "./functions/agregarEvento";
 
 export const useDynamicData = create<GlobalAppStore>()(
   persist(
@@ -22,6 +31,29 @@ export const useDynamicData = create<GlobalAppStore>()(
       // ? Acción que lee el estado (on/off) de los días de la semana del horario dado:
       leerDiasSemana: (horario: TipoHorario) => {
         return leerDiasSemana({ get, horario });
+      },
+    }),
+    {
+      name: "",
+      storage: createJSONStorage(() => AsyncStorage),
+    }
+  )
+);
+
+export const useDynamicStore = create<GlobalStore>()(
+  persist(
+    (set, get) => ({
+      ...dynGlobalStore,
+      agregarEvento: (horario: TipoHorario, evento: Evento) => {
+        console.log(
+          set((state) => fnAgregarEvento({ state, horario, evento }))
+        );
+      },
+      leerEventos: (horario: TipoHorario) => {
+        return fnLeerEventos({ get, horario });
+      },
+      borrarEventos: (horario: TipoHorario) => {
+        set((state) => fnBorrarEventos({ state, horario }));
       },
     }),
     {

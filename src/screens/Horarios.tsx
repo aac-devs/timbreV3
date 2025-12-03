@@ -8,7 +8,7 @@ import {
   TabView,
   Text,
 } from "@rneui/themed";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Background } from "../components/Background";
 import { BGDiasSemana } from "../components/BGDiasSemana";
 import { Divider } from "@rneui/themed";
@@ -21,6 +21,7 @@ import { useStaticText } from "../static/global.static";
 import { ScrollView, View } from "react-native";
 import { HorarioCard } from "../components/HorarioCard";
 import { TipoHorario } from "../store/dynamic.interface";
+import { useDynamicStore } from "../store/dynamic.store";
 
 type DialOptions = "entrada" | "clase" | "descanso" | "salida";
 
@@ -37,6 +38,8 @@ export const Horarios = () => {
     especial: "grey",
     eventual: "grey",
   });
+
+  const { leerEventos, agregarEvento, borrarEventos } = useDynamicStore();
   // const tabItemsStyle = globalStyles("TabItemHorario")()?.TabItemsStyles;
   const tabItemStyle = globalStylesComp("TabItem");
   const staticText = useStaticText()("scrHorarios");
@@ -93,6 +96,17 @@ export const Horarios = () => {
     console.log(`XXX -> Borrar índice "${index}" del horario "${tipo}"`);
   };
 
+  useEffect(() => {
+    console.log("Entra al useEffect >>>>>>>>>>>>>");
+    // if (index === 4) {
+    //   borrarEventos("regular");
+    // }
+    console.log(leerEventos("regular"));
+    // agregarEvento("regular", { hora: "13:35", tipo: "entrada" });
+  }, []);
+
+  console.log("Horarios ---------------------------------!!!");
+  // console.log(leerEventos("regular"));
   // console.log("holaaaaa", st.tabIcon, st.tabTitle, st.tabBadgeContainer);
   // TODO: Hay que modificar los TabItem. Colocarlos dentro de este componente ya que no funciona separando el componente. Se puede usar el color del texto y el ícono para mostrar si se guardó o no el horario. Aunque el ícono estaría por ver ya que es probable que se cambie por íconos con colores***
   // TODO: Poner las titleStyle dentro del archivo static.
