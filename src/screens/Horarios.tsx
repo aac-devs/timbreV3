@@ -22,6 +22,7 @@ import { ScrollView, View } from "react-native";
 import { HorarioCard } from "../components/HorarioCard";
 import { TipoHorario } from "../store/dynamic.interface";
 import { useDynamicStore } from "../store/dynamic.store";
+import { Hora } from "../store/dyn.interface";
 
 type DialOptions = "entrada" | "clase" | "descanso" | "salida";
 
@@ -39,7 +40,13 @@ export const Horarios = () => {
     eventual: "grey",
   });
 
-  const { leerEventos, agregarEvento, borrarEventos } = useDynamicStore();
+  const {
+    leerEventos,
+    agregarEvento,
+    borrarEventos,
+    existeHoraEvento,
+    borrarEvento,
+  } = useDynamicStore();
   // const tabItemsStyle = globalStyles("TabItemHorario")()?.TabItemsStyles;
   const tabItemStyle = globalStylesComp("TabItem");
   const staticText = useStaticText()("scrHorarios");
@@ -97,12 +104,27 @@ export const Horarios = () => {
   };
 
   useEffect(() => {
-    console.log("Entra al useEffect >>>>>>>>>>>>>");
+    console.clear();
+    console.log("Entra al useEffect >>>>>>>>>>>>>.");
     // if (index === 4) {
     //   borrarEventos("regular");
     // }
-    console.log(leerEventos("regular"));
-    // agregarEvento("regular", { hora: "13:35", tipo: "entrada" });
+    // borrarEvento("regular", "06:18");
+    // agregarEvento("eventual", { hora: "06:18", tipo: "descanso" });
+
+    console.log("Horario regular:", leerEventos("regular"));
+    console.log("Horario especial:", leerEventos("especial"));
+    console.log("Horario eventual:", leerEventos("eventual"));
+
+    // const hora: Hora = "18:16";
+    // console.log(
+    //   `Existe ${hora} en horario eventual? ${existeHoraEvento(
+    //     "eventual",
+    //     hora
+    //   )}`
+    // );
+
+    // agregarEvento("eventual", { hora: "06:18", tipo: "descanso" });
   }, []);
 
   console.log("Horarios ---------------------------------!!!");

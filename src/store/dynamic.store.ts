@@ -8,7 +8,7 @@ import {
   DiaSemanaProps,
   leerDiasSemana,
 } from "./functions/diasSemana";
-import { Evento, GlobalStore, TipoHorario } from "./dyn.interface";
+import { Evento, GlobalStore, Hora, TipoHorario } from "./dyn.interface";
 import { dynGlobalStore } from "./dyn.data";
 import {
   EraseEventProps,
@@ -16,6 +16,8 @@ import {
   fnBorrarEventos,
   fnLeerEventos,
   AddEventProps,
+  fnExisteHoraEvento,
+  fnBorrarEvento,
 } from "./functions/agregarEvento";
 
 export const useDynamicData = create<GlobalAppStore>()(
@@ -45,15 +47,19 @@ export const useDynamicStore = create<GlobalStore>()(
     (set, get) => ({
       ...dynGlobalStore,
       agregarEvento: (horario: TipoHorario, evento: Evento) => {
-        console.log(
-          set((state) => fnAgregarEvento({ state, horario, evento }))
-        );
+        set((state) => fnAgregarEvento({ state, horario, evento }));
       },
       leerEventos: (horario: TipoHorario) => {
         return fnLeerEventos({ get, horario });
       },
       borrarEventos: (horario: TipoHorario) => {
         set((state) => fnBorrarEventos({ state, horario }));
+      },
+      existeHoraEvento: (horario: TipoHorario, horaEvento: Hora) => {
+        return fnExisteHoraEvento({ get, horario, horaEvento });
+      },
+      borrarEvento: (horario: TipoHorario, horaEvento: Hora) => {
+        set((state) => fnBorrarEvento({ state, horario, horaEvento }));
       },
     }),
     {
