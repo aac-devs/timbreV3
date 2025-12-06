@@ -1,10 +1,10 @@
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
-import { colors } from "./colors";
+import { appColors } from "./colors";
 import { fonts } from "./fonts";
-import { CustomNavigationTypes } from "./nav-types";
+import { IntCustomNavigationTypes } from "./nav-types";
 import { darkTheme, lightTheme } from "./rne.theme";
 
-export const DarkNavigatorTheme: CustomNavigationTypes = {
+export const DarkNavigatorTheme: IntCustomNavigationTypes = {
   ...DarkTheme,
   colors: {
     ...DarkTheme.colors,
@@ -12,45 +12,45 @@ export const DarkNavigatorTheme: CustomNavigationTypes = {
     // Normalmente, querrás usar el color de tu marca para esto.
     primary: darkTheme.darkColors?.secondary
       ? darkTheme.darkColors.secondary
-      : colors.dark.highlight,
+      : appColors.dark.highlight,
     // primary: colors.dark.highlight, // (Color de ícono y texto del Tab activo)
     // El color de diversos fondos, como el color de fondo de las pantallas.
-    background: colors.dark.background, // (Color del background no configurado en la screen)
+    background: appColors.dark.background, // (Color del background no configurado en la screen)
     // El color de fondo de los elementos tipo tarjeta, como encabezados, barras de pestañas, etc.
-    card: colors.dark.background, // (Color de fondo de los Tabs y el header)
+    card: appColors.dark.background, // (Color de fondo de los Tabs y el header)
     // El color del texto de varios elementos
-    text: colors.dark.text, // (Título header, ícono y texto de los tabs)
+    text: appColors.dark.text, // (Título header, ícono y texto de los tabs)
     // El color de los bordes, por ejemplo, el borde del encabezado, el borde de la barra de pestañas, etc.
-    border: colors.dark.text, // (Línea que separa la pantalla de los tabs)
+    border: appColors.dark.text, // (Línea que separa la pantalla de los tabs)
     // El color de las notificaciones y del distintivo (por ejemplo, el distintivo en las pestañas inferiores).
     notification: "yellow",
     gradientColors: {
-      high: colors.dark.bgHigh,
-      medium: colors.dark.bgMed,
-      low: colors.dark.bgLow,
+      high: appColors.dark.bgHigh,
+      medium: appColors.dark.bgMed,
+      low: appColors.dark.bgLow,
     },
   },
   fonts: fonts,
   dark: true,
 };
 
-export const LightNavigatorTheme: CustomNavigationTypes = {
+export const LightNavigatorTheme: IntCustomNavigationTypes = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
     primary: lightTheme.lightColors?.secondary
       ? lightTheme.lightColors.secondary
-      : colors.dark.highlight,
+      : appColors.dark.highlight,
     // primary: colors.light.highlight,
-    background: colors.light.background,
-    card: colors.light.background,
-    text: colors.light.text,
-    border: colors.dark.text,
+    background: appColors.light.background,
+    card: appColors.light.background,
+    text: appColors.light.text,
+    border: appColors.dark.text,
     notification: "yellow",
     gradientColors: {
-      high: colors.light.bgHigh,
-      medium: colors.light.bgMed,
-      low: colors.light.bgLow,
+      high: appColors.light.bgHigh,
+      medium: appColors.light.bgMed,
+      low: appColors.light.bgLow,
     },
   },
   fonts: fonts,

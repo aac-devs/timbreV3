@@ -2,24 +2,20 @@ import { GlobalSt } from "./dyn.interface";
 
 export const dynGlobalStore: GlobalSt = {
   // ! Dispositivo:
-  glob: {
+  globe: {
     dispositivoConectado: false,
     dispositivoRegistrado: false,
 
     // ! Horarios:
-    // ? Regular:
-    regularEnviado: false,
-    regularDias: [],
-    regularTimbres: [{ tipo: "entrada", hora: "06:18" }],
-    // ? Especial:
-    especialEnviado: false,
-    especialDias: [],
-    especialTimbres: [],
-    // ? Eventual:
-    eventualEnviado: false,
-    eventualDias: [],
-    eventualTimbres: [],
+    regularSended: false,
+    specialSended: false,
+    temporarySended: false,
 
+    regularDays: [],
+    specialDays: [],
+    temporaryDays: [],
+
+    events: [],
     // ! Rings:
 
     // ! Reloj:

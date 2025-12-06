@@ -1,19 +1,19 @@
 import { Theme as NavigationTheme } from "@react-navigation/native";
 import { Theme as RNETheme } from "@rneui/themed";
 
-type HexColor = `#${string}`;
-type RGBAColor = `rgba(${number},${number},${number},${number})`;
-export type AppTypeColor = HexColor | RGBAColor | string;
+type TypeHexColor = `#${string}`;
+type TypeRGBAColor = `rgba(${number},${number},${number},${number})`;
+export type TypeAppColor = TypeHexColor | TypeRGBAColor | string;
 
-type GradientColorLevels = {
-  high: AppTypeColor;
-  medium: AppTypeColor;
-  low: AppTypeColor;
+type IntGradientColorLevels = {
+  high: TypeAppColor;
+  medium: TypeAppColor;
+  low: TypeAppColor;
 };
 
-export interface CustomNavigationTypes extends NavigationTheme {
+export interface IntCustomNavigationTypes extends NavigationTheme {
   colors: NavigationTheme["colors"] & {
-    gradientColors?: GradientColorLevels;
+    gradientColors?: IntGradientColorLevels;
   };
   fonts: NavigationTheme["fonts"];
   dark: boolean;
@@ -36,4 +36,4 @@ declare module "@rneui/themed" {
   }
 }
 
-export type CustomRNETheme = RNETheme;
+export type TypeCustomRNETheme = RNETheme;

@@ -8,17 +8,13 @@ import {
   DiaSemanaProps,
   leerDiasSemana,
 } from "./functions/diasSemana";
-import { Evento, GlobalStore, Hora, TipoHorario } from "./dyn.interface";
+import { GlobalStore, IntEvent, TypeHour, TypeSchedule } from "./dyn.interface";
 import { dynGlobalStore } from "./dyn.data";
-import {
-  EraseEventProps,
-  fnAgregarEvento,
-  fnBorrarEventos,
-  fnLeerEventos,
-  AddEventProps,
-  fnExisteHoraEvento,
-  fnBorrarEvento,
-} from "./functions/agregarEvento";
+import { eventAdd } from "./functions/eventos/event.add";
+import { eventReadAll } from "./functions/eventos/event.read-all";
+import { eventEraseAll } from "./functions/eventos/event.erase-all";
+import { eventErase } from "./functions/eventos/event.erase";
+import { eventExistsHour } from "./functions/eventos/event.exist-hour";
 
 export const useDynamicData = create<GlobalAppStore>()(
   persist(
@@ -31,7 +27,7 @@ export const useDynamicData = create<GlobalAppStore>()(
       },
 
       // ? Acción que lee el estado (on/off) de los días de la semana del horario dado:
-      leerDiasSemana: (horario: TipoHorario) => {
+      leerDiasSemana: (horario: TypeSchedule) => {
         return leerDiasSemana({ get, horario });
       },
     }),
@@ -46,20 +42,20 @@ export const useDynamicStore = create<GlobalStore>()(
   persist(
     (set, get) => ({
       ...dynGlobalStore,
-      agregarEvento: (horario: TipoHorario, evento: Evento) => {
-        set((state) => fnAgregarEvento({ state, horario, evento }));
+      eventAddAction: (event: IntEvent) => {
+        set((state) => eventAdd({ state, event }));
       },
-      leerEventos: (horario: TipoHorario) => {
-        return fnLeerEventos({ get, horario });
+      eventReadAllAction: () => {
+        return eventReadAll({ get });
       },
-      borrarEventos: (horario: TipoHorario) => {
-        set((state) => fnBorrarEventos({ state, horario }));
+      eventEraseAllAction: () => {
+        set((state) => eventEraseAll({ state }));
       },
-      existeHoraEvento: (horario: TipoHorario, horaEvento: Hora) => {
-        return fnExisteHoraEvento({ get, horario, horaEvento });
+      eventExistsHourAction: (event: IntEvent) => {
+        return eventExistsHour({ get, event });
       },
-      borrarEvento: (horario: TipoHorario, horaEvento: Hora) => {
-        set((state) => fnBorrarEvento({ state, horario, horaEvento }));
+      eventEraseAction: (event: IntEvent) => {
+        set((state) => eventErase({ state, event }));
       },
     }),
     {

@@ -1,34 +1,28 @@
-import {
-  Avatar,
-  Button,
-  Icon,
-  ListItem,
-  makeStyles,
-  Tab,
-  TabView,
-  Text,
-} from "@rneui/themed";
 import { useEffect, useState } from "react";
-import { Background } from "../components/Background";
-import { BGDiasSemana } from "../components/BGDiasSemana";
-import { Divider } from "@rneui/themed";
-import { AddHorarioDial } from "../components/AddHorarioDial";
+
+import { ScrollView } from "react-native";
+
 import DateTimePicker, {
   DateTimePickerEvent,
 } from "@react-native-community/datetimepicker";
-import { globalStylesComp } from "../styles/global.phone.styles";
-import { useStaticText } from "../static/global.static";
-import { ScrollView, View } from "react-native";
-import { HorarioCard } from "../components/HorarioCard";
-import { TipoHorario } from "../store/dynamic.interface";
-import { useDynamicStore } from "../store/dynamic.store";
-import { Hora } from "../store/dyn.interface";
+import { Divider, Tab, TabView } from "@rneui/themed";
 
-type DialOptions = "entrada" | "clase" | "descanso" | "salida";
+import { Background } from "../components/Background";
+import { BGDiasSemana } from "../components/BGDiasSemana";
+import { AddHorarioDial } from "../components/AddHorarioDial";
+import { globalStylesComp, SpeedDialComp } from "../styles/global.phone.styles";
+import { useStaticText } from "../static/global.static";
+import { HorarioCard } from "../components/HorarioCard";
+import { useDynamicStore } from "../store/dynamic.store";
+import {
+  IntEvent,
+  TypeHour,
+  TypeRingType,
+  TypeSchedule,
+} from "../store/dyn.interface";
 
 //! ORGANIZAR CÓDIGO, SEPARAR EN COMPONENTES.
 //! FUNCIONALIDAD A BOTONES DE AGREGAR HORAS (DATETIMEPICKER).
-//! TARJETA DE HORA SWIPEABLE CON BOTÓN DE ELIMINAR. (NO FUNCIONA)
 //! COMPLETAR (DEFINIR) LISTA DE BOTTOMSHEET, A LO MEJOR PONER 'GUARDAR EN TELÉFONO' (YA NO, GUARDADO AUTOMÁTICO)
 //! DIVIDIR EN CARPETAS LOS ARCHIVOS RELACIONADOS A UN COMPONENTE (YA NO)**
 
@@ -41,41 +35,44 @@ export const Horarios = () => {
   });
 
   const {
-    leerEventos,
-    agregarEvento,
-    borrarEventos,
-    existeHoraEvento,
-    borrarEvento,
+    eventAddAction,
+    eventEraseAction,
+    eventEraseAllAction,
+    eventExistsHourAction,
+    eventReadAllAction,
   } = useDynamicStore();
-  // const tabItemsStyle = globalStyles("TabItemHorario")()?.TabItemsStyles;
+
   const tabItemStyle = globalStylesComp("TabItem");
   const staticText = useStaticText()("scrHorarios");
   const dialStyles = globalStylesComp("SpeedDial");
 
   // Estado para la hora con tipo Date (solo usamos la parte de la hora)
-  const [selectedTime, setSelectedTime] = useState<Date>(
-    new Date(1598051730000)
-  );
+  const [selectedTime, setSelectedTime] = useState<Date>(new Date());
+
+  // Guarda los valores para el evento a enviar:
+  const [selectedEvent, setSelectedEvent] = useState<IntEvent>({
+    hour: "00:00",
+    ringType: "entrada",
+    scheduleType: "regular",
+  });
+
+  // Habilita, dentro del useEffect, el envío del evento ajustado:
+  const [enableToSend, setEnableToSend] = useState(false);
 
   // Estado para mostrar/ocultar el time picker
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
 
-  const styles = useStyles();
-
   // Función cuando se cambia la hora
   const onTimeChange = (event: DateTimePickerEvent, selectedDate?: Date) => {
-    // Cerramos el picker siempre
     setShowTimePicker(false);
-
-    // Si hay una fecha/hora seleccionada, actualizamos el estado
     if (selectedDate) {
+      setSelectedEvent({
+        ...selectedEvent,
+        hour: formatTime(selectedDate) as TypeHour,
+      });
       setSelectedTime(selectedDate);
+      setEnableToSend(true);
     }
-  };
-
-  // Función para mostrar el selector de hora
-  const showTimepicker = () => {
-    setShowTimePicker(true);
   };
 
   // Función para formatear la hora como string
@@ -88,44 +85,65 @@ export const Horarios = () => {
   };
 
   // ? Acá se inicial la adición de una nueva hora para el horario seleccionado
-  const handleSpeedDialOptionSelected = (option: DialOptions) => {
-    console.log("Opción de Speed Dial seleccionada (Horarios):", option);
-    const horarioActivo =
-      index === 0 ? "Regular" : index === 1 ? "Especial" : "Eventual";
-    console.log("Horario Activo:", horarioActivo);
+  const handleSpeedDialOptionSelected = (ringType: TypeRingType) => {
+    const scheduleType: TypeSchedule =
+      index === 0 ? "regular" : index === 1 ? "especial" : "eventual";
+    setSelectedEvent({ ...selectedEvent, ringType, scheduleType });
+    setShowTimePicker(true);
   };
 
-  const handleEditHorarioCard = (tipo: TipoHorario, index: string) => {
-    console.log(`eee -> Editar índice "${index}" del horario "${tipo}"`);
-  };
-
-  const handleDeleteHorarioCard = (tipo: TipoHorario, index: string) => {
-    console.log(`XXX -> Borrar índice "${index}" del horario "${tipo}"`);
+  const handleDeleteHorarioCard = (event: IntEvent) => {
+    eventEraseAction(event);
   };
 
   useEffect(() => {
     console.clear();
     console.log("Entra al useEffect >>>>>>>>>>>>>.");
-    // if (index === 4) {
-    //   borrarEventos("regular");
-    // }
-    // borrarEvento("regular", "06:18");
-    // agregarEvento("eventual", { hora: "06:18", tipo: "descanso" });
 
-    console.log("Horario regular:", leerEventos("regular"));
-    console.log("Horario especial:", leerEventos("especial"));
-    console.log("Horario eventual:", leerEventos("eventual"));
+    // const eventos = eventReadAllAction();
 
-    // const hora: Hora = "18:16";
-    // console.log(
-    //   `Existe ${hora} en horario eventual? ${existeHoraEvento(
-    //     "eventual",
-    //     hora
-    //   )}`
-    // );
+    if (enableToSend) {
+      eventAddAction(selectedEvent);
+      setEnableToSend(false);
+    }
 
-    // agregarEvento("eventual", { hora: "06:18", tipo: "descanso" });
-  }, []);
+    // eventAddAction({
+    //   hour: "08:05",
+    //   ringType: "clase",
+    //   scheduleType: "especial",
+    // });
+
+    // eventEraseAction({
+    //   hour: "08:05",
+    //   ringType: "clase",
+    //   scheduleType: "especial",
+    // });
+  }, [selectedEvent]);
+
+  console.log("aacx");
+
+  const eventList = eventReadAllAction().map((ev) => {
+    const { hour, ringType, scheduleType } = ev;
+
+    const ring = `${ringType[0].toUpperCase()}${ringType.slice(1)}`;
+    const titleColor = `titleColor${ring}` as SpeedDialComp;
+    const fontColor = `fontColor${ring}` as SpeedDialComp;
+
+    return {
+      scheduleType,
+      comp: (
+        <HorarioCard
+          index={hour}
+          hora={hour}
+          tipoHorario="especial"
+          tipoEvento={ringType}
+          avatarFontColor={dialStyles(titleColor) as string}
+          avatarBackgroundColor={dialStyles(fontColor) as string}
+          onDelete={() => handleDeleteHorarioCard(ev)}
+        />
+      ),
+    };
+  });
 
   console.log("Horarios ---------------------------------!!!");
   // console.log(leerEventos("regular"));
@@ -188,10 +206,17 @@ export const Horarios = () => {
           <Background>
             <BGDiasSemana horario="regular" />
             <Divider />
-            <Button onPress={showTimepicker} title="Seleccionar Hora" />
-            <Text style={styles.selectedTime}>
-              Hora seleccionada: {formatTime(selectedTime)}
-            </Text>
+            <ScrollView
+              style={{
+                marginBottom: 40,
+                width: "100%",
+              }}
+            >
+              {eventList &&
+                eventList.map((ev) => {
+                  if (ev.scheduleType === "regular") return ev.comp;
+                })}
+            </ScrollView>
           </Background>
         </TabView.Item>
         {/* //////////////////////////////////////////////////////////////////////////// * */}
@@ -203,20 +228,14 @@ export const Horarios = () => {
             <Divider />
             <ScrollView
               style={{
-                marginBottom: 50,
+                marginBottom: 40,
                 width: "100%",
               }}
             >
-              <HorarioCard
-                index="aa"
-                hora="06:15"
-                tipoHorario="especial"
-                tipoEvento="entrada"
-                avatarFontColor={dialStyles("titleColorEntrada")}
-                avatarBackgroundColor={dialStyles("fontColorEntrada")}
-                onEdit={handleEditHorarioCard}
-                onDelete={handleDeleteHorarioCard}
-              />
+              {eventList &&
+                eventList.map((ev) => {
+                  if (ev.scheduleType === "especial") return ev.comp;
+                })}
             </ScrollView>
           </Background>
         </TabView.Item>
@@ -228,6 +247,17 @@ export const Horarios = () => {
           <Background>
             <BGDiasSemana horario="eventual" />
             <Divider />
+            <ScrollView
+              style={{
+                marginBottom: 40,
+                width: "100%",
+              }}
+            >
+              {eventList &&
+                eventList.map((ev) => {
+                  if (ev.scheduleType === "eventual") return ev.comp;
+                })}
+            </ScrollView>
           </Background>
         </TabView.Item>
       </TabView>
@@ -247,24 +277,3 @@ export const Horarios = () => {
     </>
   );
 };
-
-const useStyles = makeStyles((theme) => ({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.success,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  text: {
-    color: theme.colors.primary,
-  },
-  content: {
-    alignItems: "center",
-    padding: 20,
-  },
-  selectedTime: {
-    marginTop: 20,
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-}));

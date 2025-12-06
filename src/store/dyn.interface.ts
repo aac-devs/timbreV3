@@ -1,8 +1,8 @@
-import { AddEventProps } from "./functions/agregarEvento";
+export type TypeRingType = "entrada" | "clase" | "descanso" | "salida";
 
-export type TipoTimbre = "entrada" | "clase" | "descanso" | "salida";
-type HoraEvento = `0${number}` | `1${number}` | `20` | `21` | `22` | `23`;
-type MinutosEvento =
+type TypeEventHour = `0${number}` | `1${number}` | `20` | `21` | `22` | `23`;
+
+type TypeEventMinutes =
   | `0${number}`
   | `1${number}`
   | `2${number}`
@@ -10,9 +10,15 @@ type MinutosEvento =
   | `4${number}`
   | `5${number}`;
 
-export type Hora = `${HoraEvento}:${MinutosEvento}`;
-export type Evento = { tipo: TipoTimbre; hora: Hora };
-export type TipoHorario = "regular" | "especial" | "eventual";
+export type TypeHour = `${TypeEventHour}:${TypeEventMinutes}`;
+
+export type TypeSchedule = "regular" | "especial" | "eventual";
+
+export interface IntEvent {
+  hour: TypeHour;
+  ringType: TypeRingType;
+  scheduleType: TypeSchedule;
+}
 
 interface Store {
   // ! Dispositivo:
@@ -20,15 +26,22 @@ interface Store {
   dispositivoConectado: boolean;
 
   // ! Horarios:
-  regularEnviado: boolean;
-  regularDias: number[];
-  regularTimbres: Evento[];
-  especialEnviado: boolean;
-  especialDias: number[];
-  especialTimbres: Evento[];
-  eventualEnviado: boolean;
-  eventualDias: number[];
-  eventualTimbres: Evento[];
+  regularSended: boolean;
+  specialSended: boolean;
+  temporarySended: boolean;
+
+  regularDays: number[];
+  specialDays: number[];
+  temporaryDays: number[];
+
+  events: IntEvent[];
+  // regularTimbres: TypeEvent[];
+  // especialEnviado: boolean;
+  // especialDias: number[];
+  // especialTimbres: TypeEvent[];
+  // eventualEnviado: boolean;
+  // eventualDias: number[];
+  // eventualTimbres: TypeEvent[];
 
   // ! Rings:
 
@@ -40,19 +53,19 @@ interface Store {
 }
 
 export interface GlobalSt {
-  glob: Store;
+  globe: Store;
 }
 interface GlobalActions extends GlobalSt {
   // Agrega un evento al horario indicado:
-  agregarEvento: (horario: TipoHorario, evento: Evento) => void;
+  eventAddAction: (event: IntEvent) => void;
   // Lee todos los eventos del horario indicado:
-  leerEventos: (horario: TipoHorario) => Evento[];
+  eventReadAllAction: () => IntEvent[];
   // Borra todos los eventos del horario indicado:
-  borrarEventos: (horario: TipoHorario) => void;
+  eventEraseAllAction: () => void;
   // Verifica si existe una hora de evento en el horario indicado:
-  existeHoraEvento: (horario: TipoHorario, horaEvento: Hora) => boolean;
+  eventExistsHourAction: (event: IntEvent) => boolean;
   // Borra un evento del horario indicado:
-  borrarEvento: (horario: TipoHorario, horaEvento: Hora) => void;
+  eventEraseAction: (event: IntEvent) => void;
 }
 
 export type GlobalStore = GlobalSt & GlobalActions;

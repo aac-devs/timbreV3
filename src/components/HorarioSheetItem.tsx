@@ -1,5 +1,5 @@
 import { Icon, ListItem } from "@rneui/themed";
-import { HexColor } from "../themes/nav-types";
+import { TypeAppColor } from "../themes/nav-types";
 
 export type SheetProps = {
   title: string;
@@ -9,7 +9,7 @@ export type SheetProps = {
   containerStyle: {};
   iconName: string;
   iconType: string;
-  iconColor: HexColor | string;
+  iconColor: TypeAppColor;
 };
 
 export const HorarioSheetItem = ({

@@ -12,7 +12,10 @@ export const HorarioCard = (comp: HorarioCardComp, colors: Colors) => {
 
   switch (comp) {
     case "listItemCont": // ! ViewStyle
-      return { backgroundColor: "transparent" } as ViewStyle;
+      return {
+        backgroundColor: "transparent",
+        paddingHorizontal: moderateScale(30),
+      } as ViewStyle;
     case "avatarTitle": // ! TextStyle
       return { fontWeight: fontWeights.medium } as ViewStyle;
     case "avatarSize": // ! number
@@ -35,7 +38,11 @@ export const HorarioCard = (comp: HorarioCardComp, colors: Colors) => {
         alignItems: "center",
       } as ViewStyle;
     case "buttonsCont": // ! ViewStyle
-      return { flexDirection: "row", gap: moderateScale(10) } as ViewStyle;
+      return {
+        flexDirection: "row",
+        gap: moderateScale(10),
+        // marginRight: moderateScale(20),
+      } as ViewStyle;
     case "btnContStyle": // ! ViewStyle
       return { width: moderateScale(60) } as ViewStyle;
     case "btnEditIcon": // ! IconNode

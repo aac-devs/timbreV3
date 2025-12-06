@@ -1,33 +1,33 @@
-import { AppTypeColor } from "./nav-types";
+import { TypeAppColor } from "./nav-types";
 
-interface NamedColors {
-  background: AppTypeColor;
-  text: AppTypeColor;
-  highlight: AppTypeColor;
-  secondary: AppTypeColor;
-  bgHigh: AppTypeColor;
-  bgMed: AppTypeColor;
-  bgLow: AppTypeColor;
-  entrada: AppTypeColor;
-  clase: AppTypeColor;
-  descanso: AppTypeColor;
-  salida: AppTypeColor;
-  textEntrada: AppTypeColor;
-  textClase: AppTypeColor;
-  textDescanso: AppTypeColor;
-  textSalida: AppTypeColor;
-  enviado: AppTypeColor;
-  noEnviado: AppTypeColor;
-  iconEdit: AppTypeColor;
-  iconDelete: AppTypeColor;
+interface IntNamedColors {
+  background: TypeAppColor;
+  text: TypeAppColor;
+  highlight: TypeAppColor;
+  secondary: TypeAppColor;
+  bgHigh: TypeAppColor;
+  bgMed: TypeAppColor;
+  bgLow: TypeAppColor;
+  entrada: TypeAppColor;
+  clase: TypeAppColor;
+  descanso: TypeAppColor;
+  salida: TypeAppColor;
+  textEntrada: TypeAppColor;
+  textClase: TypeAppColor;
+  textDescanso: TypeAppColor;
+  textSalida: TypeAppColor;
+  enviado: TypeAppColor;
+  noEnviado: TypeAppColor;
+  iconEdit: TypeAppColor;
+  iconDelete: TypeAppColor;
 }
 
-interface AppColors {
-  dark: NamedColors;
-  light: NamedColors;
+interface IntAppThemeColors {
+  dark: IntNamedColors;
+  light: IntNamedColors;
 }
 
-export const colors: AppColors = {
+export const appColors: IntAppThemeColors = {
   dark: {
     background: "rgba(18, 18, 18, 1)",
     text: "#ccc",

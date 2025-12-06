@@ -15,7 +15,7 @@ import { IconNode } from "@rneui/base";
 import { Fondo } from "./global/background.style";
 import { useTheme } from "@rneui/themed";
 import { useTheme as navUseTheme } from "@react-navigation/native";
-import { CustomNavigationTypes as CNT } from "../themes/nav-types";
+import { IntCustomNavigationTypes as CNT } from "../themes/nav-types";
 import { HorarioCard } from "./horario/horarioCard.style";
 
 // ** /////////////////////////////////////////////////////////////////////////////////

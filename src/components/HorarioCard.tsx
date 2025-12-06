@@ -4,18 +4,18 @@ import { Avatar, Button, ListItem, Text } from "@rneui/themed";
 
 import { globalStylesComp } from "../styles/global.phone.styles";
 import { TipoHorario } from "../store/dynamic.interface";
+import { TypeHour } from "../store/dyn.interface";
 
 type DialOptions = "entrada" | "clase" | "descanso" | "salida";
 
 interface Props {
-  index: string;
+  index: TypeHour;
   hora: string;
   tipoHorario: TipoHorario;
   tipoEvento: DialOptions;
   avatarFontColor: string;
   avatarBackgroundColor: string;
-  onDelete: (tipo: TipoHorario, index: string) => void;
-  onEdit: (tipo: TipoHorario, index: string) => void;
+  onDelete: (tipo: TipoHorario, index: TypeHour) => void;
 }
 
 export const HorarioCard = (props: Props) => {
@@ -39,12 +39,6 @@ export const HorarioCard = (props: Props) => {
       <ListItem.Content style={styles("liContent")}>
         <Text style={styles("text")}>{props.hora}</Text>
         <View style={styles("buttonsCont")}>
-          <Button
-            icon={styles("btnEditIcon")}
-            buttonStyle={styles("btnStyle")}
-            containerStyle={styles("btnContStyle")}
-            onPress={() => props.onEdit(props.tipoHorario, props.index)}
-          />
           <Button
             icon={styles("btnDeleteIcon")}
             iconContainerStyle={styles("btnIconContStyle")}
