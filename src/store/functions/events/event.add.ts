@@ -1,4 +1,4 @@
-import { IntStateEvent } from "./event.interface";
+import { IntStateEvent } from "../../interfaces/event.interface";
 
 export const eventAdd = ({ state, event }: IntStateEvent) => {
   // Verificar que no exista ya el evento en el horario seleccionado:
@@ -18,12 +18,5 @@ export const eventAdd = ({ state, event }: IntStateEvent) => {
   });
 
   // Guardar evento
-  const newState = {
-    ...state,
-    globe: {
-      ...state.globe,
-      events,
-    },
-  };
-  return newState;
+  return { ...state, globe: { ...state.globe, events } };
 };

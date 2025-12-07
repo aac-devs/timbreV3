@@ -1,4 +1,4 @@
-import { IntGetEvent } from "./event.interface";
+import { IntGetEvent } from "../../interfaces/event.interface";
 
 // ? FUNCIÓN LISTA:
 export const eventExistsHour = (props: IntGetEvent) => {

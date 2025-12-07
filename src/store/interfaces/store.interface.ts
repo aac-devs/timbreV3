@@ -1,24 +1,5 @@
-export type TypeRingType = "entrada" | "clase" | "descanso" | "salida";
-
-type TypeEventHour = `0${number}` | `1${number}` | `20` | `21` | `22` | `23`;
-
-type TypeEventMinutes =
-  | `0${number}`
-  | `1${number}`
-  | `2${number}`
-  | `3${number}`
-  | `4${number}`
-  | `5${number}`;
-
-export type TypeHour = `${TypeEventHour}:${TypeEventMinutes}`;
-
-export type TypeSchedule = "regular" | "especial" | "eventual";
-
-export interface IntEvent {
-  hour: TypeHour;
-  ringType: TypeRingType;
-  scheduleType: TypeSchedule;
-}
+import { IntEvent, TypeSchedule } from "./event.interface";
+import { IntWeekday } from "./weekday.interface";
 
 interface Store {
   // ! Dispositivo:
@@ -55,6 +36,7 @@ interface Store {
 export interface GlobalSt {
   globe: Store;
 }
+
 interface GlobalActions extends GlobalSt {
   // Agrega un evento al horario indicado:
   eventAddAction: (event: IntEvent) => void;
@@ -66,6 +48,10 @@ interface GlobalActions extends GlobalSt {
   eventExistsHourAction: (event: IntEvent) => boolean;
   // Borra un evento del horario indicado:
   eventEraseAction: (event: IntEvent) => void;
+  //
+  readWeekdaysAction: (scheduleType: TypeSchedule) => number[];
+  //
+  updateWeekdayAction: (weekday: IntWeekday) => void;
 }
 
 export type GlobalStore = GlobalSt & GlobalActions;

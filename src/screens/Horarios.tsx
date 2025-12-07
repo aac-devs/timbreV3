@@ -19,7 +19,7 @@ import {
   TypeHour,
   TypeRingType,
   TypeSchedule,
-} from "../store/dyn.interface";
+} from "../store/interfaces/event.interface";
 
 //! ORGANIZAR CÓDIGO, SEPARAR EN COMPONENTES.
 //! FUNCIONALIDAD A BOTONES DE AGREGAR HORAS (DATETIMEPICKER).
@@ -87,7 +87,7 @@ export const Horarios = () => {
   // ? Acá se inicial la adición de una nueva hora para el horario seleccionado
   const handleSpeedDialOptionSelected = (ringType: TypeRingType) => {
     const scheduleType: TypeSchedule =
-      index === 0 ? "regular" : index === 1 ? "especial" : "eventual";
+      index === 0 ? "regular" : index === 1 ? "special" : "temporary";
     setSelectedEvent({ ...selectedEvent, ringType, scheduleType });
     setShowTimePicker(true);
   };
@@ -100,7 +100,10 @@ export const Horarios = () => {
     console.clear();
     console.log("Entra al useEffect >>>>>>>>>>>>>.");
 
+    // eventEraseAllAction();
+
     // const eventos = eventReadAllAction();
+    // console.log(eventos);
 
     if (enableToSend) {
       eventAddAction(selectedEvent);
@@ -134,9 +137,9 @@ export const Horarios = () => {
       comp: (
         <HorarioCard
           index={hour}
-          hora={hour}
-          tipoHorario="especial"
-          tipoEvento={ringType}
+          hour={hour}
+          scheduleType={scheduleType}
+          eventType={ringType}
           avatarFontColor={dialStyles(titleColor) as string}
           avatarBackgroundColor={dialStyles(fontColor) as string}
           onDelete={() => handleDeleteHorarioCard(ev)}
@@ -204,7 +207,7 @@ export const Horarios = () => {
         {/* //////////////////////////////////////////////////////////////////////////// ! */}
         <TabView.Item style={{ width: "100%" }}>
           <Background>
-            <BGDiasSemana horario="regular" />
+            <BGDiasSemana scheduleType="regular" />
             <Divider />
             <ScrollView
               style={{
@@ -224,7 +227,7 @@ export const Horarios = () => {
         {/* //////////////////////////////////////////////////////////////////////////// * */}
         <TabView.Item style={{ width: "100%" }}>
           <Background>
-            <BGDiasSemana horario="especial" />
+            <BGDiasSemana scheduleType="special" />
             <Divider />
             <ScrollView
               style={{
@@ -234,7 +237,7 @@ export const Horarios = () => {
             >
               {eventList &&
                 eventList.map((ev) => {
-                  if (ev.scheduleType === "especial") return ev.comp;
+                  if (ev.scheduleType === "special") return ev.comp;
                 })}
             </ScrollView>
           </Background>
@@ -245,7 +248,7 @@ export const Horarios = () => {
         {/* //////////////////////////////////////////////////////////////////////////// ? */}
         <TabView.Item style={{ width: "100%" }}>
           <Background>
-            <BGDiasSemana horario="eventual" />
+            <BGDiasSemana scheduleType="temporary" />
             <Divider />
             <ScrollView
               style={{
@@ -255,7 +258,7 @@ export const Horarios = () => {
             >
               {eventList &&
                 eventList.map((ev) => {
-                  if (ev.scheduleType === "eventual") return ev.comp;
+                  if (ev.scheduleType === "temporary") return ev.comp;
                 })}
             </ScrollView>
           </Background>

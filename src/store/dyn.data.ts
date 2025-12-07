@@ -1,4 +1,4 @@
-import { GlobalSt } from "./dyn.interface";
+import { GlobalSt } from "./interfaces/store.interface";
 
 export const dynGlobalStore: GlobalSt = {
   // ! Dispositivo:
